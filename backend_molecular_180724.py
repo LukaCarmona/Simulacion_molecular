@@ -25,7 +25,7 @@ pyscf.__version__
 # #All of this is to import Quantum Symmetry updated
 # 
 import subprocess
-import quantumsymmetry as qs
+# import quantumsymmetry as qs
 
 # Using system() method to
 # execute shell commands
