@@ -15,6 +15,7 @@ from backend_molecular_180724 import calculate_outputs, write_hamiltonians
 # from mock_backend_molecular_py import calculate_outputs, write_hamiltonians
 import os
 import base64
+import qiskit
 
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
 if 'mostrar' not in st.session_state:
@@ -296,5 +297,7 @@ if st.session_state.mostrar:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
 else:
+    var1 = qiskit.__path__[0]
+    st.write(var1)
     titulo = '<h1 style="color: #ad44ff; padding: 10px;">Esto es una página web para visualizar moléculas y ver su comportamiento además de poder ajustarlas y ver qué sucedería</h1>'
     st.markdown(titulo, unsafe_allow_html=True)
