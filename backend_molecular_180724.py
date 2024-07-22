@@ -29,7 +29,7 @@ import subprocess
 # Using system() method to
 # execute shell commands
 
-# subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/core.py')
+subprocess.Popen('cp /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/core.py')
 # subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/qiskit_converter.py')
 
 # subprocess.Popen('gdown  1rqRo6VCQh2vWagELzH22NzbloATCe3T8 -O /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
