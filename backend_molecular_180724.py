@@ -29,11 +29,11 @@ import subprocess
 # Using system() method to
 # execute shell commands
 
-subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/dist-packages/quantumsymmetry/core.py')
-subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/dist-packages/quantumsymmetry/qiskit_converter.py')
+subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/core.py')
+subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/qiskit_converter.py')
 
-subprocess.Popen('gdown  1rqRo6VCQh2vWagELzH22NzbloATCe3T8 -O /home/adminuser/venv/lib/python3.11/dist-packages/quantumsymmetry/')
-subprocess.Popen('gdown  1pmBkh1Cs4-ctVBAcHRzjRFw-Fkl334I_ -O /home/adminuser/venv/lib/python3.11/dist-packages/quantumsymmetry/')
+subprocess.Popen('gdown  1rqRo6VCQh2vWagELzH22NzbloATCe3T8 -O /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
+subprocess.Popen('gdown  1pmBkh1Cs4-ctVBAcHRzjRFw-Fkl334I_ -O /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
 
 import quantumsymmetry as qs
 
