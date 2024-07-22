@@ -5,7 +5,7 @@ Created on Tue Jun 25 11:20:51 2024
 """
 
 import streamlit as st
-from st_speckmol import speck_plot
+# from st_speckmol import speck_plot
 import matplotlib.pyplot as plt
 from pathlib import Path
 from PIL import Image
@@ -208,7 +208,8 @@ if st.session_state.mostrar:
         col1, col2 = st.columns(2)
         
         with col1:
-            res = speck_plot(xyz_content)        
+            # res = speck_plot(xyz_content) 
+            pass       
 
         with col2:
             if option == "Un Rango":
