@@ -34,7 +34,7 @@ import subprocess
 
 # subprocess.Popen('cp /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
 subprocess.run(['cp', '/mount/src/simulacion_molecular/core.py', '/home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/'])
-# subprocess.run('cp /mount/src/simulacion_molecular/qiskit_converter.py  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
+subprocess.run(['cp', '/mount/src/simulacion_molecular/qiskit_converter.py', '/home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/'])
 
 import quantumsymmetry as qs
 
