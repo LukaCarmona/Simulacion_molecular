@@ -1,0 +1,55 @@
+{
+    "LiH":{
+        "case_1":{
+            "Electrones_activos":[2,4],
+            "Orbitales_moleculares":[3,4],
+            "distance": [0.5,3.8],
+            "step":[0.3]   
+        }
+    },
+
+    "SnO":{
+        "case_1":{
+            "Electrones_activos":[6,10],
+            "Orbitales_moleculares":[5,0],
+            "distance": [0.7, 3.4],
+            "step":[0.3]
+        }
+    },
+
+    "H2S":{
+        "case_1":{
+            "Electrones_activos":[8,18],
+            "Orbitales_moleculares":[6,10],
+            "distance": [0.5, 4.1],
+            "step":[0.3]
+        }
+    },
+
+    "LiSH":{
+        "case_1":{
+            "Electrones_activos":[8,20],
+            "Orbitales_moleculares":[9,15],
+            "distance": [0.7, 3.7],
+            "step":[0.3]
+        }
+    },
+
+    "LiCoO2":{
+        "case_1":{
+            "Electrones_activos":[10,10],
+            "Orbitales_moleculares":[14,0],
+            "distance": [0.5, 3.8],
+            "step":[0.3]
+        }
+    }, 
+
+    "Li2S":{
+        "case_1":{
+            "Electrones_activos":[8,22],
+            "Orbitales_moleculares":[12,19],
+            "distance": [0.4, 3.4],
+            "step":[0.3]
+        }
+    }     
+}

@@ -1,0 +1,7 @@
+matplotlib==3.4.1
+st-speckmol==0.0.6
+streamlit==1.36.0
+qiskit==1.1.1
+qiskit-algorithms==0.3.0
+qiskit-nature==0.7.2
+numpy==1.26.4
