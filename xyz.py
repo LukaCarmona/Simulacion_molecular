@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jun 25 11:20:51 2024
-@autor: BICARILU
+@author: BICARILU
 """
 
 import streamlit as st
@@ -24,6 +24,8 @@ if 'mostrar' not in st.session_state:
     st.session_state.selected_molecule = ''
     st.session_state.selected_step = 0.3
     st.session_state.resultado = ''
+    st.session_state.selected_option = 'Un Punto'
+    st.session_state.selected_range = (0, 0)
 
 # Path al archivo CSS
 htmlpath = Path(__file__).parent / 'style.css'
@@ -66,7 +68,7 @@ with st.sidebar:
     col1, col2 = st.columns(2)
 
     with col1:
-        option = st.radio("Seleccione el tipo de distancia", ("Un Rango", "Un Punto"))
+        option = st.radio("Seleccione el tipo de distancia", ("Un Rango", "Un Punto"), key='option')
         distancias = datos_molecula['distance']
     if option == "Un Rango":
         new_distancias = []
@@ -101,6 +103,7 @@ with st.sidebar:
             st.session_state.selected_electrones = energias_fijas
             st.session_state.selected_orbitas = orbitas
             st.session_state.selected_molecule = molecula
+            st.session_state.selected_option = option
             if option == "Un Rango":
                 st.session_state.selected_step = step
                 st.session_state.selected_range = range_values
@@ -118,15 +121,15 @@ with st.sidebar:
           
     if st.session_state.pulsado:
         with col2:
-            if option == "Un Rango": 
-                file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[range_values[0],range_values[1],step]}_nl1.txt"
+            if st.session_state.selected_option == "Un Rango": 
+                file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],st.session_state.selected_step]}_nl1.txt"
                 with open(file_path, 'r') as download_file:
                     file_content = download_file.read()
                 if os.path.exists(file_path):
                     btn = st.download_button(
                         label="Descargar Hamiltoniano",
                         data=file_content,
-                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[range_values[0],range_values[1],step]}_nl1.txt",
+                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],st.session_state.selected_step]}_nl1.txt",
                         mime='text/plain'
                     )
                 else:
@@ -212,7 +215,7 @@ if st.session_state.mostrar:
             pass       
 
         with col2:
-            if option == "Un Rango":
+            if st.session_state.selected_option == "Un Rango" and len(st.session_state.resultado[1]) > 1:
                 if st.session_state.selected_range is not None:
                     
                     energias_completas = st.session_state.selected_electrones
@@ -256,8 +259,7 @@ if st.session_state.mostrar:
                     else:
                         st.error("Las listas de distancias y energías no tienen la misma longitud.")
                         
-            elif option == "Un Punto":
-                
+            else:
                 energias_completas = st.session_state.selected_electrones
                 distancia_inicio, distancia_fin = st.session_state.selected_range
                 
