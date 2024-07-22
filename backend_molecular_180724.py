@@ -32,10 +32,10 @@ import subprocess
 # subprocess.Popen('cp /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/core.py')
 # subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/qiskit_converter.py')
 
-# subprocess.Popen('cp  1rqRo6VCQh2vWagELzH22NzbloATCe3T8  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
-# subprocess.Popen('cp  1pmBkh1Cs4-ctVBAcHRzjRFw-Fkl334I_  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
+subprocess.Popen('cp  core.py  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
+subprocess.Popen('cp  qiskit_converter.py  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
 
-# import quantumsymmetry as qs
+import quantumsymmetry as qs
 
 
 
