@@ -296,5 +296,7 @@ if st.session_state.mostrar:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
 else:
+    var1 = __file__
+    st.write(var1)
     titulo = '<h1 style="color: #ad44ff; padding: 10px;">Esto es una página web para visualizar moléculas y ver su comportamiento además de poder ajustarlas y ver qué sucedería</h1>'
     st.markdown(titulo, unsafe_allow_html=True)
