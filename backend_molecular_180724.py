@@ -24,6 +24,18 @@ pyscf.__version__
 # Commented out IPython magic to ensure Python compatibility.
 # #All of this is to import Quantum Symmetry updated
 # 
+import subprocess
+import quantumsymmetry as qs
+
+# Using system() method to
+# execute shell commands
+subprocess.Popen('rm /usr/local/lib/python3.10/dist-packages/quantumsymmetry/core.py')
+subprocess.Popen('rm /usr/local/lib/python3.10/dist-packages/quantumsymmetry/qiskit_converter.py')
+
+subprocess.Popen('gdown  1rqRo6VCQh2vWagELzH22NzbloATCe3T8 -O /usr/local/lib/python3.10/dist-packages/quantumsymmetry/')
+subprocess.Popen('gdown  1pmBkh1Cs4-ctVBAcHRzjRFw-Fkl334I_ -O /usr/local/lib/python3.10/dist-packages/quantumsymmetry/')
+
+
 # %%capture
 # #We delete the core.py and the qiskit_converter.py files
 # !rm /usr/local/lib/python3.10/dist-packages/quantumsymmetry/core.py
@@ -36,9 +48,8 @@ pyscf.__version__
 # !gdown  1pmBkh1Cs4-ctVBAcHRzjRFw-Fkl334I_ -O /usr/local/lib/python3.10/dist-packages/quantumsymmetry/
 # #We check we have everything
 # !ls /usr/local/lib/python3.10/dist-packages/quantumsymmetry/
-# 
+
 # #We finally import Quantum Symmetry!!!
-# import quantumsymmetry as qs
 
 # dir(qs)
 # help(qs)

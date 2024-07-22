@@ -15,11 +15,6 @@ from backend_molecular_180724 import calculate_outputs, write_hamiltonians
 # from mock_backend_molecular_py import calculate_outputs, write_hamiltonians
 import os
 import base64
-import subprocess
- 
-# Using system() method to
-# execute shell commands
-subprocess.Popen('echo "Geeks 4 Geeks"', shell=True)
 
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
 if 'mostrar' not in st.session_state:
