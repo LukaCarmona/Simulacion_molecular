@@ -81,7 +81,7 @@ with st.sidebar:
             step = st.number_input("Seleccione el step para el gráfico", value=0.3, step=0.1)
         else:
             step = 0.3
-            
+        st.session_state.selected_step = step
         #calculo el numero de valores para poder rellenar el array de "new_distancias"
         num_values = int((max_distancias - min_distancias) / step) + 1
         
