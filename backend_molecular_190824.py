@@ -1,4 +1,3 @@
-
 # Commented out IPython magic to ensure Python compatibility.
 # #If I want to run this code I need to:
 # %%capture
@@ -7,9 +6,12 @@
 # !pip install qiskit-nature
 # !pip install quantumsymmetry #== 0.1.41
 
+
 import qiskit
 import pyscf
 import qiskit_nature
+# import qiskit_ibm_runtime
+# import qiskit_algorithms
 
 qiskit.__version__
 
@@ -17,31 +19,13 @@ qiskit_nature.__version__
 
 pyscf.__version__
 
-# !pip list
+# qiskit_ibm_runtime.__version__
 
 # We will need qiskit-ibm-runtime if we want to run codes on the
 
 # Commented out IPython magic to ensure Python compatibility.
 # #All of this is to import Quantum Symmetry updated
 # 
-import subprocess
-
-# Using system() method to
-# execute shell commands
-
-# subprocess.Popen('cp /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/core.py')
-# subprocess.Popen('rm /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/qiskit_converter.py')
-
-# subprocess.Popen('cp /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/  /home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/')
-
-#limitacion a nivel de permisos 
-# subprocess.run(['cp','-f', '/mount/src/simulacion_molecular/core.py', '/home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/'])
-# subprocess.run(['cp','-f', '/mount/src/simulacion_molecular/qiskit_converter.py', '/home/adminuser/venv/lib/python3.11/site-packages/quantumsymmetry/'])
-
-# import quantumsymmetry as qs
-
-
-
 # %%capture
 # #We delete the core.py and the qiskit_converter.py files
 # !rm /usr/local/lib/python3.10/dist-packages/quantumsymmetry/core.py
@@ -54,13 +38,16 @@ import subprocess
 # !gdown  1pmBkh1Cs4-ctVBAcHRzjRFw-Fkl334I_ -O /usr/local/lib/python3.10/dist-packages/quantumsymmetry/
 # #We check we have everything
 # !ls /usr/local/lib/python3.10/dist-packages/quantumsymmetry/
-
+# 
 # #We finally import Quantum Symmetry!!!
+# import quantumsymmetry as qs
 
 # dir(qs)
 # help(qs)
 # print(type(qs)) # Should print <class 'module'>
 # print(hasattr(qs, 'make_encoding'))
+
+#import quantumsymmetry as qs
 
 from pickle import FALSE
 '''
@@ -77,7 +64,7 @@ import numpy as np
 import time
 
 
-def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molecular_orbitals:int, distance_min: float, distance_max: float = None, step: float = None, theta_min: float = None, theta_max: float = None, theta_step: float = None, nlayers:int = 1 ) -> tuple[list, list, list, str]:
+def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molecular_orbitals:int, distance_min: float, distance_max: float = None, step: float = None, theta_min: float = None, theta_max: float = None, theta_step: float = None, nlayers:int = 1 , init_params = None, backend = None, session = None) -> tuple[list, list, list, str]:
   '''
   Function that takes all the user inputs and gives the proper outputs to build the results in the Streamlit app.
 
@@ -92,7 +79,6 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
   - Theta:
       If it's none, is defined as the default value. If
   '''
-
 
   #Distance definition
   if distance_max is None or step is None:
@@ -115,10 +101,9 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
     geometry.append(theta)
 
 
-  #If we retrieve the archived results
+  # ---------- RETRIEVING THE ARCHIVED RESULTS ----------
 
   if archived == 1:
-
     energies_indexs = [1,2,3]
     # 1. LiH
     if name_mol == "LiH":
@@ -158,8 +143,9 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
       raise ValueError('This molecule is not prepared yet.')
 
 
-  # COMPUTE THE ENERGIES AT THE SPOT WITH QISKIT PRIMITIVES
-  elif archived == 0:
+  #  ----------  COMPUTE THE ENERGIES AT THE SPOT -------------
+
+  elif archived == 0 or archived == 2:
     # 1. LiH
     if name_mol == "LiH":
 
@@ -169,12 +155,11 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
         r_energies = db.read_energies("content/LiH_energies-all_dist[0.5,3.9,0.3].txt")
 
         #Indexes
-        index_min = int((distance[0]-0.5)/0.3)   #Here 0.3 is the step
-        index_max = int((distance[-1]-0.5)/0.3)
+        index_min = round((distance[0]-0.5)/0.3)   #Here 0.3 is the step
+        index_max = round((distance[-1]-0.5)/0.3)
       else:
         read_hams[0] = False
         index_min = None
-
 
     # 2. SnO
     elif name_mol == "SnO":
@@ -184,12 +169,11 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
         r_energies = db.read_energies("content/SnO_energies-all_dist[0.7,3.8,0.3]_nl-1.txt")
 
         #Indexes
-        index_min = int((distance[0]-0.7)/0.3)   #Here 0.3 is the step
-        index_max = int((distance[-1]-0.7)/0.3)
+        index_min = round((distance[0]-0.7)/0.3)   #Here 0.3 is the step
+        index_max = round((distance[-1]-0.7)/0.3)
       else:
         read_hams[0] = False
         index_min = None
-
 
     # 3. H2S
     elif name_mol == "H2S":
@@ -199,19 +183,67 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
         r_energies = db.read_energies("content/H2S_energies-all_dist[0.5,4.2,0.3]_theta-92.1-nl-1_mit-1000.txt")
 
         #Indexes
-        index_min = int((distance[0]-0.5)/0.3)   #Here 0.3 is the step
-        index_max = int((distance[-1]-0.5)/0.3)
+        index_min = round((distance[0]-0.5)/0.3)   #Here 0.3 is the step
+        index_max = round((distance[-1]-0.5)/0.3)
       else:
         read_hams[0] = False
         index_min = None
 
+    # 4. LiSH
+    elif name_mol == "LiSH":
+      read_hams =[True, 'content/LiSH_hamiltonians_dist-s-li[0.7,3.8,.03]_dist-s-h-1.25312_theta-90_nl-2.txt']
+
+      if np.any(np.isclose(distance_min, [0.7, 1.0, 1.3, 1.6, 1.9, 2.2, 2.5, 2.8, 3.1, 3.4, 3.7])) and (step == 0.3 or step == None):
+        r_energies = db.read_energies("content/LiSH_energies-all_dist-s-li[0.7,3.8,.03]_dist-s-h-1.25312_theta-90_nl-2_mit-5000.txt")
+
+        #Indexes
+        index_min = round((distance[0]-0.7)/0.3)   #Here 0.3 is the step
+        index_max = round((distance[-1]-0.7)/0.3)
+      else:
+        read_hams[0] = False
+        index_min = None
+
+    elif name_mol == "Li2S":
+      read_hams =[True, 'content/Li2S_hamiltonians_dist[0.4,3.5,0.3]_theta-180_nl-1.txt']
+
+      if np.any(np.isclose(distance_min, [0.4, 0.7, 1.0, 1.3, 1.6, 1.9, 2.2, 2.5, 2.8, 3.1, 3.4])) and (step == 0.3 or step == None):
+        r_energies = db.read_energies("content/Li2S_energies-all_dist[0.4,3.5,0.3]_theta-180_nl-1_mit-1000.txt")
+
+        #Indexes
+        index_min = round((distance[0]-0.4)/0.3)   #Here 0.3 is the step
+        index_max = round((distance[-1]-0.4)/0.3)
+      else:
+        read_hams[0] = False
+        index_min = None
+
+
     else:
-       raise ValueError("Only the LiH, SnO and H2S molecules can be calculated on the spot. Try to use the LiH, SnO and H2S molecules or set archived to 1.")
+       raise ValueError("Only the LiH, SnO, H2S and LiSH molecules can be calculated on the spot. Try to use the LiH, SnO and H2S molecules or set archived to 1.")
 
     print('Read_hams', read_hams)
-    distance, energy_vqe, hamiltonians, ttime = db.compute_now(name_mol, nlayers, [active_electrons, molecular_orbitals], geometry,[500, 200],
-                                                      read_hams, computational_style = 0, backend = None )
+    # ---- COMPUTE THE ENERGIES WITH QISKIT PRIMITIVES ----
+    if archived == 0:
+      comp_style = 0
+      backend = None
+      session = None
+      options_runtime = None
+      max_iter = [500,200]
+      
+    elif archived == 2:
+      comp_style = 3
+      options_runtime = [500, 3, 2]
+      max_iter = [500,200] #[5,5]
 
+      #[options.execution.shots, options.optimization_level, options.resilience_level]
+      #error_mitigation = 2      #Twirled Readout Error eXtinction (TREX) measurement twirling + Zero Noise Extrapolation (ZNE) and gate twirling
+      
+
+    if init_params == None:
+      distance, energy_vqe, hamiltonians, ttime = db.compute_now(name_mol, nlayers, [active_electrons, molecular_orbitals], geometry,max_iter,
+                                                    read_hams, computational_style = comp_style, options_runtime = options_runtime, backend = backend, session = session)
+    else:
+      distance, energy_vqe, hamiltonians, ttime = db.compute_now(name_mol, nlayers, [active_electrons, molecular_orbitals], geometry,max_iter,
+                                                    read_hams, computational_style = comp_style, options_runtime = options_runtime, backend = backend, session = session,  init_params = init_params)
 
     if len(distance)>1:
       if index_min != None:
@@ -220,14 +252,14 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
         energy = [energy_vqe]
 
     else:
-      # energy = [energy_vqe, r_energies[2][index_min], r_energies[3][index_min]]
+        # energy = [energy_vqe, r_energies[2][index_min], r_energies[3][index_min]]
 
-      result = db.read_params(f'content/{name_mol}_dist-{distance[0]:0.2f}_log.txt')
+      result = db.read_params(f'{name_mol}_dist-{distance[0]:0.2f}_log.txt')
 
       energy = [result[3]]
       distance = range(len(energy[0]))
 
-
+  
 
 
   return distance, energy, hamiltonians
@@ -236,7 +268,7 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
 def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:int, distance: list, hamiltonians: list, theta = None, nlayers: int = 1):
   '''
   Function that creates a file and writes the hamiltonians in it. This function is agreed with the "read_hamiltonians" in the demo_functions.py file.
- 
+
   NOTES ON THE INPUTS
   -------------------
   - Distance:
@@ -246,34 +278,40 @@ def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:
       List of SparsePauliOp for all the hamiltons for each distance.
   - File name:
       It has to be a .txt file! It should contain the name of the molecule and other properties of the computations.
- 
+
   OUTPUT
   ------
   File .txt with all the information of the hamiltonians computed for each distance/theta.
   '''
- 
+
   #We create the file
   if len(distance)>1:
     if theta is None:
       file_name = f'{name_mol}_hamiltonians_ae{active_electrons}_mo{molecular_orbitals}_dist[{distance[0]:.1f}, {distance[-1]:.1f}, {(distance[1]-distance[0]):.1f}]_nl{nlayers}.txt'
     else:
       file_name = f'{name_mol}_hamiltonians_ae{active_electrons}_mo{molecular_orbitals}_theta[{distance[0]:.1f}, {distance[-1]:.1f}, {(distance[1]-distance[0]):.1f}]_nl{nlayers}.txt'
- 
+
   elif len(distance)==1:
     if theta is None:
       file_name = f'{name_mol}_hamiltonians_ae{active_electrons}_mo{molecular_orbitals}_dist[{distance[0]:.1f}]_nl{nlayers}.txt'
     else:
       file_name = f'{name_mol}_hamiltonians_ae{active_electrons}_mo{molecular_orbitals}_theta[{distance[0]:.1f}]_nl{nlayers}.txt'
- 
- 
+
+
   f = open(file_name, "a")
- 
+
   for index, hamiltonian in enumerate(hamiltonians):
     print('Index', index)
     if theta is None:
-      f.write(f'\n Hamiltonian {index} for distance={distance[index]}:\n {hamiltonian}\n')
+      # print(distance[index])
+      # print(len(hamiltonians))
+      # f.write(f'\n Hamiltonian {index} for distance={distance[index]}:\n {hamiltonian}\n')
+      pass
     else:
       f.write(f'\n Hamiltonian {index} for theta={distance[index]}:\n {hamiltonian}\n')
     # I need to think if all the hamiltonians are going to be full written or not.
- 
+
   f.close()
+
+
+
