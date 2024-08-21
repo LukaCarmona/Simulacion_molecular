@@ -176,7 +176,7 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
 
 
     else:
-       raise ValueError("Only the LiH, SnO, H2S and LiSH molecules can be calculated on the spot. Try to use the LiH, SnO and H2S molecules or set archived to 1.")
+      raise ValueError("Only the LiH, SnO, H2S and LiSH molecules can be calculated on the spot. Try to use the LiH, SnO and H2S molecules or set archived to 1.")
 
     print('Read_hams', read_hams)
     # ---- COMPUTE THE ENERGIES WITH QISKIT PRIMITIVES ----
