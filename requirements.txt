@@ -7,3 +7,4 @@ qiskit-nature==0.7.2
 numpy==1.26.4
 pyscf==2.6.2
 quantumsymmetry==0.1.43
+qiskit-ibm-runtime==0.28.0
