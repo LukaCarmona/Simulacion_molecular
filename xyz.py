@@ -24,7 +24,7 @@ if 'mostrar' not in st.session_state:
     st.session_state.selected_option = 'Un Punto'
     st.session_state.selected_range = (0, 0)
     
-archived = 1
+archived = 0
 # -------------------------------------- ESTILOS ---------------------------------------------
 htmlpath = Path(__file__).parent / 'style.css'
 
