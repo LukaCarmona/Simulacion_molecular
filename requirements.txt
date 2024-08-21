@@ -1,10 +1,10 @@
 matplotlib==3.4.1
 st-speckmol==0.0.6
 streamlit==1.36.0
-qiskit==1.1.1
+qiskit==1.2.0
 qiskit-algorithms==0.3.0
 qiskit-nature==0.7.2
 numpy==1.26.4
 pyscf==2.6.2
-quantumsymmetry==0.1.43
+quantumsymmetry==0.2.10
 qiskit-ibm-runtime==0.28.0
