@@ -1,7 +1,7 @@
 import qiskit
 import pyscf
 import qiskit_nature
-import qiskit_ibm_runtime
+# import qiskit_ibm_runtime
 import qiskit_algorithms
 
 import quantumsymmetry as qs
@@ -258,16 +258,20 @@ def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:
       file_name = f'{name_mol}_hamiltonians_ae{active_electrons}_mo{molecular_orbitals}_theta[{distance[0]:.1f}]_nl{nlayers}.txt'
 
 
-  f = open(file_name, "a")
+  f = open(file_name, "w")
 
   if len(distance)>1:
     for index, hamiltonian in enumerate(hamiltonians):
-      print('Index', index)
-      if theta is None:
-        f.write(f'\n Hamiltonian {index} for distance={distance[index]}:\n {hamiltonian}\n')
-      else:
-        f.write(f'\n Hamiltonian {index} for theta={distance[index]}:\n {hamiltonian}\n')
-      # I need to think if all the hamiltonians are going to be full written or not.
+        print("-------------------------------------------------------")
+        print("print de la longitud del hamiltoniano",len(hamiltonians))
+        print("-------------------------------------------------------")
+        print('Index', index)
+        print(distance)
+        if theta is None:
+            f.write(f'\n Hamiltonian {index} for distance={distance[index]}:\n {hamiltonian}\n')
+        else:
+            f.write(f'\n Hamiltonian {index} for theta={distance[index]}:\n {hamiltonian}\n')
+        # I need to think if all the hamiltonians are going to be full written or not.
   else:
     f.write(f'\n Hamiltonian for distance={distance[0]}:\n {hamiltonians}\n')
 

@@ -50,6 +50,7 @@ with st.sidebar:
     # Cargar las opciones de moléculas desde el JSON
     moleculas = list(datos_json.keys())
     
+    archived = st.selectbox("Seleccione el tipo de archive",[0,1,2], key='archived')
     #select box de molecula
     molecula = st.selectbox("Molécula", moleculas, key='molecule')
     #carga de datos de molecula en base a molecula seleccionada en el select box
@@ -99,7 +100,7 @@ with st.sidebar:
         
     elif option == "Un Punto":
         #creo el input de tipo numerico para pasar solo una distancia que suma en funcion del step
-        distancia_min = st.number_input('Especifique la distancia en la que quiere calcular', value=min(distancias), step=st.session_state.selected_step)
+        distancia_min = st.number_input('Especifique la distancia en la que quiere calcular',min_value=0.4, value=min(distancias), step=st.session_state.selected_step)
     
     col1, col2 = st.columns(2)
 
@@ -150,7 +151,8 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
             else:
                 #dependiendo de la opcion elegida cambia el file_path
-                file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[distancia_min]}_nl1.txt"
+                print([round(distancia_min,1)])
+                file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt"
                 #habro el documento para guardar en una variable el contenido del archivo
                 with open(file_path, 'r') as download_file:
                     file_content = download_file.read()
@@ -159,7 +161,7 @@ with st.sidebar:
                     btn = st.download_button(
                         label="Descargar Hamiltoniano",
                         data=file_content,
-                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[distancia_min]}_nl1.txt",
+                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt",
                         mime='text/plain'
                     )
                 else:

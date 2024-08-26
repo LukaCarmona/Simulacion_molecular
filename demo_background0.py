@@ -496,18 +496,18 @@ def read_outputs(name_mol, distance, energy_file, hamiltonian_file, energies_ind
   '''
   This function makes all the work for reading the energy and hamiltonians files for each molecule. 
   '''
-
+  print("distancia:",distance[0])
   if name_mol == "LiH":
     #With only one distance
     if len(distance)== 1:
       if distance[0] == 0.5 :
         result = read_params("convergencias/LiH_convergencias/LiH_qh_dist-0.5_nl-1_mit-600_seed-10_a-0_c-0_termch_hanoi2104.txt")
       elif distance[0] == 0.8 or distance[0] ==1.1:
-        result = read_params(f'convergencias/LiH_convergencias/LiH_qh_dist-{distance[0]}_nl-1_mit-150_seed-10_a-0.9_c-0.3_termch_hanoi2404.txt')
+        result = read_params(f'convergencias/LiH_convergencias/LiH_qh_dist-{distance[0]:0.1f}_nl-1_mit-150_seed-10_a-0.9_c-0.3_termch_hanoi2404.txt')
       elif distance[0] == 1.4:
         result = read_params(f'convergencias/LiH_convergencias/LiH_qh_dist-1.4_nl-1_mit-250_seed-10_a-0.9_c-0.3_termch_hanoi2104.txt')
       elif distance[0]>1.4:
-        result = read_params(f'convergencias/LiH_convergencias/LiH_qh_dist-{distance[0]}_nl-1_mit-120_seed-10_a-0.9_c-0.3_termch_hanoi2504_EM2_2.txt')
+        result = read_params(f'convergencias/LiH_convergencias/LiH_qh_dist-{distance[0]:0.1f}_nl-1_mit-120_seed-10_a-0.9_c-0.3_termch_hanoi2504_EM2_2.txt')
       
       energy = [result[3]]
       #We redifine the distance as the iterations, because they will be the "x" coordinate for the streamlit plot
@@ -675,7 +675,7 @@ def compute_now(name_mol, nlayers, CAS_user, geometry, maxiter_vals, read_hams, 
     hamiltonians = []
 
   #Opening the file for all the distances
-  f = open(f'{name_mol}_all-dist.txt',"a" )
+  f = open(f'{name_mol}_all-dist.txt',"w" )
 
 
   # -------   Computations with Qiskit Primitives (Ideal VQE)  --------
@@ -811,7 +811,7 @@ def compute_now(name_mol, nlayers, CAS_user, geometry, maxiter_vals, read_hams, 
 
    #Creating files for results
    global f_log
-   f_log = open(f'{name_mol}_dist-{dist:0.2f}_log.txt',"a" )
+   f_log = open(f'{name_mol}_dist-{dist:0.2f}_log.txt',"w" )
    # f_dist = open(f'{name_mol}_only-dist-{dist}.txt',"a")
 
    if optimizer_params[0]== "SPSA":

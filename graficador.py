@@ -18,10 +18,9 @@ def crete_graph(selected_molecule, distancias, hartree_fall, energias, exacto, d
     if exacto != None:
         ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")
         ax.plot(distancias, energias, label='VQE ideal', marker='o', linewidth=0, color='#32C7AF', markersize=10)
+        
         if selected_molecule != "Li2S":
             ax.plot(distancias, exacto, label = 'Exacto', linestyle='-', color = '#AD44FF')
-        else:
-            ax.plot(distancias, exacto, label = 'Hartree-Fock + CASCII', linestyle='-', color = '#AD44FF')
         
         ax.set_xlabel('$R_{'+st.session_state.selected_molecule+'}$ [Å]')
         ax.set_ylabel('Energía [Ha]')
