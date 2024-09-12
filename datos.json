@@ -34,16 +34,7 @@
             "step":[0.3]
         }
     },
-
-    "LiCoO2":{
-        "case_1":{
-            "Electrones_activos":[10,10],
-            "Orbitales_moleculares":[14,0],
-            "distance": [0.5, 3.8],
-            "step":[0.3]
-        }
-    }, 
-
+    
     "Li2S":{
         "case_1":{
             "Electrones_activos":[8,22],
@@ -53,3 +44,5 @@
         }
     }     
 }
+
+

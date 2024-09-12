@@ -8,3 +8,4 @@ numpy==1.26.4
 pyscf==2.6.2
 quantumsymmetry==0.2.10
 qiskit-ibm-runtime==0.28.0
+stmol==0.0.9

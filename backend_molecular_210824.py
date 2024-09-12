@@ -21,6 +21,8 @@ import demo_background0 as db
 import numpy as np
 import time
 
+import sys
+
 
 def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molecular_orbitals:int, distance_min: float, distance_max: float = None, step: float = None, theta_min: float = None, theta_max: float = None, theta_step: float = None, nlayers:int = 1 , init_params = None, backend = None, session = None) -> tuple[list, list, list, str]:
   '''
@@ -243,7 +245,7 @@ def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:
   ------
   File .txt with all the information of the hamiltonians computed for each distance/theta.
   '''
-
+  np.set_printoptions(threshold=sys.maxsize)
   #We create the file
   if len(distance)>1:
     if theta is None:
@@ -259,9 +261,9 @@ def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:
 
 
   f = open(file_name, "w")
-
   if len(distance)>1:
     for index, hamiltonian in enumerate(hamiltonians):
+        print("ERROOR",distance[index])
         print("-------------------------------------------------------")
         print("print de la longitud del hamiltoniano",len(hamiltonians))
         print("-------------------------------------------------------")

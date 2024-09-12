@@ -14,7 +14,8 @@ def crete_graph(selected_molecule, distancias, hartree_fall, energias, exacto, d
     
     fig = plt.figure(figsize=(10, 7), facecolor='#0E1117')
     ax = fig.add_subplot(111, facecolor='#0E1117')
-    
+    ax.ticklabel_format(useOffset=False, style='plain') 
+ 
     if exacto != None:
         ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")
         ax.plot(distancias, energias, label='VQE ideal', marker='o', linewidth=0, color='#32C7AF', markersize=10)
