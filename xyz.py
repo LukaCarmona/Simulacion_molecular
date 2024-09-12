@@ -2,7 +2,7 @@
 
 #comento el tema speck_mol al estar a la espera
 
-from st_speckmol import speck_plot
+# from st_speckmol import speck_plot
 from pathlib import Path
 from PIL import Image
 from backend_molecular_210824 import calculate_outputs, write_hamiltonians
@@ -242,7 +242,8 @@ if st.session_state.mostrar:
         col1, col2 = st.columns(2)
        
         with col1:
-            res = speck_plot(xyz_content) 
+            # res = speck_plot(xyz_content) 
+            pass
                    
 # ------------------------------------ GRAFICO DE RANGO ------------------------------------------------
         with col2:
