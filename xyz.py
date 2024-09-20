@@ -79,8 +79,7 @@ with st.sidebar:
     imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
     image = Image.open(imagen_path)
     st.image(image, use_column_width=True)
-    if st.button("Home"):
-        st.session_state.mostrar = False
+    
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
     
@@ -106,12 +105,11 @@ with st.sidebar:
     
     # carga de datos de select box en base a molécula seleccionada y contenido del json
     energias_fijas = datos_molecula['Electrones_activos']
-    st.write(energias_fijas[0])
     if archived_type == 0:
         energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
     else:
         # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-        st.write("**Electrones activos:**", energias_fijas[0])
+        st.write("**Electrones activos:**"+ str(energias_fijas[0]))
         energy = energias_fijas[0]
 
     # carga de datos de select box en base a molécula seleccionada y contenido del json
@@ -120,7 +118,7 @@ with st.sidebar:
         orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
     else:
         # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
-        st.write("**Orbitales moleculares**", numeros_orbitas[0])
+        st.write("**Orbitales moleculares**"+ str(numeros_orbitas[0]))
         orbitas = numeros_orbitas[0]
     # asignación de columnas para el estilo del sidebar
     col1, col2 = st.columns(2)
@@ -242,7 +240,8 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
            
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
-
+if st.button("Home"):
+        st.session_state.mostrar = False
 if st.session_state.mostrar:
     if st.session_state.pulsado:
         #gif de espera
