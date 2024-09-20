@@ -109,14 +109,16 @@ with st.sidebar:
     if archived_type == 0:
         energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
     else:
-        energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-        
+        # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
+        energy = st.write("**Electrones activos**", energias_fijas[0], key='energy')
+
     # carga de datos de select box en base a molécula seleccionada y contenido del json
     numeros_orbitas = datos_molecula['Orbitales_moleculares']
     if archived_type == 0:
         orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
     else:
-        orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
+        # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
+        orbitas = st.write("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
 
     # asignación de columnas para el estilo del sidebar
     col1, col2 = st.columns(2)
