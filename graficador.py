@@ -23,8 +23,19 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
             
             if selected_molecule != "Li2S":
                 ax.plot(distancias, exacto, label = 'Exacto', linestyle='-', color = '#AD44FF')
-            
-            ax.set_xlabel('$R_{'+st.session_state.selected_molecule+'}$ [Å]')
+
+            if st.session_state.selected_molecule == "LiH":
+                molecula = "Li-H"
+            elif st.session_state.selected_molecule == "SnO":
+                molecula = "Sn-o"
+            elif st.session_state.selected_molecule == "LiSH":
+                molecula = "Li-S"
+            elif st.session_state.selected_molecule == "H2S":
+                molecula = "S-H"
+            elif st.session_state.selected_molecule == "Li2S":
+                molecula = "Li-S"
+                
+            ax.set_xlabel('$R_{'+molecula+'}$ [Å]')
             ax.set_ylabel('Energía [Ha]')
             ax.legend(labelcolor='#FFFFFF') 
             

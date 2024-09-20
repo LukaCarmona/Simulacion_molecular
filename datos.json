@@ -1,7 +1,7 @@
 {
     "LiH":{
         "case_1":{
-            "Electrones_activos":[2,4],
+            "Electrones_activos":[2],
             "Orbitales_moleculares":[3,4],
             "distance": [0.5,3.8],
             "step":[0.3]   
@@ -20,7 +20,7 @@
     "H2S":{
         "case_1":{
             "Electrones_activos":[8,18],
-            "Orbitales_moleculares":[6,10],
+            "Orbitales_moleculares":[6],
             "distance": [0.5, 4.1],
             "step":[0.3]
         }

@@ -79,7 +79,8 @@ with st.sidebar:
     imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
     image = Image.open(imagen_path)
     st.image(image, use_column_width=True)
-    
+    if st.button("Home"):
+        st.session_state.mostrar = False
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
     
@@ -110,7 +111,7 @@ with st.sidebar:
         energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
     else:
         # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-        energy = st.write("**Electrones activos**", energias_fijas[0], key='energy')
+        energy = st.write(f"**Electrones activos:**, energias_fijas[0]", key='energy')
 
     # carga de datos de select box en base a molécula seleccionada y contenido del json
     numeros_orbitas = datos_molecula['Orbitales_moleculares']
