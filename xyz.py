@@ -6,7 +6,7 @@
 from pathlib import Path
 from PIL import Image
 from backend_molecular_210824 import calculate_outputs, write_hamiltonians
-from graficador import crete_graph
+from graficador import create_graph
 import streamlit as st
 import matplotlib.pyplot as plt
 import json
@@ -20,7 +20,7 @@ if 'mostrar' not in st.session_state:
     st.session_state.mostrar = False
     st.session_state.pulsado = False
     st.session_state.selected_molecule = ''
-    st.session_state.resultado = ''
+    st.session_state.resultado = 0
     st.session_state.selected_option = 'Un Punto'
     st.session_state.selected_range = (0, 0)
     st.session_state.archived_type = 'Archivo'
@@ -36,6 +36,37 @@ if htmlpath.exists():
 else:
     st.error(f"El archivo CSS en {htmlpath} no se encontró.")
 
+def aplicar_cambios():
+    if st.button('Aplicar cambios'):
+        st.session_state.pulsado = True
+        st.session_state.mostrar = True
+        st.session_state.selected_electrones = energias_fijas
+        st.session_state.selected_orbitas = orbitas
+        st.session_state.selected_molecule = molecula
+        st.session_state.selected_option = option
+
+        if option == "Un Rango":
+            st.session_state.selected_range = (range_values[0], range_values[-1])
+            print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
+            # guardo el step y range_values porque al ser un rango la función de resultado necesita parámetros distintos
+            st.session_state.selected_range = range_values
+            resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
+            # guardo el resultado en una sesión para poder mantener los datos del gráfico 
+            st.session_state.resultado = resultado
+            
+            print("VALOREEES", st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
+    
+            # llamo a la función que crea los hamiltonianos
+            write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
+    
+        else:
+            st.session_state.selected_range = (distancia_min, distancia_min)
+            resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0])
+            st.session_state.resultado = resultado
+            write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, [distancia_min], resultado[2])
+    
+        st.rerun()
+
 # -------------------------------------- CARGA DE DATOS --------------------------------------
 # Cargar datos desde el JSON
 with open("datos.json", "r") as data:
@@ -43,11 +74,22 @@ with open("datos.json", "r") as data:
 
 # ------------------------------------- SIDE BAR ---------------------------------------------
 with st.sidebar:
-    #imagen de logo Q4Real
+    # Primero movemos la selección de "Ejecutar en" aquí
+    # Imagen de logo Q4Real
     imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
     image = Image.open(imagen_path)
     st.image(image, use_column_width=True)
-        
+    
+    archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
+    st.session_state.archived_type = archived_type
+    
+    if archived_type == "Simulación local":
+        archived_type = 0
+        st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>""", unsafe_allow_html=True)
+    elif archived_type == "Archivo":
+        archived_type = 1
+    else:
+        archived_type = 2
     # Cargar las opciones de moléculas desde el JSON     
     if archived_type == 0:
         keys = list(datos_json.keys())
@@ -56,94 +98,112 @@ with st.sidebar:
             del datos_json[key]
             
     moleculas = list(datos_json.keys())
-    #select box de molecula
-    molecula = st.selectbox("Molécula", moleculas, key='molecule')
-    #carga de datos de molecula en base a molecula seleccionada en el select box
+    # select box de molécula
+    molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
+    # carga de datos de molécula en base a molécula seleccionada en el select box
     datos_molecula = datos_json[molecula]['case_1']
     
-    #carga de datos de select box en base a molecula seleccionada y contenido del json
+    # carga de datos de select box en base a molécula seleccionada y contenido del json
     energias_fijas = datos_molecula['Electrones_activos']
-    energy = st.selectbox("Electrones activos", energias_fijas, key='energy')
-    
-    #carga de datos de select box en base a molecula seleccionada y contenido del json
-    numeros_orbitas = datos_molecula['Orbitales_moleculares']
-    orbitas = st.selectbox("Orbitales moleculares", numeros_orbitas, key='orbits')
+    if archived_type == 0:
+        energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
+    else:
+        energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
 
-    #asignacion de columnas para el estilo del sidebar
+    # carga de datos de select box en base a molécula seleccionada y contenido del json
+    numeros_orbitas = datos_molecula['Orbitales_moleculares']
+    if archived_type == 0:
+        orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
+    else:
+        orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
+
+    # asignación de columnas para el estilo del sidebar
     col1, col2 = st.columns(2)
     with col1:
-        #selector de  tipo de distancia para generar los graficos 
-        option = st.radio("Seleccione el tipo de distancia", ("Un Rango", "Un Punto"), key='option')
+        # selector de tipo de distancia para generar los gráficos 
+        option = st.radio("**Seleccione el tipo de distancia**", ("Un Rango", "Un Punto"), key='option')
         distancias = datos_molecula['distance']
         
     if option == "Un Rango":
-        #inicializo las variables para la hora de crear el slider
+        # inicializo las variables para la hora de crear el slider
         new_distancias = []
         min_distancias = min(distancias)
         max_distancias = max(distancias)
         current_value = min_distancias
-        #input para poder elegir el step del grafico
+        # input para poder elegir el step del gráfico
+        
         if archived_type == 0:
-            step = st.number_input("Seleccione el step para el gráfico",min_value=0.3,max_value=3.0, value=0.3, step=0.1)
+            step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1)
         else:
             step = 0.3
-        st.session_state.selected_step = step
-        #calculo el numero de valores para poder rellenar el array de "new_distancias"
-        num_values = int((max_distancias - min_distancias) / step) + 1
+            
+        num_values = round((distancias[1] / step)-distancias[0])
+        # st.write(num_values)
+
+        # Array de distancias con los valores calculados
+        new_distancias = []
+        current_value = min_distancias
         
-        #for que rellena el array de "new_distancias" con los puntos que tendra el slider 
         for _ in range(num_values):
             new_distancias.append(round(current_value, 2))
             current_value += step
-       
-        #creo el slider en vase a los valores anteriormente calculados        
+      
+        # Creación del slider en base a los valores calculados
         range_values = st.select_slider(
-            "Selecciona un rango de distancias",
-            options=(new_distancias),
-            value=(min_distancias, max_distancias)
+            "**Selecciona un rango de distancias**",
+            options=new_distancias,
+            value=(new_distancias[0], new_distancias[-1])
         )
-        
+        # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
+
+        # Cálculo dinámico del step para que haya 12 distancias
+        # step = (max_distancias - min_distancias) / (num_values_fixed - 1)
+        st.session_state.selected_step = step
+
+        # Cálculo del número de valores
+        # num_values = num_values_fixed
+      
+       
+        # print("rango valores", range_values)
     elif option == "Un Punto":
-        #creo el input de tipo numerico para pasar solo una distancia que suma en funcion del step
-        distancia_min = st.number_input('Especifique la distancia en la que quiere calcular',min_value=0.4,max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step)
+        # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
+        distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step)
     
     col1, col2 = st.columns(2)
-    archived_type = st.selectbox("Ejecutar en",["Simulación local","Archivo","Ordenadores cuánticos online"],index=1, key='archived')
-    st.session_state.archived_type = archived_type
     
     with col1:
-        #creo y compruebo el boton donde guardo las variables a los valores que quiero 
+        # creo y compruebo el botón donde guardo las variables a los valores que quiero
+        # if archived_type == 0:
+        #     if option == "Un Punto":
+        #         if distancia_min < 0.4 or distancia_min > max(distancias):
+        #             st.error(f"Por favor seleccione una distancia válida entre 0.4 y {max(distancias)}.")
+        #         else:
+        #             aplicar_cambios()
+        #     else:
+        #         if 0.3 <= step <= 3.0 and step % 0.1 == 0:
+        #             aplicar_cambios()
+        
+        #         else:
+        #             st.error("Por favor seleccione un valor válido entre 0.3 y 3.0.")
+        # else:
+        #     if option == "Un Punto":
+        #         if distancia_min < 0.4 or distancia_min > max(distancias):
+        #             st.error(f"Por favor seleccione una distancia válida entre 0.4 y {max(distancias)}.")
+        #         else:
+        #             aplicar_cambios()
+        #     else:
+        #         aplicar_cambios()
+        aplicar_cambios()
 
-        if st.button('Aplicar cambios'):
-            st.session_state.pulsado = True
-            st.session_state.mostrar = True
-            st.session_state.selected_electrones = energias_fijas
-            st.session_state.selected_orbitas = orbitas
-            st.session_state.selected_molecule = molecula
-            st.session_state.selected_option = option
-            
-            if option == "Un Rango":
-                #guardo el step y range_values por que al ser un rango la funcion de resultado necesita parametros distintos
-                st.session_state.selected_step = step
-                st.session_state.selected_range = range_values
-                resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
-                #guardo el resultado en una sesion para poder mantener los datos del grafico 
-                st.session_state.resultado = resultado
-                #llamo a la funcion que crea los hamiltonianos
-                write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
-            else:
-                st.session_state.selected_range = (distancia_min, distancia_min)
-                resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0])
-                st.session_state.resultado = resultado
-                write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, [distancia_min], resultado[2])
-                  
-            st.rerun()
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
         with col2:
             if st.session_state.selected_option == "Un Rango": 
                 #dependiendo de la opcion elegida cambia el file_path
-                file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],st.session_state.selected_step]}_nl1.txt"
+                if archived_type == 0:
+                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
+                else:
+                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
                 #habro el documento para guardar en una variable el contenido del archivo
                 with open(file_path, 'r') as download_file:
                     file_content = download_file.read()
@@ -152,7 +212,7 @@ with st.sidebar:
                     btn = st.download_button(
                         label="Descargar Hamiltoniano",
                         data=file_content,
-                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],st.session_state.selected_step]}_nl1.txt",
+                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt",
                         mime='text/plain'
                     )
                 else:
@@ -239,76 +299,75 @@ if st.session_state.mostrar:
     st.markdown(titulo, unsafe_allow_html=True)
     
     with st.container():
-        col1, col2 = st.columns(2)
+        # col1, col2 = st.columns(2)
        
-        with col1:
-            # res = speck_plot(xyz_content) 
-            pass
+        # with col1:
+        #     # res = speck_plot(xyz_content) 
+        #     pass
                    
 # ------------------------------------ GRAFICO DE RANGO ------------------------------------------------
-        with col2:
-            
-            #creo un array con los nombres de las moleculas que saldran en el grafico 
-            x_label_list = {"LiH": "Li-H", "SnO": "Sn-O", "H2S": "H-S", "LiSH": "Li-S", "Li2S": "Li-S"}
-            #meto en una variable la molecula seleccionada
-            selected_molecule = st.session_state.selected_molecule
-            
-            #funcion que recorre el array de nombres de moleculas y asigna la correspondiente
-            def x_label_content():
-                for key in x_label_list:
-                    if key.startswith(selected_molecule):
-                        x_label = x_label_list[key] 
-                        
-                        return x_label
+        # with col2:
+        
+        #creo un array con los nombres de las moleculas que saldran en el grafico 
+        x_label_list = {"LiH": "Li-H", "SnO": "Sn-O", "H2S": "H-S", "LiSH": "Li-S", "Li2S": "Li-S"}
+        #meto en una variable la molecula seleccionada
+        selected_molecule = st.session_state.selected_molecule
+        
+        #funcion que recorre el array de nombres de moleculas y asigna la correspondiente
+        def x_label_content():
+            for key in x_label_list:
+                if key.startswith(selected_molecule):
+                    x_label = x_label_list[key] 
                     
-            if st.session_state.selected_option == "Un Rango" and len(st.session_state.resultado[1]) > 1:
-                if st.session_state.selected_range is not None:
-                    
-                    energias_completas = st.session_state.selected_electrones
-                    distancia_inicio, distancia_fin = st.session_state.selected_range
-                    
-                    #guardo en variables los datos de las sesiones de respuesta
-                    energias = st.session_state.resultado[1][0]
-                    distancias = st.session_state.resultado[0]
-                    hartree_fall = st.session_state.resultado[1][1]
-                    exacto = st.session_state.resultado[1][2]                     
-                    
-                    #llamo a la funcion que da nombre al x_label
-                    x_label = x_label_content()
-    
-                    #genero el grafico
-                    if len(distancias) == len(energias):
-                        crete_graph(st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    else:
-                        st.error("Las listas de distancias y energías no tienen la misma longitud.")
-                    
-#-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
-            else:
+                    return x_label
+                
+      
+        if st.session_state.selected_option == "Un Rango" and len(st.session_state.resultado[1]) > 1:
+            if st.session_state.selected_range is not None:
+                
                 energias_completas = st.session_state.selected_electrones
                 distancia_inicio, distancia_fin = st.session_state.selected_range
                 
                 #guardo en variables los datos de las sesiones de respuesta
                 energias = st.session_state.resultado[1][0]
+                # st.write(energias)
                 distancias = st.session_state.resultado[0]
-                            
+                hartree_fall = st.session_state.resultado[1][1]
+                exacto = st.session_state.resultado[1][2]                     
+                
                 #llamo a la funcion que da nombre al x_label
                 x_label = x_label_content()
-                    
+
                 #genero el grafico
+                # st.write("AAAAAA",len(distancias))
+                # st.write("BBBBBB",len(energias))
+                
                 if len(distancias) == len(energias):
-                    crete_graph(st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                    create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
+                
+#-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
+        else:
+            energias_completas = st.session_state.selected_electrones
+            distancia_inicio, distancia_fin = st.session_state.selected_range
+            
+            #guardo en variables los datos de las sesiones de respuesta
+            energias = st.session_state.resultado[1][0]
+            distancias = st.session_state.resultado[0]
+                        
+            #llamo a la funcion que da nombre al x_label
+            x_label = x_label_content()
+                
+            #genero el grafico
+            if len(distancias) == len(energias):
+                create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+            else:
+                st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
 else:
     #mensaje de presentacion de la pagina
     var1 = __file__
     titulo = '<h1 style="color: #ad44ff; padding: 10px;">Esto es una página web para visualizar moléculas y ver su comportamiento además de poder ajustarlas y ver qué sucedería</h1>'
     st.markdown(titulo, unsafe_allow_html=True)
-    if archived_type == "Simulación local":
-        archived_type = 0
-        st.write("Las simulaciones puenden tardar al ser calculados al momento")
-    elif archived_type ==  "Archivo":
-        archived_type = 1
-    else:
-        archived_type = 2
+    

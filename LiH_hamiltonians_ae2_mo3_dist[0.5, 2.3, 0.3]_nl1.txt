@@ -1,5 +1,5 @@
 
- Hamiltonian 0 for distance=1.4:
+ Hamiltonian 0 for distance=0.5:
  SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
               coeffs=[-6.55974945e+00+0.j,  1.58681931e-01+0.j,  1.58681931e-01+0.j,
  -9.19064653e-03+0.j, -9.19064653e-03+0.j,  9.19064653e-03+0.j,
@@ -14,7 +14,7 @@
   9.11904537e-03+0.j, -9.11904537e-03+0.j,  9.11904537e-03+0.j,
   9.11904537e-03+0.j])
 
- Hamiltonian 1 for distance=1.7:
+ Hamiltonian 1 for distance=0.8:
  SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
               coeffs=[-7.00564566e+00+0.j,  1.20146971e-01+0.j,  1.20146971e-01+0.j,
  -7.00943394e-03+0.j, -7.00943394e-03+0.j,  7.00943394e-03+0.j,
@@ -29,7 +29,7 @@
   1.07710282e-02+0.j, -1.07710282e-02+0.j,  1.07710282e-02+0.j,
   1.07710282e-02+0.j])
 
- Hamiltonian 2 for distance=2.0:
+ Hamiltonian 2 for distance=1.1:
  SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
               coeffs=[-7.14018248e+00+0.j,  1.02365098e-01+0.j,  1.02365098e-01+0.j,
  -1.02755819e-02+0.j, -1.02755819e-02+0.j,  1.02755819e-02+0.j,
@@ -44,7 +44,7 @@
   1.05027255e-02+0.j, -1.05027255e-02+0.j,  1.05027255e-02+0.j,
   1.05027255e-02+0.j])
 
- Hamiltonian 3 for distance=2.3:
+ Hamiltonian 3 for distance=1.4000000000000001:
  SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
               coeffs=[-7.18037576e+00+0.j,  1.01017450e-01+0.j,  1.01017450e-01+0.j,
  -1.25500188e-02+0.j, -1.25500188e-02+0.j,  1.25500188e-02+0.j,
@@ -59,7 +59,7 @@
   1.03491184e-02+0.j, -1.03491184e-02+0.j,  1.03491184e-02+0.j,
   1.03491184e-02+0.j])
 
- Hamiltonian 4 for distance=2.6:
+ Hamiltonian 4 for distance=1.7000000000000002:
  SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
               coeffs=[-7.18531675e+00+0.j,  1.05973312e-01+0.j,  1.05973312e-01+0.j,
  -1.47836570e-02+0.j, -1.47836570e-02+0.j,  1.47836570e-02+0.j,
@@ -73,3 +73,33 @@
  -4.84581010e-03+0.j, -4.84581010e-03+0.j, -4.84581010e-03+0.j,
   1.03173275e-02+0.j, -1.03173275e-02+0.j,  1.03173275e-02+0.j,
   1.03173275e-02+0.j])
+
+ Hamiltonian 5 for distance=2.0:
+ SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
+              coeffs=[-7.17711881e+00+0.j,  1.12765963e-01+0.j,  1.12765963e-01+0.j,
+ -1.72672156e-02+0.j, -1.72672156e-02+0.j,  1.72672156e-02+0.j,
+  1.72672156e-02+0.j, -2.66918816e-01+0.j, -2.66918816e-01+0.j,
+ -4.36048501e-01+0.j,  1.97985180e-01+0.j,  1.72672048e-02+0.j,
+  1.72672048e-02+0.j, -1.72672048e-02+0.j, -1.72672048e-02+0.j,
+ -9.31031359e-03+0.j, -9.31031359e-03+0.j,  5.40424674e-03+0.j,
+  5.40424674e-03+0.j,  5.40424674e-03+0.j,  5.40424674e-03+0.j,
+ -1.07417747e-01+0.j,  4.98454858e-03+0.j,  4.98454858e-03+0.j,
+  4.98454858e-03+0.j,  4.98454858e-03+0.j, -4.98454858e-03+0.j,
+ -4.98454858e-03+0.j, -4.98454858e-03+0.j, -4.98454858e-03+0.j,
+  1.03350768e-02+0.j, -1.03350768e-02+0.j,  1.03350768e-02+0.j,
+  1.03350768e-02+0.j])
+
+ Hamiltonian 6 for distance=2.3000000000000003:
+ SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
+              coeffs=[-7.16555492e+00+0.j,  1.19883684e-01+0.j,  1.19883684e-01+0.j,
+ -2.00129906e-02+0.j, -2.00129906e-02+0.j,  2.00129906e-02+0.j,
+  2.00129906e-02+0.j, -2.58484108e-01+0.j, -2.58484108e-01+0.j,
+ -4.38265651e-01+0.j,  1.91329172e-01+0.j,  2.00129834e-02+0.j,
+  2.00129834e-02+0.j, -2.00129834e-02+0.j, -2.00129834e-02+0.j,
+ -1.27896738e-02+0.j, -1.27896738e-02+0.j,  5.23310199e-03+0.j,
+  5.23310199e-03+0.j,  5.23310199e-03+0.j,  5.23310199e-03+0.j,
+ -1.06112232e-01+0.j,  5.21078916e-03+0.j,  5.21078916e-03+0.j,
+  5.21078916e-03+0.j,  5.21078916e-03+0.j, -5.21078916e-03+0.j,
+ -5.21078916e-03+0.j, -5.21078916e-03+0.j, -5.21078916e-03+0.j,
+  1.03474114e-02+0.j, -1.03474114e-02+0.j,  1.03474114e-02+0.j,
+  1.03474114e-02+0.j])

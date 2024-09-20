@@ -208,8 +208,12 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
     if len(distance)>1:
       if index_min != None:
         energy = [energy_vqe, r_energies[2][index_min:index_max+1], r_energies[3][index_min:index_max+1]]
+        
+        hamiltonians = hamiltonians[index_min: index_max+1]
       else:
         energy = [energy_vqe]
+        
+        # hamiltonians = hamiltonians[index_min: index_max+1]
 
     else:
         # energy = [energy_vqe, r_energies[2][index_min], r_energies[3][index_min]]
@@ -218,10 +222,11 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
 
       energy = [result[3]]
       distance = range(len(energy[0]))
-
+      
+      hamiltonians = hamiltonians[index_min: index_max+1]
   
 
-
+  print("energy funcion",energy)
   return distance, energy, hamiltonians
 
 
@@ -262,8 +267,10 @@ def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:
 
   f = open(file_name, "w")
   if len(distance)>1:
+    print("hamiltonian len",len(hamiltonians))
+    print("distance len",len(distance))
     for index, hamiltonian in enumerate(hamiltonians):
-        print("ERROOR",distance[index])
+        # print("ERROOR",distance[index])
         print("-------------------------------------------------------")
         print("print de la longitud del hamiltoniano",len(hamiltonians))
         print("-------------------------------------------------------")

@@ -1,5 +1,5 @@
 
- Hamiltonian for distance=1.7000000000000002:
+ Hamiltonian for distance=1.1:
  SparsePauliOp(['III', 'ZIZ', 'ZZI', 'IZX', 'ZZX', 'ZXZ', 'IXZ', 'IIZ', 'IZI', 'ZII', 'IZZ', 'ZIX', 'IIX', 'IXI', 'ZXI', 'ZYY', 'IYY', 'XIZ', 'XZZ', 'XII', 'XZI', 'ZZZ', 'YYI', 'XXI', 'YYZ', 'XXZ', 'XZX', 'XIX', 'YZY', 'YIY', 'YXY', 'XYY', 'XXX', 'YYX'],
               coeffs=[-7.16410906e+00+0.j,  1.44492500e-01+0.j,  1.44492500e-01+0.j,
  -2.51218889e-02+0.j, -2.51218889e-02+0.j,  2.51218889e-02+0.j,
