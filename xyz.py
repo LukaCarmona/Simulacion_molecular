@@ -80,8 +80,8 @@ with st.sidebar:
     image = Image.open(imagen_path)
     st.image(image, use_column_width=True)
     
-    if st.button("🏚", key="home_button", help="Home", use_container_width=True):
-        st.session_state.mostrar = False
+    # if st.button("🏚", key="home_button", help="Home", use_container_width=True):
+    #     st.session_state.mostrar = False
     
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
@@ -244,6 +244,31 @@ with st.sidebar:
            
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
+    st.markdown(
+    """
+    <style>
+    .top-left-button {
+        position: fixed;
+        top: 10px;  /* Distancia desde la parte superior */
+        left: 10px;  /* Distancia desde la parte izquierda */
+        z-index: 1;  /* Asegura que esté por encima de otros elementos */
+    }
+    .stButton > button {
+        width: 50px; /* Ancho del botón */
+        height: 50px; /* Altura del botón */
+        font-size: 20px; /* Tamaño del emoticono */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+    # Posicionamiento del botón
+    if st.button("🏚", key="top_left_button", help="Home", use_container_width=False):
+        st.session_state.mostrar = False
+
+    # Usar la clase personalizada para mover el botón a la posición deseada
+    st.markdown('<div class="top-left-button">🏚</div>', unsafe_allow_html=True)
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
