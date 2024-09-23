@@ -74,6 +74,8 @@ with open("datos.json", "r") as data:
 
 # ------------------------------------- SIDE BAR ---------------------------------------------
 with st.sidebar:
+    if st.button("🏚", key="home_button", help="Home", use_container_width=True):
+        st.session_state.mostrar = False
     # Primero movemos la selección de "Ejecutar en" aquí
     # Imagen de logo Q4Real
     imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
@@ -240,8 +242,6 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
            
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
-if st.button("Home"):
-        st.session_state.mostrar = False
 if st.session_state.mostrar:
     if st.session_state.pulsado:
         #gif de espera
