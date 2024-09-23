@@ -74,13 +74,14 @@ with open("datos.json", "r") as data:
 
 # ------------------------------------- SIDE BAR ---------------------------------------------
 with st.sidebar:
-    if st.button("🏚", key="home_button", help="Home", use_container_width=True):
-        st.session_state.mostrar = False
     # Primero movemos la selección de "Ejecutar en" aquí
     # Imagen de logo Q4Real
     imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
     image = Image.open(imagen_path)
     st.image(image, use_column_width=True)
+    
+    if st.button("🏚", key="home_button", help="Home", use_container_width=True):
+        st.session_state.mostrar = False
     
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
