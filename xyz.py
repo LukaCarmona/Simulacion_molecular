@@ -244,7 +244,8 @@ with st.sidebar:
            
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
-    
+    if st.button("🏚", key="home_button", help="Home", use_container_width=True):
+        st.session_state.mostrar = False
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
@@ -372,31 +373,6 @@ if st.session_state.mostrar:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
 else:
-    st.markdown(
-    """
-    <style>
-    .top-left-button {
-        position: fixed;
-        top: 0px;  /* Ajusta este valor para mover el botón más arriba */
-        left: 0px;  /* Ajusta este valor para mover el botón más a la izquierda */
-        z-index: 1;  /* Asegura que esté por encima de otros elementos */
-    }
-    .stButton > button {
-        width: 50px; /* Ancho del botón */
-        height: 50px; /* Altura del botón */
-        font-size: 20px; /* Tamaño del emoticono */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
-
-    # Usar un botón en la esquina superior izquierda
-    if st.button("🏚", key="top_left_button", help="Home", use_container_width=False):
-        st.session_state.mostrar = False
-
-    # Añadir el contenedor para la clase personalizada
-    st.markdown('<div class="top-left-button">🏚</div>', unsafe_allow_html=True)
     #mensaje de presentacion de la pagina
     var1 = __file__
     titulo = '<h1 style="color: #ad44ff; padding: 10px;">Esto es una página web para visualizar moléculas y ver su comportamiento además de poder ajustarlas y ver qué sucedería</h1>'
