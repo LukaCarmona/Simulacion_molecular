@@ -258,29 +258,7 @@ if st.session_state.mostrar:
     with col1:
         if st.button("HOME", key="home_button", help="Home", use_container_width=True):
             st.session_state.mostrar = False
-    st.markdown("""
-    <style>
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .header .home-button {
-        margin-right: 20px;
-    }
-    </style>
-    <div class="header">
-        <h1>Título de la Aplicación</h1>
-        <button class="home-button" onclick="window.location.reload();">HOME</button>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Funcionalidad del botón HOME
-    if st.button("HOME", help="Home"):
-        st.session_state.mostrar = False
-
-    # Contenido principal de la aplicación
-    st.write("Aquí va el contenido principal.")
+    
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
