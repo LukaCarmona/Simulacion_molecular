@@ -192,10 +192,9 @@ with st.sidebar:
     elif option == "Un Punto":
         # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
         distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step)
-    
-    
-    distancia_min = round(distancia_min * 2) / 2
-    st.write(distancia_min)
+
+        distancia_min = round(distancia_min * 2) / 2
+        st.write(distancia_min)
     col1, col2 = st.columns(2)
     
     with col1:
