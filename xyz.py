@@ -158,7 +158,7 @@ with st.sidebar:
             step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
         else:
             step = 0.3
-            
+        st.write(step)
         num_values = round((distancias[1] / step)-distancias[0])
         # st.write(num_values)
 
@@ -215,7 +215,6 @@ with st.sidebar:
         #             aplicar_cambios()
         #     else:
         #         aplicar_cambios()
-        print(step)
         aplicar_cambios()
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
