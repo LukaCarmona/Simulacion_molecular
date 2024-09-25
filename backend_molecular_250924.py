@@ -207,11 +207,11 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
 
     if len(distance)>1:
       if index_min != None:
-        energy = [energy_vqe, r_energies[2][index_min:index_max+1], r_energies[3][index_min:index_max+1]]
+        energy = [energy_vqe, r_energies[2][index_min:index_max+1], r_energies[5][index_min:index_max+1]]
         
         hamiltonians = hamiltonians[index_min: index_max+1]
       else:
-        energy = [energy_vqe, energy_exact]
+        energy = [energy_vqe, [], energy_exact]
         
         # hamiltonians = hamiltonians[index_min: index_max+1]
 
