@@ -93,7 +93,13 @@ with st.sidebar:
 
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
-    
+    if archived_type == "Simulación local":
+        archived_type = 0
+    elif archived_type == "Archivo":
+        archived_type = 1
+    else:
+        archived_type = 2
+        
     # Cargar las opciones de moléculas desde el JSON     
     if archived_type == 0:
         keys = list(datos_json.keys())
@@ -107,18 +113,14 @@ with st.sidebar:
     # carga de datos de molécula en base a molécula seleccionada en el select box
     datos_molecula = datos_json[molecula]['case_1']
     
-    if archived_type == "Simulación local":
-        archived_type = 0
+    if archived_type == 0:
         if molecula == "LiH":
             st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>""", unsafe_allow_html=True)
         if molecula == "SnO":
             st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar unos 2 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
         if molecula == "H2S":
             st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar de 3 a 4 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
-    elif archived_type == "Archivo":
-        archived_type = 1
-    else:
-        archived_type = 2
+    
     
     # carga de datos de select box en base a molécula seleccionada y contenido del json
     energias_fijas = datos_molecula['Electrones_activos']
