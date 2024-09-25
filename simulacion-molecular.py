@@ -367,7 +367,7 @@ if st.session_state.mostrar:
                 distancias = st.session_state.resultado[0]
                 hartree_fall = st.session_state.resultado[1][1]
                 exacto = st.session_state.resultado[1][2]                     
-                
+                print("Resultado", st.session_state.resultado)
                 #llamo a la funcion que da nombre al x_label
                 x_label = x_label_content()
 
