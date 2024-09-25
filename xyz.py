@@ -13,6 +13,7 @@ import json
 import time
 import os
 import base64
+from io import BytesIO
 
 #-------------------------------------- SESIONES --------------------------------------------
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
@@ -84,7 +85,6 @@ with st.sidebar:
     image = Image.open(imagen_path)
     
     # Codificamos la imagen a base64 para incrustarla en HTML
-    from io import BytesIO
     
     buffer = BytesIO()
     image.save(buffer, format="PNG")
