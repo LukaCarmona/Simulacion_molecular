@@ -80,7 +80,7 @@ with st.sidebar:
 
     # Encode the image to base64
     buffer = BytesIO()
-    image.save(buffer, format="PNG")
+    image.save(buffer, format="PNG",help="Home")
     img_str = base64.b64encode(buffer.getvalue()).decode()
 
     # HTML for clickable image
