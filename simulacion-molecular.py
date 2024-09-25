@@ -171,7 +171,8 @@ with st.sidebar:
         for _ in range(num_values):
             new_distancias.append(round(current_value, 2))
             current_value += step
-      
+            
+        st.write(new_distancias)
         # Creación del slider en base a los valores calculados
         range_values = st.select_slider(
             "**Selecciona un rango de distancias**",
