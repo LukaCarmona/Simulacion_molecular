@@ -156,6 +156,8 @@ with st.sidebar:
         
         if archived_type == 0:
             step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1)
+            if step < 0.1 or step > 1.0:
+                valor_correcto = False 
         else:
             step = 0.3
             
@@ -215,7 +217,8 @@ with st.sidebar:
         #             aplicar_cambios()
         #     else:
         #         aplicar_cambios()
-        aplicar_cambios()
+        if valor_correcto:
+            aplicar_cambios()
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
