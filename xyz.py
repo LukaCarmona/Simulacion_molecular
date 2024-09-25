@@ -153,7 +153,7 @@ with st.sidebar:
         max_distancias = max(distancias)
         current_value = min_distancias
         # input para poder elegir el step del gráfico
-        
+        valor_correcto = True
         if archived_type == 0:
             step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1)
             if step < 0.1 or step > 1.0:
