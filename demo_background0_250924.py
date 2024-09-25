@@ -134,7 +134,7 @@ def choose_molecule(
 
     else:
         raise ValueError('Given \'name\' is not in the list. Try \'LiH\', ' +
-                         '\'H2S\', \'SnO\' or \'Li2S\'.')
+                        '\'H2S\', \'SnO\' or \'Li2S\'.')
 
     molecule = driver.run()
     nuc_rep = molecule.nuclear_repulsion_energy
@@ -526,7 +526,7 @@ def read_outputs(name_mol, distance, energy_file, hamiltonian_file, energies_ind
       range_energies = [items[index_min:index_max+1] for items in energies]
       energy = []
       for i in energies_indexs:
-         energy.append(range_energies[i])
+        energy.append(range_energies[i])
 
       hamiltonians = read_hamiltonians(hamiltonian_file)[index_min:index_max+1]
       
@@ -551,7 +551,7 @@ def read_outputs(name_mol, distance, energy_file, hamiltonian_file, energies_ind
       range_energies = [items[index_min:index_max+1] for items in energies]
       energy = []
       for i in energies_indexs:
-         energy.append(range_energies[i])
+        energy.append(range_energies[i])
 
       hamiltonians = read_hamiltonians(hamiltonian_file)[index_min:index_max+1]
     
@@ -575,7 +575,7 @@ def read_outputs(name_mol, distance, energy_file, hamiltonian_file, energies_ind
       range_energies = [items[index_min:index_max+1] for items in energies]
       energy = []
       for i in energies_indexs:
-         energy.append(range_energies[i])
+        energy.append(range_energies[i])
 
       hamiltonians = read_hamiltonians(hamiltonian_file)[index_min:index_max+1]
     
@@ -598,7 +598,7 @@ def read_outputs(name_mol, distance, energy_file, hamiltonian_file, energies_ind
       range_energies = [items[index_min:index_max+1] for items in energies]
       energy = []
       for i in energies_indexs:
-         energy.append(range_energies[i])
+        energy.append(range_energies[i])
 
       hamiltonians = read_hamiltonians(hamiltonian_file)[index_min:index_max+1]
 
@@ -623,7 +623,7 @@ def read_outputs(name_mol, distance, energy_file, hamiltonian_file, energies_ind
       range_energies = [items[index_min:index_max+1] for items in energies]
       energy = []
       for i in energies_indexs:
-         energy.append(range_energies[i])
+        energy.append(range_energies[i])
 
       hamiltonians = read_hamiltonians(hamiltonian_file)[index_min:index_max+1]
 
@@ -751,180 +751,181 @@ def compute_now(name_mol, nlayers, CAS_user, geometry, maxiter_vals, read_hams, 
 
   for ind, dist in enumerate(distance):
 
-   # Variables initialization 
-   global vals_saved, vals_log, min_energy_log, min_params_log, min_energy_term, min_params_term
-   vals_saved = [] #Vals saved for the termination checker
-   vals_log = [] #Vals saved for the Log function
-   min_energy_log, min_energy_term = 0, 0
-   min_params_log, min_params_term = [], []
+    # Variables initialization 
+    global vals_saved, vals_log, min_energy_log, min_params_log, min_energy_term, min_params_term
+    vals_saved = [] #Vals saved for the termination checker
+    vals_log = [] #Vals saved for the Log function
+    min_energy_log, min_energy_term = 0, 0
+    min_params_log, min_params_term = [], []
 
-   log = VQELog([],[])
+    log = VQELog([],[])
 
 
-   #Definition optimizer
-   if ind == 0:
-      print('Optimizer params:', optimizer_params, '\n')
-      if optimizer_params[0]== "SPSA":
-        termination_checker = copy.deepcopy(optimizer_params[3][2])
-      maxiter = np.copy(optimizer_params[1])
-   if optimizer_params[0]== "SPSA":
-      optimizer_params[3][2] = copy.deepcopy(termination_checker[ind])
-   optimizer_params[1] = copy.deepcopy(maxiter[ind])
+    #Definition optimizer
+    if ind == 0:
+        print('Optimizer params:', optimizer_params, '\n')
+        if optimizer_params[0]== "SPSA":
+          termination_checker = copy.deepcopy(optimizer_params[3][2])
+        maxiter = np.copy(optimizer_params[1])
+    if optimizer_params[0]== "SPSA":
+        optimizer_params[3][2] = copy.deepcopy(termination_checker[ind])
+    optimizer_params[1] = copy.deepcopy(maxiter[ind])
 
-   if ind==0:
-      optimizer = def_optimizer(optimizer_params[:4]) #aixooo ho he canviaaat, abans [:3]
-   else:
-      optimizer = def_optimizer(optimizer_params)
+    if ind==0:
+        optimizer = def_optimizer(optimizer_params[:4]) #aixooo ho he canviaaat, abans [:3]
+    else:
+        optimizer = def_optimizer(optimizer_params)
 
-   #Definition molecule
-   if len(geometry)>1:
-     molecule, driver = choose_molecule(name_mol, bond_length = dist, theta = geometry[1])
-   else:
-     molecule, driver = choose_molecule(name_mol, bond_length = dist)
+    #Definition molecule
+    if len(geometry)>1:
+      molecule, driver = choose_molecule(name_mol, bond_length = dist, theta = geometry[1])
+    else:
+      molecule, driver = choose_molecule(name_mol, bond_length = dist)
 
-   #Hamiltonian
-   if read_hams[0]:
-      hamiltonian = hamiltonians[ind+index_min]
-   else:
-     hamiltonian =  qs.reduced_hamiltonian(atom = str(driver.atom), basis = 'sto-3g', output_format = 'qiskit', verbose = False, show_lowest_eigenvalue= False , CAS=(CAS_user[0], CAS_user[1]))
-     hamiltonians.append(hamiltonian)
+    #Hamiltonian
+    if read_hams[0]:
+        hamiltonian = hamiltonians[ind+index_min]
+    else:
+      hamiltonian =  qs.reduced_hamiltonian(atom = str(driver.atom), basis = 'sto-3g', output_format = 'qiskit', verbose = False, show_lowest_eigenvalue= False , CAS=(CAS_user[0], CAS_user[1]))
+      hamiltonians.append(hamiltonian)
 
-    #Ansatz and Options
-   if ind==0:
-     ansatz = def_ansatz(hamiltonian, driver, CAS_user, nlayers)
-      
-     #Set options
-     if computational_style!=0:
-        from qiskit_ibm_runtime import QiskitRuntimeService, Options, Session, EstimatorOptions, EstimatorV2 as Estimator, EstimatorV1
+      #Ansatz and Options
+    if ind==0:
+      ansatz = def_ansatz(hamiltonian, driver, CAS_user, nlayers)
+        
+      #Set options
+      if computational_style!=0:
+          from qiskit_ibm_runtime import QiskitRuntimeService, Options, Session, EstimatorOptions, EstimatorV2 as Estimator, EstimatorV1
 
-        # options = EstimatorOptions()
-        options = Options()
-        #Set number of shots, optimization_level and resilience_level
-        options.default_shots = options_runtime[0]
-        options.optimization_level = options_runtime[1]
-        options.resilience_level = options_runtime[2]
-        options.seed_estimator = 42
+          # options = EstimatorOptions()
+          options = Options()
+          #Set number of shots, optimization_level and resilience_level
+          options.default_shots = options_runtime[0]
+          options.optimization_level = options_runtime[1]
+          options.resilience_level = options_runtime[2]
+          options.seed_estimator = 42
 
-    #Transpilation
-   if backend!=None:
-      ansatz_transpiled, hamiltonian_transpiled = transpilation(backend, options, ansatz, hamiltonian)
+      #Transpilation
+    if backend!=None:
+        ansatz_transpiled, hamiltonian_transpiled = transpilation(backend, options, ansatz, hamiltonian)
 
-   #Creating files for results
-   global f_log
-   f_log = open(f'{name_mol}_dist-{dist:0.2f}_log.txt',"w" )
-   # f_dist = open(f'{name_mol}_only-dist-{dist}.txt',"a")
+    #Creating files for results
+    global f_log
+    f_log = open(f'{name_mol}_dist-{dist:0.2f}_log.txt',"w" )
+    # f_dist = open(f'{name_mol}_only-dist-{dist}.txt',"a")
 
-   if optimizer_params[0]== "SPSA":
-     global f_termch
-     if len(geometry)>1:
-        theta = geometry[1]
-        f_termch = open(f'{name_mol}_dist-{dist:0.2f}_theta-{theta[0]:0.2f}_termch.txt',"a")
-     else:
-        f_termch = open(f'{name_mol}_dist-{dist:0.2f}_termch.txt',"a")
+    if optimizer_params[0]== "SPSA":
+      global f_termch
+      if len(geometry)>1:
+          theta = geometry[1]
+          f_termch = open(f'{name_mol}_dist-{dist:0.2f}_theta-{theta[0]:0.2f}_termch.txt',"a")
+      else:
+          f_termch = open(f'{name_mol}_dist-{dist:0.2f}_termch.txt',"a")
 
-  
+    
 
-   # Initial point
-   if ind==0 and init_params==None:
-     np.random.seed(optimizer_params[2])
-     initial_pt = [np.random.uniform( - np.pi, np.pi ) for i in range(ansatz.num_parameters)]
-     print(' > Random initialization. Parameters:\n', initial_pt, '\n')
-   elif ind==0 and init_params!= None:
-     initial_pt = init_params
-     print(' > Initialization of the defined paramaters:\n', initial_pt, '\n')
+    # Initial point
+    if ind==0 and init_params==None:
+      np.random.seed(optimizer_params[2])
+      initial_pt = [np.random.uniform( - np.pi, np.pi ) for i in range(ansatz.num_parameters)]
+      print(' > Random initialization. Parameters:\n', initial_pt, '\n')
+    elif ind==0 and init_params!= None:
+      initial_pt = init_params
+      print(' > Initialization of the defined paramaters:\n', initial_pt, '\n')
 
-   else: 
-     initial_pt =  result.optimal_point #NOT RESUUUUUULT
-     print(' > Parameters for this distance:\n', initial_pt, '\n')
+    else: 
+      initial_pt =  result.optimal_point #NOT RESUUUUUULT
+      print(' > Parameters for this distance:\n', initial_pt, '\n')
 
-   # VQE
-   if computational_style==0:
-     if ind == 0:
+    # VQE
+    if computational_style==0:
+      if ind == 0:
         from qiskit.primitives import Estimator as Estimator_primitives
         estimator = Estimator_primitives(options = {"simulator": {"seed_simulator": 42}})
         energies_exact=[]
 
-      if name_mol != "Li2S" and compute_exact == True:
-       from qiskit import quantum_info
-       matrix = quantum_info.Operator(hamiltonian).data
-       energies_exact.append(eigvalsh(matrix))
-       
-      elif name_mol == "Li2S" and compute_exact == True:
-          #We compute the CASCI instead of the exacts
-          mol = gto.M( atom = str(driver.atom), basis = 'sto-3g', spin = 0, charge = 0)
-          mf = scf.HF(mol).run(verbose=0)
-          mycas = mcscf.CASCI(mf, CAS_user[1], CAS_user[0])
-          mycas.run(verbose=0)
-          energies_exact.append(mycas.e_tot)
-          
+        if name_mol != "Li2S" and compute_exact == True:
+          from qiskit import quantum_info
+          from numpy.linalg import eigvalsh 
+          matrix = quantum_info.Operator(hamiltonian).data
+          energies_exact.append(eigvalsh(matrix))
+        
+        elif name_mol == "Li2S" and compute_exact == True:
+            #We compute the CASCI instead of the exacts
+            mol = gto.M( atom = str(driver.atom), basis = 'sto-3g', spin = 0, charge = 0)
+            mf = scf.HF(mol).run(verbose=0)
+            mycas = mcscf.CASCI(mf, CAS_user[1], CAS_user[0])
+            mycas.run(verbose=0)
+            energies_exact.append(mycas.e_tot)
+            
 
-       
+        
 
-   elif computational_style==3:
-    # Estimator V2
-    #  estimator = Estimator(mode = backend, options= options) #solo tenía options, lo he cambiado con Estimator V2!!
-      from qiskit_ibm_runtime import EstimatorV1
-      estimator = EstimatorV1(backend = backend, session = session, options= options)
-  #  else:
-  #    estimator = Estimator(session=session, options=options)
-
-
-   if backend!=None:
-
-      vqe = VQE(estimator, ansatz= ansatz_transpiled, optimizer= optimizer, initial_point=initial_pt, callback= log.update)
-      result = vqe.compute_minimum_eigenvalue(operator = hamiltonian_transpiled)
-   else:
-     vqe = VQE(estimator, ansatz= ansatz, optimizer= optimizer, initial_point=initial_pt, callback= log.update)
-     result = vqe.compute_minimum_eigenvalue(operator = hamiltonian)
-
-   print(f' ---- Experiment with bond length={dist:0.2f} has ended ---- ')
-   print(f' >  Final energy:', result.optimal_value)
-   print(f' >  Final parameters:', result.optimal_point)
-   energy.append(result.optimal_value)
-   print(f'\n >  Minimal energy log: {min_energy_log}')
-   print(f' >  Parameters of minimal energy log: {min_params_log}')
-   
-   
-   
-   #Closing the Log and the TerminationChecker files
-   f_log.close()
+    elif computational_style==3:
+      # Estimator V2
+      #  estimator = Estimator(mode = backend, options= options) #solo tenía options, lo he cambiado con Estimator V2!!
+        from qiskit_ibm_runtime import EstimatorV1
+        estimator = EstimatorV1(backend = backend, session = session, options= options)
+    #  else:
+    #    estimator = Estimator(session=session, options=options)
 
 
-   if optimizer_params[0]== "SPSA":
-     # global vals_saved
-     f_termch.close()
-     min_results = [min_energy_log, min_params_log, min_energy_term, min_params_term]
+    if backend!=None:
 
-     print(f'\n >  Minimal energy term_ch: {min_energy_term}')
-     print(f'\n >  Parameters of minimal energy term_ch: {min_params_term}')
+        vqe = VQE(estimator, ansatz= ansatz_transpiled, optimizer= optimizer, initial_point=initial_pt, callback= log.update)
+        result = vqe.compute_minimum_eigenvalue(operator = hamiltonian_transpiled)
+    else:
+      vqe = VQE(estimator, ansatz= ansatz, optimizer= optimizer, initial_point=initial_pt, callback= log.update)
+      result = vqe.compute_minimum_eigenvalue(operator = hamiltonian)
 
-     last_energies_log = vals_log[-40:]
-     mean_energy_log = [sum(last_energies_log)/len(last_energies_log), np.std(last_energies_log, ddof=1)/np.sqrt(len(last_energies_log))]
-     print(f'\n >  Mean energy of the last 40 points (log) = {mean_energy_log[0]}+- {mean_energy_log[1]} A')
+    print(f' ---- Experiment with bond length={dist:0.2f} has ended ---- ')
+    print(f' >  Final energy:', result.optimal_value)
+    print(f' >  Final parameters:', result.optimal_point)
+    energy.append(result.optimal_value)
+    print(f'\n >  Minimal energy log: {min_energy_log}')
+    print(f' >  Parameters of minimal energy log: {min_params_log}')
+    
+    
+    
+    #Closing the Log and the TerminationChecker files
+    f_log.close()
 
-     last_energies_term = vals_saved[-20:]
-     mean_energy_term = [sum(last_energies_term)/len(last_energies_term), np.std(last_energies_term, ddof=1)/np.sqrt(len(last_energies_term))]
-     print(f'\n >  Mean energy of the last 20 points (term) = {mean_energy_term[0]}+- {mean_energy_term[1]} A')
 
-     mean_energy = [mean_energy_log[0], mean_energy_log[1], mean_energy_term[0], mean_energy_term[1]]
+    if optimizer_params[0]== "SPSA":
+      # global vals_saved
+      f_termch.close()
+      min_results = [min_energy_log, min_params_log, min_energy_term, min_params_term]
+
+      print(f'\n >  Minimal energy term_ch: {min_energy_term}')
+      print(f'\n >  Parameters of minimal energy term_ch: {min_params_term}')
+
+      last_energies_log = vals_log[-40:]
+      mean_energy_log = [sum(last_energies_log)/len(last_energies_log), np.std(last_energies_log, ddof=1)/np.sqrt(len(last_energies_log))]
+      print(f'\n >  Mean energy of the last 40 points (log) = {mean_energy_log[0]}+- {mean_energy_log[1]} A')
+
+      last_energies_term = vals_saved[-20:]
+      mean_energy_term = [sum(last_energies_term)/len(last_energies_term), np.std(last_energies_term, ddof=1)/np.sqrt(len(last_energies_term))]
+      print(f'\n >  Mean energy of the last 20 points (term) = {mean_energy_term[0]}+- {mean_energy_term[1]} A')
+
+      mean_energy = [mean_energy_log[0], mean_energy_log[1], mean_energy_term[0], mean_energy_term[1]]
 
 
-   else:
-     #We calculate the mean_energy with the log values but with the last 40 values
-     min_results = [min_energy_log, min_params_log]
+    else:
+      #We calculate the mean_energy with the log values but with the last 40 values
+      min_results = [min_energy_log, min_params_log]
 
-     last_energies_log = vals_log[-40:]
-     mean_energy_log = [sum(last_energies_log)/len(last_energies_log), np.std(last_energies_log, ddof=1)/np.sqrt(len(last_energies_log))]
-     print(f'\n >  Mean energy of the last 40 points (log) = {mean_energy_log[0]}+- {mean_energy_log[1]} A')
+      last_energies_log = vals_log[-40:]
+      mean_energy_log = [sum(last_energies_log)/len(last_energies_log), np.std(last_energies_log, ddof=1)/np.sqrt(len(last_energies_log))]
+      print(f'\n >  Mean energy of the last 40 points (log) = {mean_energy_log[0]}+- {mean_energy_log[1]} A')
 
-     mean_energy = [mean_energy_log[0], mean_energy_log[1]]
+      mean_energy = [mean_energy_log[0], mean_energy_log[1]]
 
-   #Writing into the file of only this distance and the all distance 
-   # f_dist = dp.write_results(f, 0, name_mol, dist, nlayers, optimizer_params, result, backend)
-   if len(geometry)>1:
-     f = write_results(f, ind, name_mol, dist, nlayers, optimizer_params, result, mean_energy, min_results, backend, theta = [False, geometry[1]])
-   else: 
-     f = write_results(f, ind, name_mol, dist, nlayers, optimizer_params, result, mean_energy, min_results, backend, theta = [False])
+    #Writing into the file of only this distance and the all distance 
+    # f_dist = dp.write_results(f, 0, name_mol, dist, nlayers, optimizer_params, result, backend)
+    if len(geometry)>1:
+      f = write_results(f, ind, name_mol, dist, nlayers, optimizer_params, result, mean_energy, min_results, backend, theta = [False, geometry[1]])
+    else: 
+      f = write_results(f, ind, name_mol, dist, nlayers, optimizer_params, result, mean_energy, min_results, backend, theta = [False])
   ttime = time.time()-time0
   print('\n \n ************************ FINISHED ************************')
   print(f'---- Total ellapsed time = {(time.time()-time0):0.2f} seconds. -----')

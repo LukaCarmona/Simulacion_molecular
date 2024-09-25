@@ -14,7 +14,7 @@ Autor: Marina Ristol Roura
 Title: backend-molecular-notebook
 
 Notes:
- - This notebook is made to create the python file (.py) to create the outputs for the Streamlit app. This is the final and definitive program.
+  - This notebook is made to create the python file (.py) to create the outputs for the Streamlit app. This is the final and definitive program.
 '''
 
 import demo_background0_250924 as db
