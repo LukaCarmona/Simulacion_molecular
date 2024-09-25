@@ -27,7 +27,7 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
             if st.session_state.selected_molecule == "LiH":
                 molecula = "Li-H"
             elif st.session_state.selected_molecule == "SnO":
-                molecula = "Sn-o"
+                molecula = "Sn-O"
             elif st.session_state.selected_molecule == "LiSH":
                 molecula = "Li-S"
             elif st.session_state.selected_molecule == "H2S":

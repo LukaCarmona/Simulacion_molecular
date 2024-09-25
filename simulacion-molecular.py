@@ -366,8 +366,9 @@ if st.session_state.mostrar:
                 # st.write(energias)
                 distancias = st.session_state.resultado[0]
                 hartree_fall = st.session_state.resultado[1][1]
-                exacto = st.session_state.resultado[1][2]                     
-                print("Resultado", st.session_state.resultado)
+                exacto = st.session_state.resultado[1][2]      
+                print("Resultado 0", st.session_state.resultado[0])               
+                print("Resultado 1", st.session_state.resultado[1])
                 #llamo a la funcion que da nombre al x_label
                 x_label = x_label_content()
 
