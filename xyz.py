@@ -156,8 +156,14 @@ with st.sidebar:
         valor_correcto = True
         if archived_type == 0:
             step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1)
+
+            # Verifica si el step es válido
             if step < 0.1 or step > 1.0:
-                valor_correcto = False 
+                st.error("Por favor, introduzca un valor de step entre 0.1 y 1.0.")
+                # Cambiar variable según la necesidad
+                step = None  # Cambiar a una variable que quieras modificar
+            else:
+                valor_correcto = True
         else:
             step = 0.3
             
