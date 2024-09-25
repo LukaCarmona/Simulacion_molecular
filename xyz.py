@@ -258,7 +258,7 @@ if st.session_state.mostrar:
     with col1:
         if st.button("HOME", key="home_button", help="Home", use_container_width=True):
             st.session_state.mostrar = False
-            st.experimental_rerun
+            st.rerun()
     
     if st.session_state.pulsado:
         #gif de espera
