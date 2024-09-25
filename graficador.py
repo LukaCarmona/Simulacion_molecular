@@ -53,6 +53,9 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
             st.pyplot(fig)
             
     elif archived_type == 0:
+        print("EXACTO: ", exacto)
+        print("DISTANCIAS: ", distancias)
+
         if option == "Un Rango":
             # if exacto != None: 
             #     ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")

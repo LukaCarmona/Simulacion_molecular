@@ -11,7 +11,7 @@
     "SnO":{
         "case_1":{
             "Electrones_activos":[6,10],
-            "Orbitales_moleculares":[5,0],
+            "Orbitales_moleculares":[5],
             "distance": [0.7, 3.7],
             "step":[0.3]
         }
