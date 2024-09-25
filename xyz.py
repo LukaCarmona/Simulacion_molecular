@@ -76,12 +76,26 @@ with open("datos.json", "r") as data:
 with st.sidebar:
     # Primero movemos la selección de "Ejecutar en" aquí
     # Imagen de logo Q4Real
-    imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
-    image = Image.open(imagen_path)
-    st.image(image, use_column_width=True)
+    # imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
+    # image = Image.open(imagen_path)
+    # st.image(image, use_column_width=True)
     
-    # if st.button("🏚", key="home_button", help="Home", use_container_width=True):
-    #     st.session_state.mostrar = False
+    imagen_path = Path(__file__).parent / "logotipo-web-alpha.png"
+    image = Image.open(imagen_path)
+    
+    # Codificamos la imagen a base64 para incrustarla en HTML
+    from io import BytesIO
+    
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    img_str = base64.b64encode(buffer.getvalue()).decode()
+    
+    # HTML para hacer la imagen clicable
+    image_html = f"""
+    <a href="" target="_self">
+        <img src="data:image/png;base64,{img_str}" style="width: 100%;">
+    </a>
+    """
     
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
