@@ -161,7 +161,7 @@ with st.sidebar:
             
         step = round(step,1)
         st.write(step)
-        num_values = round((distancias[1]-distancias[0])/ step)
+        num_values = round((distancias[1]-distancias[0])/ step)+1
         # st.write(num_values)
 
         # Array de distancias con los valores calculados
