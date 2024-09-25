@@ -13,7 +13,6 @@ import json
 import time
 import os
 import base64
-from io import BytesIO
 
 #-------------------------------------- SESIONES --------------------------------------------
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
@@ -75,28 +74,22 @@ with open("datos.json", "r") as data:
 
 # ------------------------------------- SIDE BAR ---------------------------------------------
 with st.sidebar:
-    # Primero movemos la selección de "Ejecutar en" aquí
-    # Imagen de logo Q4Real
-    # imagen_path = Path(__file__).parent / 'logotipo-web-alpha.png'
-    # image = Image.open(imagen_path)
-    # st.image(image, use_column_width=True)
-    
     imagen_path = Path(__file__).parent / "logotipo-web-alpha.png"
     image = Image.open(imagen_path)
-    
-    # Codificamos la imagen a base64 para incrustarla en HTML
-    
+
+    # Encode the image to base64
     buffer = BytesIO()
     image.save(buffer, format="PNG")
     img_str = base64.b64encode(buffer.getvalue()).decode()
-    
-    # HTML para hacer la imagen clicable
+
+    # HTML for clickable image
     image_html = f"""
     <a href="" target="_self">
         <img src="data:image/png;base64,{img_str}" style="width: 100%;">
     </a>
     """
-    
+    st.markdown(image_html, unsafe_allow_html=True)
+
     archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     st.session_state.archived_type = archived_type
     
