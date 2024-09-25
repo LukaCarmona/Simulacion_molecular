@@ -155,7 +155,7 @@ with st.sidebar:
         # input para poder elegir el step del gráfico
         
         if archived_type == 0:
-            step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1)
+            step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
         else:
             step = 0.3
             
