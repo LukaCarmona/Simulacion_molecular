@@ -252,8 +252,18 @@ with st.sidebar:
            
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
-    if st.button("🏚", key="home_button", help="Home", use_container_width=True):
-        st.session_state.mostrar = False
+    col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
+
+    # Colocar el botón "HOME" en la primera columna
+    with col1:
+        if st.button("HOME", key="home_button", help="Home", use_container_width=True):
+            st.session_state.mostrar = False
+
+    # Aquí puedes añadir otros elementos o contenido en la segunda columna
+    with col2:
+        st.header("Título de la Aplicación")
+        st.write("Contenido principal de la aplicación aquí.")
+        
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
