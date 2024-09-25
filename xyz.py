@@ -158,7 +158,9 @@ with st.sidebar:
             step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
         else:
             step = 0.3
+            
         step = round(step,1)
+        st.write(step)
         num_values = round((distancias[1] / step)-distancias[0])
         # st.write(num_values)
 
