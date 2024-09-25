@@ -215,6 +215,7 @@ with st.sidebar:
         #             aplicar_cambios()
         #     else:
         #         aplicar_cambios()
+        print(step)
         aplicar_cambios()
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
