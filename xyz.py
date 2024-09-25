@@ -194,6 +194,7 @@ with st.sidebar:
         distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step)
 
         distancia_min = round(distancia_min * 2) / 2
+        distancia_min = round(distancia_min, 1)
         st.write(distancia_min)
     col1, col2 = st.columns(2)
     
