@@ -5,7 +5,7 @@
 # from st_speckmol import speck_plot
 from pathlib import Path
 from PIL import Image
-from backend_molecular_210824 import calculate_outputs, write_hamiltonians
+from backend_molecular_250924 import calculate_outputs, write_hamiltonians
 from graficador import create_graph
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -192,8 +192,7 @@ with st.sidebar:
     elif option == "Un Punto":
         # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
         distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
-
-        distancia_min = round(distancia_min * 2) / 2
+        distancia_min = round(distancia_min / 0.3) * 0.3
         distancia_min = round(distancia_min, 1)
         st.write(distancia_min)
     col1, col2 = st.columns(2)
