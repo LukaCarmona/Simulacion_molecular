@@ -109,12 +109,28 @@ with st.sidebar:
             
     moleculas = list(datos_json.keys())
     # select box de molécula
+    container_style = """
+        <style>
+        .styled-container {
+            border: 2px solid #f63366; /* Color y grosor del borde */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 10px; /* Espaciado interno */
+            background-color: #f0f2f6; /* Color de fondo */
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1); /* Sombra */
+            margin-bottom: 20px; /* Espacio inferior */
+        }
+        </style>
+    """
+
+    # Insertar el estilo en la aplicación
+    st.markdown(container_style, unsafe_allow_html=True)
+
+    # Crear el contenedor con el estilo personalizado
     container1 = st.container()
-    div = """<div class = 'test1'>"""
+    div = """<div class='styled-container'>"""
     divEnd = """</div>"""
 
     with container1:
-        st.write("----------------------------------------------------------------------------------")
         container1.markdown(div, unsafe_allow_html=True)
         molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
         # carga de datos de molécula en base a molécula seleccionada en el select box
@@ -128,13 +144,11 @@ with st.sidebar:
             if molecula == "H2S":
                 st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar de 3 a 4 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
         
-        
         # carga de datos de select box en base a molécula seleccionada y contenido del json
         energias_fijas = datos_molecula['Electrones_activos']
         if archived_type == 0:
             energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
         else:
-            # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
             st.write("**Electrones activos**"+": "+ str(energias_fijas[0]))
             energy = energias_fijas[0]
 
@@ -143,16 +157,17 @@ with st.sidebar:
         if archived_type == 0:
             orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
         else:
-            # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
             st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
             orbitas = numeros_orbitas[0]
+
         # asignación de columnas para el estilo del sidebar
         col1, col2 = st.columns(2)
         with col1:
             # selector de tipo de distancia para generar los gráficos 
             option = st.radio("**Seleccione el tipo de distancia**", ("Un Rango", "Un Punto"), key='option')
             distancias = datos_molecula['distance']
-    container1.markdown(divEnd, unsafe_allow_html=True)   
+        
+        container1.markdown(divEnd, unsafe_allow_html=True)
          
     if option == "Un Rango":
         # inicializo las variables para la hora de crear el slider
