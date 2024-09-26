@@ -114,6 +114,7 @@ with st.sidebar:
     divEnd = """</div>"""
 
     with container1:
+        st.write("----------------------------------------------------------------------------------")
         container1.markdown(div, unsafe_allow_html=True)
         molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
         # carga de datos de molécula en base a molécula seleccionada en el select box
