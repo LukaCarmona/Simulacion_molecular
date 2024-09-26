@@ -14,7 +14,7 @@ Autor: Marina Ristol Roura
 Title: backend-molecular-notebook
 
 Notes:
-  - This notebook is made to create the python file (.py) to create the outputs for the Streamlit app. This is the final and definitive program.
+ - This notebook is made to create the python file (.py) to create the outputs for the Streamlit app. This is the final and definitive program.
 '''
 
 import demo_background0_250924 as db
@@ -24,7 +24,7 @@ import time
 import sys
 
 
-def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molecular_orbitals:int, distance_min: float, distance_max: float = None, step: float = None, theta_min: float = None, theta_max: float = None, theta_step: float = None, nlayers:int = 1 , init_params = None, backend = None, session = None) -> tuple[list, list, list, str]:
+def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molecular_orbitals:int, distance_min: float, distance_max: float = None, step: float = None, theta_min: float = None, theta_max: float = None, theta_step: float = None, nlayers:int = 1 , init_params = None, backend = None, session = None, exact_computation = True) -> tuple[list, list, list, str]:
   '''
   Function that takes all the user inputs and gives the proper outputs to build the results in the Streamlit app.
 
@@ -200,14 +200,14 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
 
     if init_params == None:
       distance, energy_vqe, hamiltonians, ttime, energy_exact = db.compute_now(name_mol, nlayers, [active_electrons, molecular_orbitals], geometry,max_iter,
-                                                    read_hams, computational_style = comp_style, options_runtime = options_runtime, backend = backend, session = session)
+                                                    read_hams, computational_style = comp_style, options_runtime = options_runtime, backend = backend, session = session, compute_exact = exact_computation)
     else:
       distance, energy_vqe, hamiltonians, ttime, energy_exact = db.compute_now(name_mol, nlayers, [active_electrons, molecular_orbitals], geometry,max_iter,
-                                                    read_hams, computational_style = comp_style, options_runtime = options_runtime, backend = backend, session = session,  init_params = init_params)
+                                                    read_hams, computational_style = comp_style, options_runtime = options_runtime, backend = backend, session = session,  init_params = init_params, compute_exact = exact_computation)
 
     if len(distance)>1:
       if index_min != None:
-        energy = [energy_vqe, r_energies[2][index_min:index_max+1], r_energies[5][index_min:index_max+1]]
+        energy = [energy_vqe, r_energies[2][index_min:index_max+1], r_energies[3][index_min:index_max+1]]
         
         hamiltonians = hamiltonians[index_min: index_max+1]
       else:
