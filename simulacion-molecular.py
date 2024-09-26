@@ -160,7 +160,7 @@ with st.sidebar:
             step = 0.3
             
         step = round(step,1)
-        st.write(step)
+        # st.write(step)
         num_values = round((distancias[1]-distancias[0])/ step)+1
         # st.write(num_values)
 
@@ -172,7 +172,7 @@ with st.sidebar:
             new_distancias.append(round(current_value, 2))
             current_value += step
             
-        st.write(new_distancias)
+        # st.write(new_distancias)
         # Creación del slider en base a los valores calculados
         range_values = st.select_slider(
             "**Selecciona un rango de distancias**",
@@ -195,7 +195,7 @@ with st.sidebar:
         distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
         # distancia_min = round(distancia_min / 0.3) * 0.3
         distancia_min = round(distancia_min, 1)
-        st.write(distancia_min)
+        # st.write(distancia_min)
     col1, col2 = st.columns(2)
     
     with col1:
@@ -368,8 +368,8 @@ if st.session_state.mostrar:
                 distancias = st.session_state.resultado[0]
                 hartree_fall = st.session_state.resultado[1][1]
                 exacto = st.session_state.resultado[1][2]      
-                st.write("Resultado 0", st.session_state.resultado[0])               
-                st.write("Resultado 1", st.session_state.resultado[1])
+                # st.write("Resultado 0", st.session_state.resultado[0])               
+                # st.write("Resultado 1", st.session_state.resultado[1])
                 #llamo a la funcion que da nombre al x_label
                 x_label = x_label_content()
 
