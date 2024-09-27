@@ -405,10 +405,10 @@ else:
     #mensaje de presentacion de la pagina
     var1 = __file__
     titulo = '''
-        <div style="background-color: #f7f7f7; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular!</h1>
-            <div style="max-height: 300px; overflow-y: auto; padding: 10px; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px;">
-                <p>
+            <div style="max-height: 300px; overflow-y: auto; padding: 10px; background-color: #0E1117; border: 1px solid #32C7AF; border-radius: 10px;">
+                <p color:#ad44ff>
                 En esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas 
                 y los resultados que obtenemos en energías. <br><br> 
                 Las simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. 
