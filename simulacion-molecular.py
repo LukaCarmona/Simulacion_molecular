@@ -404,6 +404,44 @@ if st.session_state.mostrar:
 else:
     #mensaje de presentacion de la pagina
     var1 = __file__
-    titulo = '<h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular! \nEn esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas y los resultados que obtenemos en energías.  \nLas simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. Estas son calculadas por ordenadores utilizando la computación cuántica, que tiene el potencial de conseguir resultados más precisos y de moléculas más complejas que con computación clásica. \nPor esta razón, en Q4Real hemos hecho un código que compara los resultados conseguidos con el algoritmo Variational Quantum Eigensolver (VQE) de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente para sistemas sencillos.  \nY ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! \n\n\n¿Cómo funciona? \nEscoge el tipo de ejecución:  \nArchivo: Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.  \nSimulación local: Para hacer los cálculos que tú quieras, en las distancias que tu especifiques. Puede tardar varios minutos en verse los resultados.   \n\n\nDefinición del sistema: \nMolécula: escoge la molécula que quieras simular. \nEspacio activo: selecciona los electrones activos y los orbitales moleculares con los que quieras simular el sistema, o bien déjalos en la selección inicial para que los cálculos sean más rápidos. \nDistancias: \nUna sola distancia: cálculo del valor de energía de la molécula en esta distancia. Se grafica el proceso de convergencia de la energía con el algoritmo VQE, la energía en función del número de iteraciones.  \nUn rango de distancias: cálculo de las energías por cada distancia dentro del rango introducido. Se grafica la energía en función de la distancia entre los átomos de la molécula.  </h1>'
+    titulo = '''
+        <div style="background-color: #f7f7f7; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular!</h1>
+            <div style="max-height: 300px; overflow-y: auto; padding: 10px; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px;">
+                <p>
+                En esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas 
+                y los resultados que obtenemos en energías. <br><br> 
+                Las simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. 
+                Estas son calculadas por ordenadores utilizando la computación cuántica, que tiene el potencial de conseguir resultados 
+                más precisos y de moléculas más complejas que con computación clásica. <br><br>
+                Por esta razón, en Q4Real hemos hecho un código que compara los resultados conseguidos con el algoritmo Variational 
+                Quantum Eigensolver (VQE) de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
+                para sistemas sencillos. <br><br> 
+                Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br><br>
+                <strong>¿Cómo funciona?</strong><br>
+                <strong>Escoge el tipo de ejecución:</strong><br>
+                <ul>
+                    <li><strong>Archivo:</strong> Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.</li>
+                    <li><strong>Simulación local:</strong> Para hacer los cálculos que tú quieras, en las distancias que tú especifiques. Puede tardar varios minutos en verse los resultados.</li>
+                </ul>
+                <br><br>
+                <strong>Definición del sistema:</strong><br>
+                <ul>
+                    <li><strong>Molécula:</strong> Escoge la molécula que quieras simular.</li>
+                    <li><strong>Espacio activo:</strong> Selecciona los electrones activos y los orbitales moleculares con los que quieras simular el sistema, 
+                    o bien déjalos en la selección inicial para que los cálculos sean más rápidos.</li>
+                    <li><strong>Distancias:</strong></li>
+                    <ul>
+                        <li><strong>Una sola distancia:</strong> Cálculo del valor de energía de la molécula en esta distancia. Se grafica el proceso de convergencia 
+                        de la energía con el algoritmo VQE, la energía en función del número de iteraciones.</li>
+                        <li><strong>Un rango de distancias:</strong> Cálculo de las energías por cada distancia dentro del rango introducido. Se grafica la energía 
+                        en función de la distancia entre los átomos de la molécula.</li>
+                    </ul>
+                </ul>
+                </p>
+            </div>
+        </div>
+        '''
+
+        # Mostrar el contenido formateado en Streamlit
     st.markdown(titulo, unsafe_allow_html=True)
-    
