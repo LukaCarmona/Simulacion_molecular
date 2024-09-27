@@ -408,7 +408,7 @@ else:
         <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular!</h1>
             <div style="max-height: 400px; overflow-y: auto; padding: 10px; background-color: #0E1117; border: 1px solid #0E1117; border-radius: 10px;">
-                <p style="color:#ad44ff">
+                <p style="color:#ffffff">
                 En esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas 
                 y los resultados que obtenemos en energías. <br><br> 
                 Las simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. 
