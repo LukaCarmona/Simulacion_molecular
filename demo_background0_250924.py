@@ -314,9 +314,9 @@ class TerminationChecker:
 
         global vals_saved, f_termch, min_energy_term, min_params_term
 
-        print('- Iteration TermCh:', len(self.values))
-        print('Last value:', value)
-        print('Last parameters:', parameters)
+        # print('- Iteration TermCh:', len(self.values))
+        # print('Last value:', value)
+        # print('Last parameters:', parameters)
 
         if len(self.values) > self.N:
             last_values = self.values[-self.N:]

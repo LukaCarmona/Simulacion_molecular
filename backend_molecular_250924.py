@@ -180,7 +180,7 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
     else:
       raise ValueError("Only the LiH, SnO, H2S and LiSH molecules can be calculated on the spot. Try to use the LiH, SnO and H2S molecules or set archived to 1.")
 
-    print('Read_hams', read_hams)
+    # print('Read_hams', read_hams)
     # ---- COMPUTE THE ENERGIES WITH QISKIT PRIMITIVES ----
     if archived == 0:
       comp_style = 0
@@ -226,7 +226,7 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
       hamiltonians = hamiltonians[index_min: index_max+1]
   
 
-  print("energy funcion",energy)
+  # print("energy funcion",energy)
   return distance, energy, hamiltonians
 
 
@@ -267,15 +267,15 @@ def write_hamiltonians(name_mol: str, active_electrons:int , molecular_orbitals:
 
   f = open(file_name, "w")
   if len(distance)>1:
-    print("hamiltonian len",len(hamiltonians))
-    print("distance len",len(distance))
+    # print("hamiltonian len",len(hamiltonians))
+    # print("distance len",len(distance))
     for index, hamiltonian in enumerate(hamiltonians):
         # print("ERROOR",distance[index])
-        print("-------------------------------------------------------")
-        print("print de la longitud del hamiltoniano",len(hamiltonians))
-        print("-------------------------------------------------------")
-        print('Index', index)
-        print(distance)
+        # print("-------------------------------------------------------")
+        # print("print de la longitud del hamiltoniano",len(hamiltonians))
+        # print("-------------------------------------------------------")
+        # print('Index', index)
+        # print(distance)
         if theta is None:
             f.write(f'\n Hamiltonian {index} for distance={distance[index]}:\n {hamiltonian}\n')
         else:

@@ -48,14 +48,14 @@ def aplicar_cambios():
 
         if option == "Un Rango":
             st.session_state.selected_range = (range_values[0], range_values[-1])
-            print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
+            # print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
             # guardo el step y range_values porque al ser un rango la función de resultado necesita parámetros distintos
             st.session_state.selected_range = range_values
             resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
             # guardo el resultado en una sesión para poder mantener los datos del gráfico 
             st.session_state.resultado = resultado
             
-            print("VALOREEES", st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
+            # print("VALOREEES", st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
     
             # llamo a la función que crea los hamiltonianos
             write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
@@ -247,7 +247,7 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
             else:
                 #dependiendo de la opcion elegida cambia el file_path
-                print([round(distancia_min,1)])
+                # print([round(distancia_min,1)])
                 file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt"
                 #habro el documento para guardar en una variable el contenido del archivo
                 with open(file_path, 'r') as download_file:
@@ -404,6 +404,6 @@ if st.session_state.mostrar:
 else:
     #mensaje de presentacion de la pagina
     var1 = __file__
-    titulo = '<h1 style="color: #ad44ff; padding: 10px;">Esto es una página web para visualizar moléculas y ver su comportamiento además de poder ajustarlas y ver qué sucedería</h1>'
+    titulo = '<h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular! \nEn esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas y los resultados que obtenemos en energías.  \nLas simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. Estas son calculadas por ordenadores utilizando la computación cuántica, que tiene el potencial de conseguir resultados más precisos y de moléculas más complejas que con computación clásica. \nPor esta razón, en Q4Real hemos hecho un código que compara los resultados conseguidos con el algoritmo Variational Quantum Eigensolver (VQE) de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente para sistemas sencillos.  \nY ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! \n\n\n¿Cómo funciona? \nEscoge el tipo de ejecución:  \nArchivo: Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.  \nSimulación local: Para hacer los cálculos que tú quieras, en las distancias que tu especifiques. Puede tardar varios minutos en verse los resultados.   \n\n\nDefinición del sistema: \nMolécula: escoge la molécula que quieras simular. \nEspacio activo: selecciona los electrones activos y los orbitales moleculares con los que quieras simular el sistema, o bien déjalos en la selección inicial para que los cálculos sean más rápidos. \nDistancias: \nUna sola distancia: cálculo del valor de energía de la molécula en esta distancia. Se grafica el proceso de convergencia de la energía con el algoritmo VQE, la energía en función del número de iteraciones.  \nUn rango de distancias: cálculo de las energías por cada distancia dentro del rango introducido. Se grafica la energía en función de la distancia entre los átomos de la molécula.  </h1>'
     st.markdown(titulo, unsafe_allow_html=True)
     
