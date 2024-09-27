@@ -408,7 +408,7 @@ else:
         <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular!</h1>
             <div style="max-height: 400px; overflow-y: auto; padding: 10px; background-color: #0E1117; border: 1px solid #0E1117; border-radius: 10px;">
-                <p color:#ad44ff>
+                <p style="color:#ad44ff">
                 En esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas 
                 y los resultados que obtenemos en energías. <br><br> 
                 Las simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. 
@@ -420,18 +420,18 @@ else:
                 Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br><br>
                 <strong>¿Cómo funciona?</strong><br>
                 <strong>Escoge el tipo de ejecución:</strong><br>
-                <ul>
+                <ul style="margin-left: 10px">
                     <li><strong>Archivo:</strong> Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.</li>
                     <li><strong>Simulación local:</strong> Para hacer los cálculos que tú quieras, en las distancias que tú especifiques. Puede tardar varios minutos en verse los resultados.</li>
                 </ul>
                 <br><br>
                 <strong>Definición del sistema:</strong><br>
-                <ul>
+                <ul style="margin-left: 10px">
                     <li><strong>Molécula:</strong> Escoge la molécula que quieras simular.</li>
                     <li><strong>Espacio activo:</strong> Selecciona los electrones activos y los orbitales moleculares con los que quieras simular el sistema, 
                     o bien déjalos en la selección inicial para que los cálculos sean más rápidos.</li>
                     <li><strong>Distancias:</strong></li>
-                    <ul>
+                    <ul style="margin-left: 10px">
                         <li><strong>Una sola distancia:</strong> Cálculo del valor de energía de la molécula en esta distancia. Se grafica el proceso de convergencia 
                         de la energía con el algoritmo VQE, la energía en función del número de iteraciones.</li>
                         <li><strong>Un rango de distancias:</strong> Cálculo de las energías por cada distancia dentro del rango introducido. Se grafica la energía 
