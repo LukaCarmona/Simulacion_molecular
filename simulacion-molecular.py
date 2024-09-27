@@ -418,7 +418,7 @@ else:
                 Quantum Eigensolver (VQE) de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
                 para sistemas sencillos. <br><br> 
                 Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br><br>
-                <strong>¿Cómo funciona?</strong><br><br>
+                <h3 style="color: #ad44ff">¿Cómo funciona?</h3><br><br>
                 <strong>Escoge el tipo de ejecución:</strong><br>
                 <ul style="margin-left: 10px">
                     <li><strong>Archivo:</strong> Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.</li>
