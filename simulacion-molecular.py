@@ -38,21 +38,6 @@ else:
     st.error(f"El archivo CSS en {htmlpath} no se encontró.")
 
 def aplicar_cambios():
-    svg_file_path = Path("play_arrow.svg")  # Asegúrate de que la ruta sea correcta
-    # Leer el contenido del archivo SVG
-    with open(svg_file_path, 'r') as svg_file:
-        svg_icon = svg_file.read()
-
-    # Estilo del botón
-    button_html = f"""
-    <div style="background-color: lightgray; border: none; border-radius: 5px; padding: 10px; text-align: center; cursor: pointer;" onclick="document.getElementById('apply-button').click();">
-        {svg_icon}
-    </div>
-    <input type="submit" id="apply-button" style="display: none;">
-    """
-
-    # Mostrar el botón en Streamlit
-    st.markdown(button_html, unsafe_allow_html=True)
     if st.button('Aplicar cambios'):
         st.session_state.pulsado = True
         st.session_state.mostrar = True
