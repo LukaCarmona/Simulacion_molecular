@@ -115,7 +115,8 @@ with st.sidebar:
     divEnd = """</div>"""
 
     container2 = st.container()
-
+    div = """<div class = 'test1' style = 'border: solid gray 2px;>"""
+    divEnd = """</div>"""
     with container1:
         container1.markdown(div, unsafe_allow_html=True)
         molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
@@ -152,7 +153,7 @@ with st.sidebar:
         container1.markdown(divEnd, unsafe_allow_html=True)
 
     with container2:
-        container1.markdown(div, unsafe_allow_html=True)
+        container2.markdown(div, unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
             # selector de tipo de distancia para generar los gráficos 
