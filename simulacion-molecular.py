@@ -111,7 +111,7 @@ with st.sidebar:
     # select box de molécula
     st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
     container1 = st.container()
-    div = """<div class = 'test1' style = 'border:solid gray 2px;>"""
+    div = """<div class = 'test1' style = 'border: solid gray 2px;>"""
     divEnd = """</div>"""
 
     container2 = st.container()
