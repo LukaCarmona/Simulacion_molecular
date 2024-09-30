@@ -17,7 +17,7 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
     ax.ticklabel_format(useOffset=False, style='plain') 
     
     if archived_type == 1:
-        if option == "Un Rango":
+        if option == "Un rango de distancias":
             ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")
             ax.plot(distancias, energias, label='VQE ideal', marker='o', linewidth=0, color='#32C7AF', markersize=10)
             
@@ -55,7 +55,7 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
     elif archived_type == 0:
         # st.write("EXACTO: ", exacto)
         # st.write("DISTANCIAS: ", distancias)
-        if option == "Un Rango":
+        if option == "Una sola distancia":
             # if exacto != None: 
             #     ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")
                 
