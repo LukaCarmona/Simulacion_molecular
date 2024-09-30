@@ -109,7 +109,6 @@ with st.sidebar:
             
     moleculas = list(datos_json.keys())
     # select box de molécula
-    st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
     container1 = st.container(border=True)
 
     container2 = st.container(border=True)
