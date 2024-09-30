@@ -149,12 +149,12 @@ with st.sidebar:
         # asignación de columnas para el estilo del sidebar
 
         with container2:
-            col1, col2 = st.columns(2)
-            with col1:
-                # selector de tipo de distancia para generar los gráficos 
-                option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
-                distancias = datos_molecula['distance']
-                
+            # col1, col2 = st.columns(2)
+            # with col1:
+            # selector de tipo de distancia para generar los gráficos 
+            option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
+            distancias = datos_molecula['distance']
+            
             if option == "Un rango de distancias":
                 # inicializo las variables para la hora de crear el slider
                 new_distancias = []
