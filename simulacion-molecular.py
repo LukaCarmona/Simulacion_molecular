@@ -110,89 +110,95 @@ with st.sidebar:
     moleculas = list(datos_json.keys())
     # select box de molécula
     st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
-    container1 = st.container()
-    div = """<div class='test1' style='border: solid gray 2px;'>"""  # Arregladas las comillas en el atributo style
-    divEnd = """</div>"""
-
-    container2 = st.container()
-
-    with container1:
-        # Empieza el div con borde gris
-        container1.markdown(div, unsafe_allow_html=True)
-        
-        molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
-        datos_molecula = datos_json[molecula]['case_1']
-        
-        if archived_type == 0:
-            if molecula == "LiH":
-                st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>""", unsafe_allow_html=True)
-            if molecula == "SnO":
-                st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar unos 2 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
-            if molecula == "H2S":
-                st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar de 3 a 4 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
-
-        energias_fijas = datos_molecula['Electrones_activos']
-        if archived_type == 0:
-            energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
-        else:
-            st.write("**Electrones activos**"+": "+ str(energias_fijas[0]))
-            energy = energias_fijas[0]
-
-        numeros_orbitas = datos_molecula['Orbitales_moleculares']
-        if archived_type == 0:
-            orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
-        else:
-            st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
-            orbitas = numeros_orbitas[0]
-
-        # Cierra el div con borde gris
-        container1.markdown(divEnd, unsafe_allow_html=True)
-
-    with container2:
-        container2.markdown(div, unsafe_allow_html=True)
+    molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
+    # carga de datos de molécula en base a molécula seleccionada en el select box
+    datos_molecula = datos_json[molecula]['case_1']
     
-        col1, col2 = st.columns(2)
-        with col1:
-            option = st.radio("**Seleccione el tipo de distancia**", ("Un Rango", "Un Punto"), key='option')
-            distancias = datos_molecula['distance']
+    if archived_type == 0:
+        if molecula == "LiH":
+            st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>""", unsafe_allow_html=True)
+        if molecula == "SnO":
+            st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar unos 2 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
+        if molecula == "H2S":
+            st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar de 3 a 4 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
+    
+    
+    # carga de datos de select box en base a molécula seleccionada y contenido del json
+    energias_fijas = datos_molecula['Electrones_activos']
+    if archived_type == 0:
+        energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
+    else:
+        # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
+        st.write("**Electrones activos**"+": "+ str(energias_fijas[0]))
+        energy = energias_fijas[0]
 
-        if option == "Un Rango":
-            min_distancias = min(distancias)
-            max_distancias = max(distancias)
-            
-            if archived_type == 0:
-                step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
-            else:
-                step = 0.3
-
-            step = round(step, 1)
-            num_values = round((distancias[1] - distancias[0]) / step) + 1
-
-            new_distancias = []
-            current_value = min_distancias
-            for _ in range(num_values):
-                new_distancias.append(round(current_value, 2))
-                current_value += step
-
-            range_values = st.select_slider(
-                "**Selecciona un rango de distancias**",
-                options=new_distancias,
-                value=(new_distancias[0], new_distancias[-1])
-            )
-            
-            st.session_state.selected_step = step
-
-        elif option == "Un Punto":
-            distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', 
-                                            min_value=distancias[0], max_value=max(distancias), 
-                                            value=min(distancias), 
-                                            step=st.session_state.selected_step, 
-                                            format="%.1f")
-            distancia_min = round(distancia_min, 1)
+    # carga de datos de select box en base a molécula seleccionada y contenido del json
+    numeros_orbitas = datos_molecula['Orbitales_moleculares']
+    if archived_type == 0:
+        orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
+    else:
+        # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
+        st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
+        orbitas = numeros_orbitas[0]
+    # asignación de columnas para el estilo del sidebar
+    col1, col2 = st.columns(2)
+    with col1:
+        # selector de tipo de distancia para generar los gráficos 
+        option = st.radio("**Seleccione el tipo de distancia**", ("Un Rango", "Un Punto"), key='option')
+        distancias = datos_molecula['distance']
         
-        col1, col2 = st.columns(2)
-        container2.markdown(divEnd, unsafe_allow_html=True)
+    if option == "Un Rango":
+        # inicializo las variables para la hora de crear el slider
+        new_distancias = []
+        min_distancias = min(distancias)
+        max_distancias = max(distancias)
+        current_value = min_distancias
+        # input para poder elegir el step del gráfico
+        
+        if archived_type == 0:
+            step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
+        else:
+            step = 0.3
+            
+        step = round(step,1)
+        # st.write(step)
+        num_values = round((distancias[1]-distancias[0])/ step)+1
+        # st.write(num_values)
 
+        # Array de distancias con los valores calculados
+        new_distancias = []
+        current_value = min_distancias
+        
+        for _ in range(num_values):
+            new_distancias.append(round(current_value, 2))
+            current_value += step
+            
+        # st.write(new_distancias)
+        # Creación del slider en base a los valores calculados
+        range_values = st.select_slider(
+            "**Selecciona un rango de distancias**",
+            options=new_distancias,
+            value=(new_distancias[0], new_distancias[-1])
+        )
+        # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
+
+        # Cálculo dinámico del step para que haya 12 distancias
+        # step = (max_distancias - min_distancias) / (num_values_fixed - 1)
+        st.session_state.selected_step = step
+
+        # Cálculo del número de valores
+        # num_values = num_values_fixed
+      
+       
+        # print("rango valores", range_values)
+    elif option == "Un Punto":
+        # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
+        distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+        # distancia_min = round(distancia_min / 0.3) * 0.3
+        distancia_min = round(distancia_min, 1)
+        # st.write(distancia_min)
+    col1, col2 = st.columns(2)
+    
     with col1:
         # creo y compruebo el botón donde guardo las variables a los valores que quiero
         # if archived_type == 0:
