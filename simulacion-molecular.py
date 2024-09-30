@@ -38,6 +38,21 @@ else:
     st.error(f"El archivo CSS en {htmlpath} no se encontró.")
 
 def aplicar_cambios():
+    svg_file_path = Path("play_arrow.svg")  # Asegúrate de que la ruta sea correcta
+    # Leer el contenido del archivo SVG
+    with open(svg_file_path, 'r') as svg_file:
+        svg_icon = svg_file.read()
+
+    # Estilo del botón
+    button_html = f"""
+    <div style="background-color: lightgray; border: none; border-radius: 5px; padding: 10px; text-align: center; cursor: pointer;" onclick="document.getElementById('apply-button').click();">
+        {svg_icon}
+    </div>
+    <input type="submit" id="apply-button" style="display: none;">
+    """
+
+    # Mostrar el botón en Streamlit
+    st.markdown(button_html, unsafe_allow_html=True)
     if st.button('Aplicar cambios'):
         st.session_state.pulsado = True
         st.session_state.mostrar = True
@@ -150,7 +165,7 @@ with st.sidebar:
         col1, col2 = st.columns(2)
         with col1:
             # selector de tipo de distancia para generar los gráficos 
-            option = st.radio("**Seleccione el tipo de distancia**", ("Un Rango", "Un Punto"), key='option')
+            option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
             distancias = datos_molecula['distance']
             
         if option == "Un Rango":
@@ -181,10 +196,13 @@ with st.sidebar:
                 
             # st.write(new_distancias)
             # Creación del slider en base a los valores calculados
+            labels = {distancia: f"{distancia} Å" for distancia in new_distancias}
+            
             range_values = st.select_slider(
-                "**Selecciona un rango de distancias**",
+                "",
                 options=new_distancias,
-                value=(new_distancias[0], new_distancias[-1])
+                value=(new_distancias[0], new_distancias[-1]),
+                format_func=lambda x: labels[x]  # Aplicamos las etiquetas
             )
             # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
 
@@ -199,7 +217,7 @@ with st.sidebar:
             # print("rango valores", range_values)
         elif option == "Un Punto":
             # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-            distancia_min = st.number_input('**Especifique la distancia en la que quiere calcular**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+            distancia_min = st.number_input(f'**Distancia {molecula} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
             # distancia_min = round(distancia_min / 0.3) * 0.3
             distancia_min = round(distancia_min, 1)
             # st.write(distancia_min)
