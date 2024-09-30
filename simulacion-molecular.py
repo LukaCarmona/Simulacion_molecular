@@ -22,7 +22,7 @@ if 'mostrar' not in st.session_state:
     st.session_state.pulsado = False
     st.session_state.selected_molecule = ''
     st.session_state.resultado = 0
-    st.session_state.selected_option = 'Un Punto'
+    st.session_state.selected_option = 'Una sola distancia'
     st.session_state.selected_range = (0, 0)
     st.session_state.archived_type = 'Archivo'
     
@@ -46,10 +46,10 @@ def aplicar_cambios():
         st.session_state.selected_molecule = molecula
         st.session_state.selected_option = option
 
-        if option == "Un Rango":
+        if option == "Un rango de distancias":
             st.session_state.selected_range = (range_values[0], range_values[-1])
             # print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
-            # guardo el step y range_values porque al ser un rango la función de resultado necesita parámetros distintos
+            # guardo el step y range_values porque al ser Un rango de distancias la función de resultado necesita parámetros distintos
             st.session_state.selected_range = range_values
             resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
             # guardo el resultado en una sesión para poder mantener los datos del gráfico 
@@ -153,7 +153,7 @@ with st.sidebar:
             option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
             distancias = datos_molecula['distance']
             
-        if option == "Un Rango":
+        if option == "Un rango de distancias":
             # inicializo las variables para la hora de crear el slider
             new_distancias = []
             min_distancias = min(distancias)
@@ -200,7 +200,7 @@ with st.sidebar:
         
         
             # print("rango valores", range_values)
-        elif option == "Un Punto":
+        elif option == "Una sola distancia":
             # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
             distancia_min = st.number_input(f'**Distancia {molecula} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
             # distancia_min = round(distancia_min / 0.3) * 0.3
@@ -211,7 +211,7 @@ with st.sidebar:
     with col1:
         # creo y compruebo el botón donde guardo las variables a los valores que quiero
         # if archived_type == 0:
-        #     if option == "Un Punto":
+        #     if option == "Una sola distancia":
         #         if distancia_min < 0.4 or distancia_min > max(distancias):
         #             st.error(f"Por favor seleccione una distancia válida entre 0.4 y {max(distancias)}.")
         #         else:
@@ -223,7 +223,7 @@ with st.sidebar:
         #         else:
         #             st.error("Por favor seleccione un valor válido entre 0.3 y 3.0.")
         # else:
-        #     if option == "Un Punto":
+        #     if option == "Una sola distancia":
         #         if distancia_min < 0.4 or distancia_min > max(distancias):
         #             st.error(f"Por favor seleccione una distancia válida entre 0.4 y {max(distancias)}.")
         #         else:
@@ -235,7 +235,7 @@ with st.sidebar:
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
         with col2:
-            if st.session_state.selected_option == "Un Rango": 
+            if st.session_state.selected_option == "Un rango de distancias": 
                 #dependiendo de la opcion elegida cambia el file_path
                 if archived_type == 0:
                     file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
@@ -366,7 +366,7 @@ if st.session_state.mostrar:
                     return x_label
                 
       
-        if st.session_state.selected_option == "Un Rango" and len(st.session_state.resultado[1]) > 1:
+        if st.session_state.selected_option == "Un rango de distancias" and len(st.session_state.resultado[1]) > 1:
             if st.session_state.selected_range is not None:
                 
                 energias_completas = st.session_state.selected_electrones
@@ -443,7 +443,7 @@ else:
                     <ul style="margin-left: 10px">
                         <li><strong>Una sola distancia:</strong> Cálculo del valor de energía de la molécula en esta distancia. Se grafica el proceso de convergencia 
                         de la energía con el algoritmo VQE, la energía en función del número de iteraciones.</li>
-                        <li><strong>Un rango de distancias:</strong> Cálculo de las energías por cada distancia dentro del rango introducido. Se grafica la energía 
+                        <li><strong>Un rango de distancias de distancias:</strong> Cálculo de las energías por cada distancia dentro del rango introducido. Se grafica la energía 
                         en función de la distancia entre los átomos de la molécula.</li>
                     </ul>
                 </ul>
