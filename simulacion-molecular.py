@@ -25,6 +25,7 @@ if 'mostrar' not in st.session_state:
     st.session_state.selected_option = 'Un rango de distancias'
     st.session_state.selected_range = (0, 0)
     st.session_state.archived_type = 'Archivo'
+    st.session_state.selected_step = 0.3
     
 archived_type = 1
 # -------------------------------------- ESTILOS ---------------------------------------------
