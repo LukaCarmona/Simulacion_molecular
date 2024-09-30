@@ -55,7 +55,7 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
     elif archived_type == 0:
         # st.write("EXACTO: ", exacto)
         # st.write("DISTANCIAS: ", distancias)
-        if option == "Una sola distancia":
+        if option == "Un rango de distancias":
             # if exacto != None: 
             #     ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")
                 
@@ -64,7 +64,14 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
             if selected_molecule != "Li2S" and exacto != None:
                 ax.plot(distancias, exacto, label = 'Exacto', linestyle='-', color = '#AD44FF')
             
-            ax.set_xlabel('$R_{'+st.session_state.selected_molecule+'}$ [Å]')
+            if st.session_state.selected_molecule == "LiH":
+                molecula = "Li-H"
+            elif st.session_state.selected_molecule == "SnO":
+                molecula = "Sn-O"
+            elif st.session_state.selected_molecule == "H2S":
+                molecula = "S-H"
+                
+            ax.set_xlabel('$R_{'+molecula+'}$ [Å]')
             ax.set_ylabel('Energía [Ha]')
             ax.legend(labelcolor='#FFFFFF') 
             
