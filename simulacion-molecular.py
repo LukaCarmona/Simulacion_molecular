@@ -283,7 +283,7 @@ if st.session_state.mostrar:
 
     # Colocar el botón "HOME" en la primera columna
     with col1:
-        if st.button("HOME", key="home_button", help="Home", use_container_width=True):
+        if st.button("🏚", key="home_button", help="Home", use_container_width=True):
             st.session_state.mostrar = False
             st.rerun()
     
