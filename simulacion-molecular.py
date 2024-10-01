@@ -249,7 +249,7 @@ with st.sidebar:
                 if os.path.exists(file_path):
                     #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
                     btn = st.download_button(
-                        label="💾📥",
+                        label="\U0001F4BE\U0001F4E5",  # Unicode para 💾📥
                         help="Descargar Hamiltoniano",
                         use_container_width=True,
                         data=file_content,
