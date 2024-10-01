@@ -112,9 +112,6 @@ with st.sidebar:
     moleculas = list(datos_json.keys())
     # select box de molécula
     container1 = st.container(border=True)
-
-    container2 = st.container(border=True)
-
     with container1:
         molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
         # carga de datos de molécula en base a molécula seleccionada en el select box
@@ -147,7 +144,8 @@ with st.sidebar:
             st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
             orbitas = numeros_orbitas[0]
         # asignación de columnas para el estilo del sidebar
-
+        
+        container2 = st.container(border=True)
         with container2:
             # col1, col2 = st.columns(2)
             # with col1:
