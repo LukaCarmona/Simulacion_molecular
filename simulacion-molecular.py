@@ -148,67 +148,67 @@ with st.sidebar:
             orbitas = numeros_orbitas[0]
         # asignación de columnas para el estilo del sidebar
 
-        # with container2:
-        # col1, col2 = st.columns(2)
-        # with col1:
-        # selector de tipo de distancia para generar los gráficos 
-        option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
-        distancias = datos_molecula['distance']
-        
-        if option == "Un rango de distancias":
-            # inicializo las variables para la hora de crear el slider
-            new_distancias = []
-            min_distancias = min(distancias)
-            max_distancias = max(distancias)
-            current_value = min_distancias
-            # input para poder elegir el step del gráfico
+        with container2:
+            # col1, col2 = st.columns(2)
+            # with col1:
+            # selector de tipo de distancia para generar los gráficos 
+            option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
+            distancias = datos_molecula['distance']
             
-            if archived_type == 0:
-                step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
-            else:
-                step = 0.3
+            if option == "Un rango de distancias":
+                # inicializo las variables para la hora de crear el slider
+                new_distancias = []
+                min_distancias = min(distancias)
+                max_distancias = max(distancias)
+                current_value = min_distancias
+                # input para poder elegir el step del gráfico
                 
-            step = round(step,1)
-            # st.write(step)
-            num_values = round((distancias[1]-distancias[0])/ step)+1
-            # st.write(num_values)
+                if archived_type == 0:
+                    step = st.number_input("**Seleccione el step para el gráfico**", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
+                else:
+                    step = 0.3
+                    
+                step = round(step,1)
+                # st.write(step)
+                num_values = round((distancias[1]-distancias[0])/ step)+1
+                # st.write(num_values)
 
-            # Array de distancias con los valores calculados
-            new_distancias = []
-            current_value = min_distancias
-            
-            for _ in range(num_values):
-                new_distancias.append(round(current_value, 2))
-                current_value += step
+                # Array de distancias con los valores calculados
+                new_distancias = []
+                current_value = min_distancias
                 
-            # st.write(new_distancias)
-            # Creación del slider en base a los valores calculados
-            labels = {distancia: f"{distancia} Å" for distancia in new_distancias}
+                for _ in range(num_values):
+                    new_distancias.append(round(current_value, 2))
+                    current_value += step
+                    
+                # st.write(new_distancias)
+                # Creación del slider en base a los valores calculados
+                labels = {distancia: f"{distancia} Å" for distancia in new_distancias}
+                
+                range_values = st.select_slider(
+                    "",
+                    options=new_distancias,
+                    value=(new_distancias[0], new_distancias[-1]),
+                    format_func=lambda x: labels[x]  # Aplicamos las etiquetas
+                )
+                # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
+
+                # Cálculo dinámico del step para que haya 12 distancias
+                # step = (max_distancias - min_distancias) / (num_values_fixed - 1)
+                st.session_state.selected_step = step
+
+                # Cálculo del número de valores
+                # num_values = num_values_fixed
             
-            range_values = st.select_slider(
-                "",
-                options=new_distancias,
-                value=(new_distancias[0], new_distancias[-1]),
-                format_func=lambda x: labels[x]  # Aplicamos las etiquetas
-            )
-            # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
-
-            # Cálculo dinámico del step para que haya 12 distancias
-            # step = (max_distancias - min_distancias) / (num_values_fixed - 1)
-            st.session_state.selected_step = step
-
-            # Cálculo del número de valores
-            # num_values = num_values_fixed
-        
-        
-            # print("rango valores", range_values)
-        elif option == "Una sola distancia":
-            # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-            distancia_min = st.number_input(f'**Distancia {molecula} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
-            # distancia_min = round(distancia_min / 0.3) * 0.3
-            distancia_min = round(distancia_min, 1)
-            # st.write(distancia_min)
-        col1, col2 = st.columns(2)
+            
+                # print("rango valores", range_values)
+            elif option == "Una sola distancia":
+                # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
+                distancia_min = st.number_input(f'**Distancia {molecula} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+                # distancia_min = round(distancia_min / 0.3) * 0.3
+                distancia_min = round(distancia_min, 1)
+                # st.write(distancia_min)
+            col1, col2 = st.columns(2)
 
     with col1:
         # creo y compruebo el botón donde guardo las variables a los valores que quiero
