@@ -152,9 +152,7 @@ with st.sidebar:
             # energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
         else:
             # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos: </h3>'
-            st.markdown(titulo + str(energias_fijas[0]), unsafe_allow_html=True)
-            # st.write("**Electrones activos**"+"m "+ str(energias_fijas[0]))
+            st.write("**Electrones activos**"+"m "+ str(energias_fijas[0]))
             energy = energias_fijas[0]
 
         # carga de datos de select box en base a molécula seleccionada y contenido del json
@@ -166,9 +164,7 @@ with st.sidebar:
             # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
         else:
             # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
-            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares: </h3>'
-            st.markdown(titulo + str(numeros_orbitas[0]), unsafe_allow_html=True)
-            # st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
+            st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
             orbitas = numeros_orbitas[0]
         # asignación de columnas para el estilo del sidebar
         
@@ -234,10 +230,7 @@ with st.sidebar:
         elif option == "Una sola distancia":
             molecule_text = texto_correcto(st.session_state.selected_molecule)
             # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Distancia {molecule_text} (Å):</h3>'
-            st.markdown(titulo, unsafe_allow_html=True)
-            distancia_min = st.number_input(f'', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
-            # distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+            distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
             # distancia_min = round(distancia_min / 0.3) * 0.3
             distancia_min = round(distancia_min, 1)
             # st.write(distancia_min)
