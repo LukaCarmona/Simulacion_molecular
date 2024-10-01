@@ -80,17 +80,17 @@ with st.sidebar:
     image = Image.open(imagen_path)
 
     # Encode the image to base64
-    # buffer = BytesIO()
-    # image.save(buffer, format="PNG",help="Home")
-    # img_str = base64.b64encode(buffer.getvalue()).decode()
+    buffer = BytesIO()
+    image.save(buffer, format="PNG",help="Home")
+    img_str = base64.b64encode(buffer.getvalue()).decode()
 
-    # # HTML for clickable image
-    # image_html = f"""
-    # <a href="" target="_self">
-    #     <img src="data:image/png;base64,{img_str}" style="width: 100%;">
-    # </a>
-    # """
-    # st.markdown(image_html, unsafe_allow_html=True)
+    # HTML for clickable image
+    image_html = f"""
+    <a href="" target="_self">
+        <img src="data:image/png;base64,{img_str}" style="width: 100%;">
+    </a>
+    """
+    st.markdown(image_html, unsafe_allow_html=True)
 
     # archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived')
