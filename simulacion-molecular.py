@@ -236,29 +236,12 @@ with st.sidebar:
             # st.write(distancia_min)
         col1, col2 = st.columns(2)
 
-    with col1:
-        # creo y compruebo el botón donde guardo las variables a los valores que quiero
-        # if archived_type == 0:
-        #     if option == "Una sola distancia":
-        #         if distancia_min < 0.4 or distancia_min > max(distancias):
-        #             st.error(f"Por favor seleccione una distancia válida entre 0.4 y {max(distancias)}.")
-        #         else:
-        #             aplicar_cambios()
-        #     else:
-        #         if 0.3 <= step <= 3.0 and step % 0.1 == 0:
-        #             aplicar_cambios()
-        
-        #         else:
-        #             st.error("Por favor seleccione un valor válido entre 0.3 y 3.0.")
-        # else:
-        #     if option == "Una sola distancia":
-        #         if distancia_min < 0.4 or distancia_min > max(distancias):
-        #             st.error(f"Por favor seleccione una distancia válida entre 0.4 y {max(distancias)}.")
-        #         else:
-        #             aplicar_cambios()
-        #     else:
-        #         aplicar_cambios()
+    if  st.session_state.pulsado == True and st.session_state.mostrar == True:
+        with col1:
+            aplicar_cambios()
+    else:
         aplicar_cambios()
+
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
