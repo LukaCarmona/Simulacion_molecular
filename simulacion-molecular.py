@@ -80,20 +80,20 @@ with st.sidebar:
     image = Image.open(imagen_path)
 
     # Encode the image to base64
-    buffer = BytesIO()
-    image.save(buffer, format="PNG",help="Home")
-    img_str = base64.b64encode(buffer.getvalue()).decode()
+    # buffer = BytesIO()
+    # image.save(buffer, format="PNG",help="Home")
+    # img_str = base64.b64encode(buffer.getvalue()).decode()
 
-    # HTML for clickable image
-    image_html = f"""
-    <a href="" target="_self">
-        <img src="data:image/png;base64,{img_str}" style="width: 100%;">
-    </a>
-    """
-    st.markdown(image_html, unsafe_allow_html=True)
+    # # HTML for clickable image
+    # image_html = f"""
+    # <a href="" target="_self">
+    #     <img src="data:image/png;base64,{img_str}" style="width: 100%;">
+    # </a>
+    # """
+    # st.markdown(image_html, unsafe_allow_html=True)
 
     # archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
-    archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo"], index=1, key='archived')
+    archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived')
     st.session_state.archived_type = archived_type
     if archived_type == "Simulación local":
         archived_type = 0
@@ -247,7 +247,7 @@ with st.sidebar:
                 if os.path.exists(file_path):
                     #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
                     btn = st.download_button(
-                        label="💾",  # 📥Emojis como texto
+                        label="📥",  # 📥Emojis como texto
                         help="Descargar Hamiltoniano",
                         use_container_width=True,
                         data=file_content,
@@ -281,7 +281,7 @@ if st.session_state.mostrar:
 
     # Colocar el botón "HOME" en la primera columna
     with col1:
-        if st.button("🏚", key="home_button", help="Home", use_container_width=True):
+        if st.button("HOME", key="home_button", help="Home", use_container_width=True):
             st.session_state.mostrar = False
             st.rerun()
     
