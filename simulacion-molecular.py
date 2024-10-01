@@ -234,9 +234,9 @@ with st.sidebar:
             # distancia_min = round(distancia_min / 0.3) * 0.3
             distancia_min = round(distancia_min, 1)
             # st.write(distancia_min)
-        col1, col2 = st.columns(2)
 
     if  st.session_state.pulsado == True and st.session_state.mostrar == True:
+        col1, col2 = st.columns(2)
         with col1:
             aplicar_cambios()
     else:
