@@ -103,7 +103,10 @@ with st.sidebar:
     st.markdown(image_html, unsafe_allow_html=True)
 
     # archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
-    archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
+    titulo = '<h3 style="color: #FFFFFF; margin-bottom: -50px;">Ejecutar en</h3>'
+    st.markdown(titulo, unsafe_allow_html=True)
+    archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
+    # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
     st.session_state.archived_type = archived_type
     if archived_type == "Simulación local":
         archived_type = 0
