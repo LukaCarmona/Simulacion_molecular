@@ -39,7 +39,7 @@ else:
     st.error(f"El archivo CSS en {htmlpath} no se encontró.")
 
 def aplicar_cambios():
-    if st.button('Aplicar cambios'):
+    if st.button('▶', help="Aplicar cambios"):
         st.session_state.pulsado = True
         st.session_state.mostrar = True
         st.session_state.selected_electrones = energias_fijas
