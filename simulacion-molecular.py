@@ -68,7 +68,17 @@ def aplicar_cambios():
             write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, [distancia_min], resultado[2])
     
         st.rerun()
-
+def texto_correcto(selected_molecule):
+    if selected_molecule == "LiH":
+        return "Li-H"
+    elif selected_molecule == "SnO":
+        return "Sn-O"
+    elif selected_molecule == "LiSH":
+        return "Li-S"
+    elif selected_molecule == "H2S":
+        return "S-H"
+    elif selected_molecule == "Li2S":
+        return "Li-S"
 # -------------------------------------- CARGA DE DATOS --------------------------------------
 # Cargar datos desde el JSON
 with open("datos.json", "r") as data:
@@ -202,8 +212,9 @@ with st.sidebar:
         
             # print("rango valores", range_values)
         elif option == "Una sola distancia":
+            molecule_text = texto_correcto(st.session_state.selected_molecule)
             # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-            distancia_min = st.number_input(f'**Distancia {molecula} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+            distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
             # distancia_min = round(distancia_min / 0.3) * 0.3
             distancia_min = round(distancia_min, 1)
             # st.write(distancia_min)
