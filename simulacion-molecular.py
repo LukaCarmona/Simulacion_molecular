@@ -152,7 +152,7 @@ with st.sidebar:
             # energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
         else:
             # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-            st.write("**Electrones activos**"+"m "+ str(energias_fijas[0]))
+            st.write("**Electrones activos**"+": "+ str(energias_fijas[0]))
             energy = energias_fijas[0]
 
         # carga de datos de select box en base a molécula seleccionada y contenido del json
