@@ -39,7 +39,7 @@ else:
     st.error(f"El archivo CSS en {htmlpath} no se encontró.")
 
 def aplicar_cambios():
-    if st.button('▶', help="Aplicar cambios"):
+    if st.button('▶', help="Aplicar cambios",use_container_width=True):
         st.session_state.pulsado = True
         st.session_state.mostrar = True
         st.session_state.selected_electrones = energias_fijas
@@ -249,7 +249,9 @@ with st.sidebar:
                 if os.path.exists(file_path):
                     #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
                     btn = st.download_button(
-                        label="Descargar Hamiltoniano",
+                        label="💾📥",
+                        help="Descargar Hamiltoniano",
+                        use_container_width=True,
                         data=file_content,
                         file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt",
                         mime='text/plain'
