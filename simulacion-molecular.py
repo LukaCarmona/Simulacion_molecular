@@ -472,8 +472,16 @@ else:
     # Mostrar PDF
     with open(pdf_file_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
-    # Opcional: Muestra el PDF en el app
-    st.write("### Visualización del PDF:")
-    st.write("<iframe src='data:application/pdf;base64,{}' width='700' height='400'></iframe>".format(base64.b64encode(PDFbyte).decode()), unsafe_allow_html=True)
-    
-    st.download_button(label="Descargar PDF", data=PDFbyte, file_name="archivo.pdf")
+
+        # Botón para descargar el PDF
+        st.download_button(label="Descargar PDF", 
+                        data=PDFbyte, 
+                        file_name="archivo.pdf", 
+                        mime='application/octet-stream')
+
+        # Mostrar PDF en Streamlit de forma segura usando base64
+        base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
+
+        pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
+        st.markdown(pdf_display, unsafe_allow_html=True)
+        st.download_button(label="Descargar PDF", data=PDFbyte, file_name="archivo.pdf")
