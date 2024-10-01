@@ -277,7 +277,8 @@ with st.sidebar:
                 if os.path.exists(file_path):
                     #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
                     btn = st.download_button(
-                        label="Descargar Hamiltoniano",
+                        label="📥",  # 📥Emojis como texto
+                        help="Descargar Hamiltoniano",
                         data=file_content,
                         file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt",
                         mime='text/plain'
@@ -285,7 +286,6 @@ with st.sidebar:
                 else:
                     #control de errores 
                     st.write("No se ha podido crear el archivo")
-           
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
     col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
