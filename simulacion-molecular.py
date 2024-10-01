@@ -126,7 +126,11 @@ with st.sidebar:
     # select box de molécula
     container1 = st.container(border=True)
     with container1:
-        molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
+        titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Molécula</h3>'
+        st.markdown(titulo, unsafe_allow_html=True)
+        molecula = st.selectbox("", moleculas, key='molecule')
+        # molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
+        
         # carga de datos de molécula en base a molécula seleccionada en el select box
         datos_molecula = datos_json[molecula]['case_1']
         
@@ -142,19 +146,29 @@ with st.sidebar:
         # carga de datos de select box en base a molécula seleccionada y contenido del json
         energias_fijas = datos_molecula['Electrones_activos']
         if archived_type == 0:
-            energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
+            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos</h3>'
+            st.markdown(titulo, unsafe_allow_html=True)
+            energy = st.selectbox("", energias_fijas, key='energy_local')
+            # energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
         else:
             # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-            st.write("**Electrones activos**"+": "+ str(energias_fijas[0]))
+            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos: </h3>'
+            st.markdown(titulo + str(energias_fijas[0]), unsafe_allow_html=True)
+            # st.write("**Electrones activos**"+"m "+ str(energias_fijas[0]))
             energy = energias_fijas[0]
 
         # carga de datos de select box en base a molécula seleccionada y contenido del json
         numeros_orbitas = datos_molecula['Orbitales_moleculares']
         if archived_type == 0:
-            orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
+            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares</h3>'
+            st.markdown(titulo, unsafe_allow_html=True)
+            orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local')
+            # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
         else:
             # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
-            st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
+            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares: </h3>'
+            st.markdown(titulo + str(numeros_orbitas[0]), unsafe_allow_html=True)
+            # st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
             orbitas = numeros_orbitas[0]
         # asignación de columnas para el estilo del sidebar
         
@@ -164,7 +178,10 @@ with st.sidebar:
         # with col1:
         # selector de tipo de distancia para generar los gráficos 
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
-        option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
+        titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Selección de distancias</h3>'
+        st.markdown(titulo, unsafe_allow_html=True)
+        option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
+        # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
         distancias = datos_molecula['distance']
         
         if option == "Un rango de distancias":
@@ -217,7 +234,10 @@ with st.sidebar:
         elif option == "Una sola distancia":
             molecule_text = texto_correcto(st.session_state.selected_molecule)
             # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-            distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+            titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Distancia {molecule_text} (Å):</h3>'
+            st.markdown(titulo, unsafe_allow_html=True)
+            distancia_min = st.number_input(f'', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+            # distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
             # distancia_min = round(distancia_min / 0.3) * 0.3
             distancia_min = round(distancia_min, 1)
             # st.write(distancia_min)
