@@ -279,6 +279,7 @@ with st.sidebar:
                     btn = st.download_button(
                         label="📥",  # 📥Emojis como texto
                         help="Descargar Hamiltoniano",
+                        use_container_width=True,
                         data=file_content,
                         file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt",
                         mime='text/plain'
@@ -383,7 +384,7 @@ if st.session_state.mostrar:
         
         #guardo en variables los datos de las sesiones de respuesta
         energias = st.session_state.resultado[1][0]
-        min_energia = min(energias)
+        min_energia = round(min(energias),2)
         # st.write(energias)
         distancias = st.session_state.resultado[0]
         
