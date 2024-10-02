@@ -402,7 +402,7 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    st.write("Energía mínima: ",min_energia, "Å")
+                    st.write(f"Energía mínima: {min_energia} Å")
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
                 
@@ -410,7 +410,7 @@ if st.session_state.mostrar:
         else:
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                st.write("Energía mínima: ",min_energia, "Å")
+                st.write(f"Energía mínima: {min_energia} Å")
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
