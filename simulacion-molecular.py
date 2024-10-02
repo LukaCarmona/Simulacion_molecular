@@ -351,10 +351,10 @@ if st.session_state.mostrar:
         titulo = f'<h1 style="color: #ad44ff; padding: 10px;">Molécula {st.session_state.selected_molecule}</h1>'
         st.markdown(titulo, unsafe_allow_html=True)
         if st.session_state.selected_option == "Un rango de distancias":
-            titulo2 = f'<h3 style="color: #ad44ff; padding: 10px;">Energía de la molécula en función de la geometría</h3>'
+            titulo2 = f'<h3 style="color: #FFFFFF; padding: 10px;">Energía de la molécula en función de la geometría</h3>'
             st.markdown(titulo2, unsafe_allow_html=True)
         else:
-            titulo2 = f'<h3 style="color: #ad44ff; padding: 10px;">Comvergencia de VQE</h3>'
+            titulo2 = f'<h3 style="color: #FFFFFF; padding: 10px;">Convergencia del optimizador del VQE</h3>'
             st.markdown(titulo2, unsafe_allow_html=True)
     
     
@@ -392,7 +392,7 @@ if st.session_state.mostrar:
         
         #guardo en variables los datos de las sesiones de respuesta
         energias = st.session_state.resultado[1][0]
-        min_energia = round(min(energias),2)
+        min_energia = round(min(energias),3)
         # st.write(energias)
         distancias = st.session_state.resultado[0]
         
