@@ -348,8 +348,15 @@ if st.session_state.mostrar:
     
     with col2:
         # Definimos el contenido de col2 con el contenido dinámico de la variable titulo
-        titulo = f'<h1 style="color: #ad44ff; padding: 10px;">Grafico y molecula de {st.session_state.selected_molecule}</h1>'
+        titulo = f'<h1 style="color: #ad44ff; padding: 10px;">Molécula {st.session_state.selected_molecule}</h1>'
         st.markdown(titulo, unsafe_allow_html=True)
+        if st.session_state.selected_option == "Un rango de distancias":
+            titulo2 = f'<h3 style="color: #ad44ff; padding: 10px;">Energía de la molécula en función de la geometría</h3>'
+            st.markdown(titulo2, unsafe_allow_html=True)
+        else:
+            titulo2 = f'<h3 style="color: #ad44ff; padding: 10px;">Comvergencia de VQE</h3>'
+            st.markdown(titulo2, unsafe_allow_html=True)
+    
     
     with col3:
         pass
