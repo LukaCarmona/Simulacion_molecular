@@ -386,8 +386,7 @@ if st.session_state.mostrar:
         min_energia = min(energias)
         # st.write(energias)
         distancias = st.session_state.resultado[0]
-        hartree_fall = st.session_state.resultado[1][1]
-        exacto = st.session_state.resultado[1][2]      
+        
         # st.write("Resultado 0", st.session_state.resultado[0])               
         # st.write("Resultado 1", st.session_state.resultado[1])
         #llamo a la funcion que da nombre al x_label
@@ -399,6 +398,8 @@ if st.session_state.mostrar:
         
         if st.session_state.selected_option == "Un rango de distancias" and len(st.session_state.resultado[1]) > 1:
             if st.session_state.selected_range is not None:
+                hartree_fall = st.session_state.resultado[1][1]
+                exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
                     st.write("Energía mínima: ",min_energia, "Å")
