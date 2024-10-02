@@ -461,6 +461,9 @@ else:
 
         # Mostrar el contenido formateado en Streamlit
     st.markdown(titulo, unsafe_allow_html=True)
+    from PIL import Image
+
+    # Ruta al archivo PDF
     pdf_file_path = "prueba-pdf.pdf"
 
     # Abrir y leer el archivo PDF en formato binario
@@ -476,8 +479,18 @@ else:
 
     # Botón para descargar el PDF
     st.download_button(
-        label="Descargar PDF", 
-        data=PDFbyte, 
-        file_name="archivo.pdf", 
+        label="Descargar PDF",
+        data=PDFbyte,
+        file_name="archivo.pdf",
         mime="application/pdf"
     )
+
+    # Mostrar imágenes junto con el PDF
+    st.write("### Imágenes relacionadas")
+
+    # Ruta a las imágenes
+    image_paths = ["imagen1.png", "imagen2.jpg"]  # Cambia los nombres de archivo según tus imágenes
+
+    for image_path in image_paths:
+        image = Image.open(image_path)
+        st.image(image, caption=f"Imagen {image_path.split('.')[0]}", use_column_width=True)
