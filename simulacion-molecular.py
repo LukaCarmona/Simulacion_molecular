@@ -463,12 +463,21 @@ else:
     st.markdown(titulo, unsafe_allow_html=True)
     pdf_file_path = "prueba-pdf.pdf"
 
-    # Mostrar PDF
+    # Abrir y leer el archivo PDF en formato binario
     with open(pdf_file_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
+    # Codificar el PDF en base64 para mostrarlo en la aplicación
     base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
 
+    # Mostrar el PDF en la aplicación usando HTML embebido
     pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
     st.markdown(pdf_display, unsafe_allow_html=True)
-    st.download_button(label="Descargar PDF", data=PDFbyte, file_name="archivo.pdf")
+
+    # Botón para descargar el PDF
+    st.download_button(
+        label="Descargar PDF", 
+        data=PDFbyte, 
+        file_name="archivo.pdf", 
+        mime="application/pdf"
+    )
