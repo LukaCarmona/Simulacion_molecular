@@ -411,7 +411,7 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    titulo = f'<h1 style="color: #ffffff;margin-left: 100px; ">⚪ Energía mínima: {min_energia} Å</h1>'
+                    titulo = f'<p style="color: #ffffff;margin-left: 100px; font-size: 20px;">⚪ Energía mínima: {min_energia} Å</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -420,7 +420,7 @@ if st.session_state.mostrar:
         else:
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<h1 style="color: #ffffff;margin-left: 100px; ">⚪ Energía mínima: {min_energia} Å</h1>'
+                titulo = f'<p style="color: #ffffff;margin-left: 100px; font-size: 20px;">⚪ Energía mínima: {min_energia} Å</p>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
