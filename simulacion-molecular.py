@@ -14,6 +14,7 @@ import json
 import time
 import os
 import base64
+import PyPDF2
 
 #-------------------------------------- SESIONES --------------------------------------------
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
