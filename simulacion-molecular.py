@@ -105,7 +105,7 @@ with st.sidebar:
     # archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Ejecutar en</h3>'
     st.markdown(titulo, unsafe_allow_html=True)
-    archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
+    archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=1, key='archived',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
     # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
     st.session_state.archived_type = archived_type
     if archived_type == "Simulación local":
@@ -148,7 +148,7 @@ with st.sidebar:
         if archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
-            energy = st.selectbox("", energias_fijas, key='energy_local')
+            energy = st.selectbox("", energias_fijas, key='energy_local',help="Selección del espacio activo.  ")
             # energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
         else:
             # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
@@ -160,7 +160,7 @@ with st.sidebar:
         if archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
-            orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local')
+            orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local',help="Selección del espacio activo.  ")
             # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
         else:
             # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
@@ -176,7 +176,7 @@ with st.sidebar:
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Selección de distancias</h3>'
         st.markdown(titulo, unsafe_allow_html=True)
-        option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
+        option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option',help="Una sola distancia\n -Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia. \nUn rango de distancias \n-Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
         # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
         distancias = datos_molecula['distance']
         
