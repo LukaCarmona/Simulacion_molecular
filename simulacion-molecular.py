@@ -105,7 +105,7 @@ with st.sidebar:
     # archived_type = st.selectbox("**Ejecutar en**", ["Simulación local", "Archivo", "Ordenadores cuánticos online"], index=1, key='archived')
     titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Ejecutar en</h3>'
     st.markdown(titulo, unsafe_allow_html=True)
-    archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=1, key='archived',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
+    archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=0, key='archived_type',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
     # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
     st.session_state.archived_type = archived_type
     if archived_type == "Simulación local":
@@ -175,7 +175,7 @@ with st.sidebar:
         # selector de tipo de distancia para generar los gráficos 
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Selección de distancias</h3>'
-        st.markdown(titulo, unsafe_allow_html=True, help="Una sola distancia -Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia.         Un rango de distancias -Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
+        st.markdown(titulo, unsafe_allow_html=True, help="Una sola distancia: Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia.Un rango de distancias: Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
         # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
         distancias = datos_molecula['distance']
