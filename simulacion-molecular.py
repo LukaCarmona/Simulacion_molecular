@@ -475,14 +475,16 @@ else:
             pdf_text += page.extract_text()
 
     # Codificar el PDF en base64 para mostrarlo en la aplicación
-    st.text(pdf_text)
-
-    # Botón para descargar el PDF
-    st.download_button(
+    col1, col2 = st.columns(1,2)
+    with col1:
+        titulo = '<hp style="color: #ffffff; "><strong>Esto es un pdf explicativo</h1>'
+        st.markdown(titulo, unsafe_allow_html=True)
+    with col2:
+        st.download_button(
         label="Descargar PDF", 
         data=PDFbyte, 
         file_name="archivo.pdf", 
         mime="application/pdf"
     )
-
-    # Mostrar el contenido del PDF extraído
+        
+    st.text(pdf_text)
