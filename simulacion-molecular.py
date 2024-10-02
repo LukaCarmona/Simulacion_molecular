@@ -494,7 +494,7 @@ else:
 
     # Extraer texto e imágenes del PDF usando pdfplumber
     try:
-        with pdfplumber.open(pdf_file_path) as pdf:
+        with open(pdf_file_path) as pdf:
             all_text = ""
             images = []
             
