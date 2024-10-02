@@ -475,7 +475,7 @@ else:
             pdf_text += page.extract_text()
 
     # Codificar el PDF en base64 para mostrarlo en la aplicación
-    col1, col2 = st.columns(1,2)
+    col1, col2 = st.columns(2)
     with col1:
         titulo = '<hp style="color: #ffffff; "><strong>Esto es un pdf explicativo</h1>'
         st.markdown(titulo, unsafe_allow_html=True)
