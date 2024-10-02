@@ -477,11 +477,12 @@ else:
     # Codificar el PDF en base64 para mostrarlo en la aplicación
     col1, col2 = st.columns(2)
     with col1:
-        titulo = '<hp style="color: #ffffff; "><strong>Esto es un pdf explicativo</h1>'
+        titulo = '<h3 style="color: #ad44ff">Esto es un pdf explicativo</h3>'
         st.markdown(titulo, unsafe_allow_html=True)
     with col2:
         st.download_button(
         label="Descargar PDF", 
+        use_container_width=True,
         data=PDFbyte, 
         file_name="archivo.pdf", 
         mime="application/pdf"
