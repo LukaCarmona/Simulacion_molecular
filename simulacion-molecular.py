@@ -462,20 +462,22 @@ else:
         # Mostrar el contenido formateado en Streamlit
     st.markdown(titulo, unsafe_allow_html=True)
     # Q4Real-QMatter24-poster
-    import PyPDF2
+    import pdfplumber
+    from PIL import Image
 
     # Ruta del archivo PDF
     pdf_file_path = "Q4Real-QMatter24-poster.pdf"
 
     # Abrir y leer el archivo PDF en formato binario
-    with open(pdf_file_path, "rb") as pdf_file:
-        PDFbyte = pdf_file.read()
-
-        # Extraer texto del PDF usando PyPDF2
-        reader = PyPDF2.PdfReader(pdf_file)
-        pdf_text = ""
-        for page in reader.pages:
-            pdf_text += page.extract_text()
+    try:
+        with open(pdf_file_path, "rb") as pdf_file:
+            PDFbyte = pdf_file.read()
+    except FileNotFoundError:
+        st.error("El archivo PDF no se encontró. Asegúrate de que la ruta sea correcta.")
+        st.stop()
+    except Exception as e:
+        st.error(f"Error al leer el archivo PDF: {e}")
+        st.stop()
 
     # Codificar el PDF en base64 para mostrarlo en la aplicación
     base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
@@ -492,6 +494,41 @@ else:
         mime="application/pdf"
     )
 
-    # Mostrar el contenido del PDF extraído
+    # Extraer texto e imágenes del PDF usando pdfplumber
+    try:
+        with pdfplumber.open(pdf_file_path) as pdf:
+            all_text = ""
+            images = []
+            
+            # Iterar por cada página del PDF
+            for page in pdf.pages:
+                # Extraer texto
+                all_text += page.extract_text() or ""
+
+                # Extraer imágenes
+                if page.images:
+                    for img in page.images:
+                        img_data = pdf.extract_image(img["id"])
+                        img_bytes = img_data["image"]
+
+                        # Convertir bytes a imagen y agregar a la lista
+                        image = Image.open(BytesIO(img_bytes))
+                        images.append(image)
+    except Exception as e:
+        st.error(f"Error al procesar el archivo PDF: {e}")
+        st.stop()
+
+    # Mostrar el texto extraído
     st.subheader("Texto extraído del PDF:")
-    st.text(pdf_text)
+    if all_text:
+        st.text(all_text)
+    else:
+        st.write("No se encontró texto en el PDF.")
+
+    # Mostrar las imágenes extraídas
+    st.subheader("Imágenes extraídas del PDF:")
+    if images:
+        for img in images:
+            st.image(img, use_column_width=True)
+    else:
+        st.write("No se encontraron imágenes en el PDF.")
