@@ -475,11 +475,7 @@ else:
             pdf_text += page.extract_text()
 
     # Codificar el PDF en base64 para mostrarlo en la aplicación
-    base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
-
-    # Mostrar el PDF en la aplicación usando HTML embebido
-    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    st.text(pdf_text)
 
     # Botón para descargar el PDF
     st.download_button(
@@ -490,5 +486,3 @@ else:
     )
 
     # Mostrar el contenido del PDF extraído
-    st.subheader("Texto extraído del PDF:")
-    st.text(pdf_text)
