@@ -293,7 +293,7 @@ if st.session_state.mostrar:
 
     # Colocar el botón "HOME" en la primera columna
     with col1:
-        if st.button("HOME", key="home_button", help="Home", use_container_width=True):
+        if st.button("🏛", key="home_button", help="Home", use_container_width=True):
             st.session_state.mostrar = False
             st.rerun()
     
@@ -403,7 +403,7 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    titulo = f'<hp style="color: #ffffff; "><strong>Energía mínima: {min_energia} Å</h1>'
+                    titulo = f'<hp style="color: #ffffff; "><strong>⚪Energía mínima: {min_energia} Å</h1>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -412,7 +412,7 @@ if st.session_state.mostrar:
         else:
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<hp style="color: #ffffff; "><strong>Energía mínima: {min_energia} Å</h1>'
+                titulo = f'<hp style="color: #ffffff; "><strong>⚪Energía mínima: {min_energia} Å</h1>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
