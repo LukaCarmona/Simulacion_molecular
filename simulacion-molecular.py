@@ -21,7 +21,7 @@ from io import BytesIO
 if 'mostrar' not in st.session_state:
     st.session_state.mostrar = False
     st.session_state.pulsado = False
-    st.session_state.selected_molecule = ''
+    st.session_state.selected_molecule = 'LiH'
     st.session_state.resultado = 0
     st.session_state.selected_option = 'Un rango de distancias'
     st.session_state.selected_range = (0, 0)
