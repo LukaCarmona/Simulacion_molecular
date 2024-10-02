@@ -175,7 +175,7 @@ with st.sidebar:
         # selector de tipo de distancia para generar los gráficos 
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Selección de distancias</h3>'
-        st.markdown(titulo, unsafe_allow_html=True, help="\naUna sola distancia\n -Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia. \nUn rango de distancias \n-Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
+        st.markdown(titulo, unsafe_allow_html=True, help="\nUna sola distancia\n -Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia. \nUn rango de distancias \n-Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
         # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
         distancias = datos_molecula['distance']
@@ -258,7 +258,7 @@ with st.sidebar:
                 if os.path.exists(file_path):
                     #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
                     btn = st.download_button(
-                        label="📥",  # 📥Emojis como texto
+                        label="💾⏬",  # Emojis como texto
                         help="Descargar Hamiltoniano",
                         use_container_width=True,
                         data=file_content,
@@ -277,7 +277,7 @@ with st.sidebar:
                 if os.path.exists(file_path):
                     #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
                     btn = st.download_button(
-                        label="📥",  # 📥Emojis como texto
+                        label="💾⏬",  # Emojis como texto
                         help="Descargar Hamiltoniano",
                         use_container_width=True,
                         data=file_content,
@@ -289,13 +289,13 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
-    col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
+    # col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
 
-    # Colocar el botón "HOME" en la primera columna
-    with col1:
-        if st.button("🏛", key="home_button", help="Home", use_container_width=True):
-            st.session_state.mostrar = False
-            st.rerun()
+    # # Colocar el botón "HOME" en la primera columna
+    # with col1:
+    if st.button("🏛", key="home_button", help="Home", use_container_width=True):
+        st.session_state.mostrar = False
+        st.rerun()
     
     if st.session_state.pulsado:
         #gif de espera
@@ -403,7 +403,7 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    titulo = f'<hp style="color: #ffffff; "><strong>⚪Energía mínima: {min_energia} Å</h1>'
+                    titulo = f'<hp style="color: #ffffff; "><strong>⚪ Energía mínima: {min_energia} Å</h1>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -412,7 +412,7 @@ if st.session_state.mostrar:
         else:
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<hp style="color: #ffffff; "><strong>⚪Energía mínima: {min_energia} Å</h1>'
+                titulo = f'<hp style="color: #ffffff; "><strong>⚪ Energía mínima: {min_energia} Å</h1>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
