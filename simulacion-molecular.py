@@ -7,6 +7,7 @@ from pathlib import Path
 from PIL import Image
 from backend_molecular_250924 import calculate_outputs, write_hamiltonians
 from graficador import create_graph
+from streamlit_pdf_viewer import pdf_viewer
 import streamlit as st
 import matplotlib.pyplot as plt
 import json
@@ -462,18 +463,24 @@ else:
         # Mostrar el contenido formateado en Streamlit
     st.markdown(titulo, unsafe_allow_html=True)
     # Q4Real-QMatter24-poster
+
+    # Ruta del archivo PDF
     pdf_file_path = "Q4Real-QMatter24-poster.pdf"
 
-    # Abrir y leer el archivo PDF en formato binario
-    with open(pdf_file_path, "rb") as pdf_file:
-        PDFbyte = pdf_file.read()
+    # Verificar si el archivo existe
+    try:
+        with open(pdf_file_path, "rb") as pdf_file:
+            PDFbyte = pdf_file.read()
+    except FileNotFoundError:
+        st.error("El archivo PDF no se encontró. Asegúrate de que la ruta sea correcta.")
+        st.stop()
+    except Exception as e:
+        st.error(f"Error al abrir el archivo PDF: {e}")
+        st.stop()
 
-    # Codificar el PDF en base64 para mostrarlo en la aplicación
-    base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
-
-    # Mostrar el PDF en la aplicación usando HTML embebido
-    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    # Mostrar el PDF utilizando streamlit_pdf_viewer
+    st.subheader("Visualizador de PDF")
+    pdf_viewer(PDFbyte)
 
     # Botón para descargar el PDF
     st.download_button(
