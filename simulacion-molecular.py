@@ -176,7 +176,7 @@ with st.sidebar:
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Selección de distancias</h3>'
         st.markdown(titulo, unsafe_allow_html=True)
-        st.write("", help="\naUna sola distancia\n -Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia. \nUn rango de distancias \n-Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
+        vacio = st.selectbox("", help="\naUna sola distancia\n -Se grafica el proceso de convergencia con el algoritmo VQE para esta sola distancia. \nUn rango de distancias \n-Se grafica la energía en función de la distancia entre los átomos de la molécula. ")
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
         # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
         distancias = datos_molecula['distance']
