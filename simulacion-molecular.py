@@ -378,48 +378,38 @@ if st.session_state.mostrar:
                     
                     return x_label
                 
-      
+        energias_completas = st.session_state.selected_electrones
+        distancia_inicio, distancia_fin = st.session_state.selected_range
+        
+        #guardo en variables los datos de las sesiones de respuesta
+        energias = st.session_state.resultado[1][0]
+        min_energia = min(energias)
+        # st.write(energias)
+        distancias = st.session_state.resultado[0]
+        hartree_fall = st.session_state.resultado[1][1]
+        exacto = st.session_state.resultado[1][2]      
+        # st.write("Resultado 0", st.session_state.resultado[0])               
+        # st.write("Resultado 1", st.session_state.resultado[1])
+        #llamo a la funcion que da nombre al x_label
+        x_label = x_label_content()
+
+        #genero el grafico
+        # st.write("AAAAAA",len(distancias))
+        # st.write("BBBBBB",len(energias))
+        
         if st.session_state.selected_option == "Un rango de distancias" and len(st.session_state.resultado[1]) > 1:
             if st.session_state.selected_range is not None:
-                
-                energias_completas = st.session_state.selected_electrones
-                distancia_inicio, distancia_fin = st.session_state.selected_range
-                
-                #guardo en variables los datos de las sesiones de respuesta
-                energias = st.session_state.resultado[1][0]
-                # st.write(energias)
-                distancias = st.session_state.resultado[0]
-                hartree_fall = st.session_state.resultado[1][1]
-                exacto = st.session_state.resultado[1][2]      
-                # st.write("Resultado 0", st.session_state.resultado[0])               
-                # st.write("Resultado 1", st.session_state.resultado[1])
-                #llamo a la funcion que da nombre al x_label
-                x_label = x_label_content()
-
-                #genero el grafico
-                # st.write("AAAAAA",len(distancias))
-                # st.write("BBBBBB",len(energias))
-                
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
+                    st.write("Energía mínima: ",min_energia, "Å")
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
                 
 #-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
         else:
-            energias_completas = st.session_state.selected_electrones
-            distancia_inicio, distancia_fin = st.session_state.selected_range
-            
-            #guardo en variables los datos de las sesiones de respuesta
-            energias = st.session_state.resultado[1][0]
-            distancias = st.session_state.resultado[0]
-                        
-            #llamo a la funcion que da nombre al x_label
-            x_label = x_label_content()
-                
-            #genero el grafico
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                st.write("Energía mínima: ",min_energia, "Å")
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
