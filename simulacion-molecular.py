@@ -462,7 +462,7 @@ else:
         # Mostrar el contenido formateado en Streamlit
     st.markdown(titulo, unsafe_allow_html=True)
     # Q4Real-QMatter24-poster
-    pdf_file_path = "prueba-pdf.pdf"
+    pdf_file_path = "Q4Real-QMatter24-poster.pdf"
 
     # Abrir y leer el archivo PDF en formato binario
     with open(pdf_file_path, "rb") as pdf_file:
