@@ -479,13 +479,13 @@ else:
         st.stop()
 
     # Mostrar el PDF utilizando streamlit_pdf_viewer
-    st.subheader("Visualizador de PDF")
     pdf_viewer(PDFbyte)
 
     # Botón para descargar el PDF
     st.download_button(
         label="Descargar PDF", 
         data=PDFbyte, 
+        use_container_width=True,
         file_name="archivo.pdf", 
         mime="application/pdf"
     )
