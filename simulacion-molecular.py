@@ -7,14 +7,13 @@ from pathlib import Path
 from PIL import Image
 from backend_molecular_250924 import calculate_outputs, write_hamiltonians
 from graficador import create_graph
-from io import BytesIO
 import streamlit as st
 import matplotlib.pyplot as plt
 import json
 import time
 import os
 import base64
-import PyPDF2
+from io import BytesIO
 
 #-------------------------------------- SESIONES --------------------------------------------
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
@@ -468,24 +467,17 @@ else:
     with open(pdf_file_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
 
-        # Extraer texto del PDF usando PyPDF2
-        reader = PyPDF2.PdfReader(pdf_file)
-        pdf_text = ""
-        for page in reader.pages:
-            pdf_text += page.extract_text()
-
     # Codificar el PDF en base64 para mostrarlo en la aplicación
-    col1, col2 = st.columns(2)
-    with col1:
-        titulo = '<h3 style="color: #ad44ff">Esto es un pdf explicativo</h3>'
-        st.markdown(titulo, unsafe_allow_html=True)
-    with col2:
-        st.download_button(
+    base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
+
+    # Mostrar el PDF en la aplicación usando HTML embebido
+    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
+    st.markdown(pdf_display, unsafe_allow_html=True)
+
+    # Botón para descargar el PDF
+    st.download_button(
         label="Descargar PDF", 
-        use_container_width=True,
         data=PDFbyte, 
         file_name="archivo.pdf", 
         mime="application/pdf"
     )
-        
-    st.text(pdf_text)
