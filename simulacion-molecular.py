@@ -17,6 +17,7 @@ import os
 import base64
 import pdfplumber
 
+
 #-------------------------------------- SESIONES --------------------------------------------
 # Inicializar estado de sesión para 'mostrar' si no está ya establecido
 if 'mostrar' not in st.session_state:
@@ -466,8 +467,15 @@ else:
     pdf_file_path = "prueba-pdf.pdf"
 
     # Abrir y leer el archivo PDF en formato binario
-    with open(pdf_file_path, "rb") as pdf_file:
-        PDFbyte = pdf_file.read()
+    try:
+        with open(pdf_file_path, "rb") as pdf_file:
+            PDFbyte = pdf_file.read()
+    except FileNotFoundError:
+        st.error("El archivo PDF no se encontró. Asegúrate de que la ruta sea correcta.")
+        st.stop()
+    except Exception as e:
+        st.error(f"Error al leer el archivo PDF: {e}")
+        st.stop()
 
     # Codificar el PDF en base64 para mostrarlo en la aplicación
     base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
@@ -485,29 +493,36 @@ else:
     )
 
     # Extraer texto e imágenes del PDF usando pdfplumber
-    with pdfplumber.open(pdf_file_path) as pdf:
-        all_text = ""
-        images = []
-        
-        # Iterar por cada página del PDF
-        for page_num, page in enumerate(pdf.pages):
-            # Extraer texto
-            all_text += page.extract_text()
+    try:
+        with pdfplumber.open(pdf_file_path) as pdf:
+            all_text = ""
+            images = []
+            
+            # Iterar por cada página del PDF
+            for page_num, page in enumerate(pdf.pages):
+                # Extraer texto
+                all_text += page.extract_text() or ""
 
-            # Extraer imágenes
-            if page.images:
-                for image_index, img in enumerate(page.images):
-                    # Extraer la imagen en formato de bytes
-                    img_data = pdf.extract_image(img["id"])
-                    img_bytes = img_data["image"]
+                # Extraer imágenes
+                if page.images:
+                    for image_index, img in enumerate(page.images):
+                        # Extraer la imagen en formato de bytes
+                        img_data = pdf.extract_image(img["id"])
+                        img_bytes = img_data["image"]
 
-                    # Convertir bytes a imagen y mostrarla en Streamlit
-                    image = Image.open(BytesIO(img_bytes))
-                    images.append(image)
+                        # Convertir bytes a imagen y mostrarla en Streamlit
+                        image = Image.open(BytesIO(img_bytes))
+                        images.append(image)
+    except Exception as e:
+        st.error(f"Error al procesar el archivo PDF con pdfplumber: {e}")
+        st.stop()
 
     # Mostrar el texto extraído
     st.subheader("Texto extraído del PDF:")
-    st.text(all_text)
+    if all_text:
+        st.text(all_text)
+    else:
+        st.write("No se encontró texto en el PDF.")
 
     # Mostrar las imágenes extraídas
     st.subheader("Imágenes extraídas del PDF:")
