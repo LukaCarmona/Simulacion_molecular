@@ -461,14 +461,21 @@ else:
 
         # Mostrar el contenido formateado en Streamlit
     st.markdown(titulo, unsafe_allow_html=True)
-    from PIL import Image
+    # Q4Real-QMatter24-poster
+    import PyPDF2
 
-    # Ruta al archivo PDF
+    # Ruta del archivo PDF
     pdf_file_path = "Q4Real-QMatter24-poster.pdf"
 
     # Abrir y leer el archivo PDF en formato binario
     with open(pdf_file_path, "rb") as pdf_file:
         PDFbyte = pdf_file.read()
+
+        # Extraer texto del PDF usando PyPDF2
+        reader = PyPDF2.PdfReader(pdf_file)
+        pdf_text = ""
+        for page in reader.pages:
+            pdf_text += page.extract_text()
 
     # Codificar el PDF en base64 para mostrarlo en la aplicación
     base64_pdf = base64.b64encode(PDFbyte).decode('utf-8')
@@ -479,18 +486,12 @@ else:
 
     # Botón para descargar el PDF
     st.download_button(
-        label="Descargar PDF",
-        data=PDFbyte,
-        file_name="archivo.pdf",
+        label="Descargar PDF", 
+        data=PDFbyte, 
+        file_name="archivo.pdf", 
         mime="application/pdf"
     )
 
-    # Mostrar imágenes junto con el PDF
-    st.write("### Imágenes relacionadas")
-
-    # Ruta a las imágenes
-    image_paths = ["imagen1.png", "imagen2.jpg"]  # Cambia los nombres de archivo según tus imágenes
-
-    for image_path in image_paths:
-        image = Image.open(image_path)
-        st.image(image, caption=f"Imagen {image_path.split('.')[0]}", use_column_width=True)
+    # Mostrar el contenido del PDF extraído
+    st.subheader("Texto extraído del PDF:")
+    st.text(pdf_text)
