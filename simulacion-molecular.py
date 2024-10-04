@@ -175,7 +175,7 @@ with st.sidebar:
         # with col1:
         # selector de tipo de distancia para generar los gráficos 
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
-        titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-with: 1000px; width: 280px;">Selección de distancias</h3>'
+        titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-with: 1000px; width: 270px;">Selección de distancias</h3>'
         st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancia seleccionadas entre los átomos de la molécula. ")
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
         # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
@@ -350,11 +350,11 @@ if st.session_state.mostrar:
     with col2:
         # Definimos el contenido de col2 con el contenido dinámico de la variable titulo
         if st.session_state.selected_molecule == "Li2s":
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li <sub>2</sub> S</h1>'
+            titulo = f'<p style="color: #ad44ff; padding: 10px; margin-left: 150px; font-size: 42px;">Molécula Li <sub>2</sub> S</p>'
         elif st.session_state.selected_molecule == "H2s":
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H <sub>2</sub> S</h1>'
+            titulo = f'<p style="color: #ad44ff; padding: 10px; margin-left: 150px; font-size: 42px;">Molécula H <sub>2</sub> S</p>'
         else:
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.calculated_molecule}</h1>'
+            titulo = f'<p style="color: #ad44ff; padding: 10px; margin-left: 150px; font-size: 42px;">Molécula {st.session_state.calculated_molecule}</p>'
             st.markdown(titulo, unsafe_allow_html=True)
             if st.session_state.selected_option == "Un rango de distancias":
                 titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 10px; font-size: 24px; width: 800;">Energía de la molécula en función de la geometría</p>'
@@ -417,7 +417,6 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    # titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
