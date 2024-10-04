@@ -359,7 +359,7 @@ if st.session_state.mostrar:
                 titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 45px; font-size: 24px;">Energía de la molécula en función de la geometría</p>'
                 st.markdown(titulo2, unsafe_allow_html=True)
             else:
-                titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 45px; font-size: 24px;">Convergencia del optimizador del VQE</p>'
+                titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 85px; font-size: 24px;">Convergencia del optimizador del VQE</p>'
                 st.markdown(titulo2, unsafe_allow_html=True)
     
     
@@ -480,7 +480,7 @@ else:
     pdf_file_path = "Q4Real-QMatter24-poster.pdf"
 
     # Verificar si el archivo existe
-    st.write("Aquí os mostramos el póster presentado en la cuarta edición de la conferencia internacional de Quantum Matter:")
+    st.write("**Aquí os mostramos el póster presentado en la cuarta edición de la conferencia internacional de Quantum Matter:**")
     try:
         with open(pdf_file_path, "rb") as pdf_file:
             PDFbyte = pdf_file.read()
