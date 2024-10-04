@@ -176,7 +176,7 @@ with st.sidebar:
         # selector de tipo de distancia para generar los gráficos 
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-with: 1000px;">Selección de distancias</h3>'
-        st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancia seleccionadas entre los átomos de la molécula. ")
+        st.markdown(titulo, unsafe_allow_html=True, use_container_width=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancia seleccionadas entre los átomos de la molécula. ")
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
         # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
         distancias = datos_molecula['distance']
@@ -416,7 +416,7 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    titulo = f'<p style="color: #ffffff;margin-left: 90px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                    titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -425,7 +425,7 @@ if st.session_state.mostrar:
         else:
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<p style="color: #ffffff;margin-left: 90px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
