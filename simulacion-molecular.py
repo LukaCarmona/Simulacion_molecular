@@ -241,10 +241,8 @@ with st.sidebar:
         col1, col2 = st.columns(2)
         with col1:
             aplicar_cambios()
-            st.session_state.pulsado = False
     else:
         aplicar_cambios()
-        st.session_state.pulsado = False
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
@@ -421,6 +419,8 @@ if st.session_state.mostrar:
                         create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
                         titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                         st.markdown(titulo, unsafe_allow_html=True)
+                        st.session_state.pulsado = False
+
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
                 
@@ -431,6 +431,8 @@ if st.session_state.mostrar:
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
                     titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
+                    st.session_state.pulsado = False
+
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
