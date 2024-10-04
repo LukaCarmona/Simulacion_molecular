@@ -453,7 +453,7 @@ else:
                     <li><strong>Archivo:</strong> Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.</li>
                     <li><strong>Simulación local:</strong> Para hacer los cálculos que tú quieras, en las distancias que tú especifiques. Puede tardar varios minutos en verse los resultados.</li>
                 </ul>
-                <br><br>
+                <br>
                 <strong>Definición del sistema:</strong><br>
                 <ul style="margin-left: 10px">
                     <li><strong>Molécula:</strong> Escoge la molécula que quieras simular.</li>
