@@ -244,6 +244,7 @@ with st.sidebar:
     else:
         aplicar_cambios()
 
+
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
         with col2:
@@ -415,22 +416,18 @@ if st.session_state.mostrar:
                 hartree_fall = st.session_state.resultado[1][1]
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
-                    if st.session_state.pulsado == True:
-                        create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                        titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
-                        st.markdown(titulo, unsafe_allow_html=True)
-
+                    create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
+                    # titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                    st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
                 
 #-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
         else:
             if len(distancias) == len(energias):
-                if st.session_state.pulsado == True:
-                    create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                    titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
-                    st.markdown(titulo, unsafe_allow_html=True)
-
+                create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
