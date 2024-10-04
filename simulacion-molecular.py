@@ -359,7 +359,7 @@ if st.session_state.mostrar:
                 titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 45px; font-size: 24px;">Energía de la molécula en función de la geometría</p>'
                 st.markdown(titulo2, unsafe_allow_html=True)
             else:
-                titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 15px; font-size: 24px;">Convergencia del optimizador del VQE</p>'
+                titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 17px; font-size: 24px;">Convergencia del optimizador del VQE</p>'
                 st.markdown(titulo2, unsafe_allow_html=True)
     
     
