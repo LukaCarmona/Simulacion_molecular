@@ -241,10 +241,10 @@ with st.sidebar:
         col1, col2 = st.columns(2)
         with col1:
             aplicar_cambios()
-            st.session_state.pulsado == False
+            st.session_state.pulsado = False
     else:
         aplicar_cambios()
-        st.session_state.pulsado == False
+        st.session_state.pulsado = False
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
     if st.session_state.pulsado:
