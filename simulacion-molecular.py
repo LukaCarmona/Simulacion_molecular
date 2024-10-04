@@ -43,6 +43,7 @@ def aplicar_cambios():
     if st.button('▶', help="Aplicar cambios",use_container_width=True):
         st.session_state.pulsado = True
         st.session_state.mostrar = True
+        st.session_state.calculated_molecule = molecula
         st.session_state.selected_electrones = energias_fijas
         st.session_state.selected_orbitas = orbitas
         st.session_state.selected_option = option
@@ -353,7 +354,7 @@ if st.session_state.mostrar:
         elif st.session_state.selected_molecule == "H2s":
             titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H <sub>2</sub> S</h1>'
         else:
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.selected_molecule}</h1>'
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.calculated_molecule}</h1>'
             st.markdown(titulo, unsafe_allow_html=True)
             if st.session_state.selected_option == "Un rango de distancias":
                 titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 45px; font-size: 24px;">Energía de la molécula en función de la geometría</p>'
@@ -415,7 +416,7 @@ if st.session_state.mostrar:
                 hartree_fall = st.session_state.resultado[1][1]
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
-                    create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
+                    create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
                     titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
@@ -424,7 +425,7 @@ if st.session_state.mostrar:
 #-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
         else:
             if len(distancias) == len(energias):
-                create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
                 titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
