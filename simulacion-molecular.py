@@ -45,7 +45,6 @@ def aplicar_cambios():
         st.session_state.mostrar = True
         st.session_state.selected_electrones = energias_fijas
         st.session_state.selected_orbitas = orbitas
-        st.session_state.selected_molecule = molecula
         st.session_state.selected_option = option
 
         if option == "Un rango de distancias":
@@ -131,7 +130,7 @@ with st.sidebar:
         st.markdown(titulo, unsafe_allow_html=True)
         molecula = st.selectbox("", moleculas, key='molecule')
         # molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
-        
+        st.session_state.selected_molecule = molecula
         # carga de datos de molécula en base a molécula seleccionada en el select box
         datos_molecula = datos_json[molecula]['case_1']
         
@@ -210,9 +209,10 @@ with st.sidebar:
             # st.write(new_distancias)
             # Creación del slider en base a los valores calculados
             labels = {distancia: f"{distancia} Å" for distancia in new_distancias}
-            
+            molecule_text = texto_correcto(st.session_state.selected_molecule)
+
             range_values = st.select_slider(
-                "",
+                f'**Distancia {molecule_text} (Å):**',
                 options=new_distancias,
                 value=(new_distancias[0], new_distancias[-1]),
                 format_func=lambda x: labels[x]  # Aplicamos las etiquetas
