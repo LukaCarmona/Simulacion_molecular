@@ -7,7 +7,7 @@ Created on Tue Aug 20 08:59:16 2024
 import matplotlib.pyplot as plt
 import streamlit as st
 
-def create_graph(archived_type, option, selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio):
+def create_graph(archived_type, option, calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio):
     
     plt.figure(facecolor='#0E1117')
     plt.rcParams.update({'font.size': 18, 'axes.facecolor': '#0E1117', 'figure.facecolor': '#0E1117', 'axes.edgecolor': 'white', 'axes.labelcolor': 'white', 'xtick.color': 'white', 'ytick.color': 'white', 'legend.facecolor': '#0E1117', 'legend.edgecolor': 'white'})
@@ -21,18 +21,18 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
             ax.plot(distancias, hartree_fall, label = 'Hartree-Fock', linestyle = '--', linewidth=2, color = "white")
             ax.plot(distancias, energias, label='VQE ideal', marker='o', linewidth=0, color='#32C7AF', markersize=10)
             
-            if selected_molecule != "Li2S":
+            if calculated_molecule != "Li2S":
                 ax.plot(distancias, exacto, label = 'Exacto', linestyle='-', color = '#AD44FF')
 
-            if st.session_state.selected_molecule == "LiH":
+            if st.session_state.calculated_molecule == "LiH":
                 molecula = "Li-H"
-            elif st.session_state.selected_molecule == "SnO":
+            elif st.session_state.calculated_molecule == "SnO":
                 molecula = "Sn-O"
-            elif st.session_state.selected_molecule == "LiSH":
+            elif st.session_state.calculated_molecule == "LiSH":
                 molecula = "Li-S"
-            elif st.session_state.selected_molecule == "H2S":
+            elif st.session_state.calculated_molecule == "H2S":
                 molecula = "S-H"
-            elif st.session_state.selected_molecule == "Li2S":
+            elif st.session_state.calculated_molecule == "Li2S":
                 molecula = "Li-S"
                 
             ax.set_xlabel('$R_{'+molecula+'}$ [Å]')
@@ -61,14 +61,14 @@ def create_graph(archived_type, option, selected_molecule, distancias, hartree_f
                 
             ax.plot(distancias, energias, label='VQE ideal', marker='o', linewidth=0, color='#32C7AF', markersize=10)
             
-            if selected_molecule != "Li2S" and exacto != None:
+            if calculated_molecule != "Li2S" and exacto != None:
                 ax.plot(distancias, exacto, label = 'Exacto', linestyle='-', color = '#AD44FF')
             
-            if st.session_state.selected_molecule == "LiH":
+            if st.session_state.calculated_molecule == "LiH":
                 molecula = "Li-H"
-            elif st.session_state.selected_molecule == "SnO":
+            elif st.session_state.calculated_molecule == "SnO":
                 molecula = "Sn-O"
-            elif st.session_state.selected_molecule == "H2S":
+            elif st.session_state.calculated_molecule == "H2S":
                 molecula = "S-H"
                 
             ax.set_xlabel('$R_{'+molecula+'}$ [Å]')
