@@ -446,7 +446,7 @@ else:
                 Por esta razón, en Q4Real hemos hecho un código que compara los resultados conseguidos con el algoritmo <span style="color: #32c7af;">Variational 
                 Quantum Eigensolver (VQE)</span> de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
                 para sistemas sencillos. <br><br> 
-                Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br><br>
+                Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br>
                 <h3 style="color: #ad44ff">¿Cómo funciona?</h3><br>
                 <strong>Escoge el tipo de ejecución:</strong>
                 <ul style="margin-left: 10px">
@@ -480,6 +480,7 @@ else:
     pdf_file_path = "Q4Real-QMatter24-poster.pdf"
 
     # Verificar si el archivo existe
+    st.write("Aquí os mostramos el póster presentado en la cuarta edición de la conferencia internacional de Quantum Matter:")
     try:
         with open(pdf_file_path, "rb") as pdf_file:
             PDFbyte = pdf_file.read()
