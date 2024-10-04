@@ -416,7 +416,7 @@ if st.session_state.mostrar:
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
                     create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                    titulo = f'<p style="color: #ffffff;margin-left: 100px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                    titulo = f'<p style="color: #ffffff;margin-left: 90px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -425,7 +425,7 @@ if st.session_state.mostrar:
         else:
             if len(distancias) == len(energias):
                 create_graph(archived_type, st.session_state.selected_option, st.session_state.selected_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<p style="color: #ffffff;margin-left: 100px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                titulo = f'<p style="color: #ffffff;margin-left: 90px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -447,7 +447,7 @@ else:
                 Quantum Eigensolver (VQE)</span> de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
                 para sistemas sencillos. <br><br> 
                 Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br>
-                <h3 style="color: #ad44ff">¿Cómo funciona?</h3>
+                <h3 style="color: #ad44ff">¿Cómo funciona?</h3><br>
                 <strong>Escoge el tipo de ejecución:</strong>
                 <ul style="margin-left: 10px">
                     <li><strong>Archivo:</strong> Para ver los resultados de la forma más rápida. Estos ya han estado calculados anteriormente.</li>
