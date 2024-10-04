@@ -349,9 +349,9 @@ if st.session_state.mostrar:
     with col2:
         # Definimos el contenido de col2 con el contenido dinámico de la variable titulo
         if st.session_state.selected_molecule == "Li2s":
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li<sub>2</sub>S</h1>'
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li <sub>2</sub> S</h1>'
         elif st.session_state.selected_molecule == "H2s":
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H<sub>2</sub>S</h1>'
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H <sub>2</sub> S</h1>'
         else:
             titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.selected_molecule}</h1>'
             st.markdown(titulo, unsafe_allow_html=True)
@@ -435,16 +435,16 @@ else:
     var1 = __file__
     titulo = '''
         <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenidos a la Demo de Simulación Molecular!</h1>
+            <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenid@s a la Demo de Simulación Molecular!</h1>
             <div style="padding: 10px; background-color: #0E1117; border: 1px solid #0E1117; border-radius: 10px;">
                 <p style="color:#ffffff">
-                En esta demostración, exploraremos las simulaciones moleculares aprendiendo qué parámetros necesitamos para realizarlas 
+                En esta demostración, exploraremos las <span style="color: #32c7af;">simulaciones moleculares</span> aprendiendo qué parámetros necesitamos para realizarlas 
                 y los resultados que obtenemos en energías. <br><br> 
                 Las simulaciones moleculares son representaciones de sistemas compuestos por átomos y moléculas. 
-                Estas son calculadas por ordenadores utilizando la computación cuántica, que tiene el potencial de conseguir resultados 
+                Estas son calculadas por ordenadores utilizando la <span style="color: #32c7af;">computación cuántica</span>, que tiene el potencial de conseguir resultados 
                 más precisos y de moléculas más complejas que con computación clásica. <br><br>
-                Por esta razón, en Q4Real hemos hecho un código que compara los resultados conseguidos con el algoritmo Variational 
-                Quantum Eigensolver (VQE) de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
+                Por esta razón, en Q4Real hemos hecho un código que compara los resultados conseguidos con el algoritmo <span style="color: #32c7af;">Variational 
+                Quantum Eigensolver (VQE)</span> de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
                 para sistemas sencillos. <br><br> 
                 Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br><br>
                 <h3 style="color: #ad44ff">¿Cómo funciona?</h3><br><br>
