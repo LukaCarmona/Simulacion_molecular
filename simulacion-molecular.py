@@ -432,8 +432,8 @@ if st.session_state.mostrar:
 
 else:
     #mensaje de presentacion de la pagina
-    image_1 = "H2S_image"
-    image_2 = "SnO_image"
+    image_1 = "H2S_image.png"
+    image_2 = "SnO_image.png"
     
     var1 = __file__
     titulo = '''
