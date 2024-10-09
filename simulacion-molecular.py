@@ -456,15 +456,14 @@ else:
     st.markdown(titulo, unsafe_allow_html=True)
     col1, col2, col3 = st.columns([0.3, 0.4,0.3])
     with col1:
-        st.image(image_1, width=950)
+        st.image(image_1, width=250)
     with col2:
         ""
     with col3:
-        st.image(image_2, width=950)
+        st.image(image_2, width=250)
         
     titulo2 = '''
         <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenid@s a la Demo de Simulación Molecular!</h1>
             <div style="padding: 10px; background-color: #0E1117; border: 1px solid #0E1117; border-radius: 10px;">
                 <h3 style="color: #ad44ff">¿Cómo funciona?</h3><br>
                 <strong>Escoge el tipo de ejecución:</strong>
