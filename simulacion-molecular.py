@@ -456,7 +456,7 @@ else:
     st.markdown(titulo, unsafe_allow_html=True)
     col1, col2, col3 = st.columns([0.4, 0.2,0.4])
     with col1:
-        st.image(image_1, width=250)
+        st.image(image_1, width=350)
     with col2:
         ""
     with col3:
