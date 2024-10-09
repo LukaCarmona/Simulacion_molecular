@@ -350,11 +350,11 @@ if st.session_state.mostrar:
     with col2:
         # Definimos el contenido de col2 con el contenido dinámico de la variable titulo
         if st.session_state.selected_molecule == "Li2s":
-            titulo = f'<p style="color: #ad44ff; padding: 10px; margin-left: 150px; font-size: 42px;">Molécula Li <sub>2</sub> S</p>'
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li <sub>2</sub> S</h1>'
         elif st.session_state.selected_molecule == "H2s":
-            titulo = f'<p style="color: #ad44ff; padding: 10px; margin-left: 150px; font-size: 42px;">Molécula H <sub>2</sub> S</p>'
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H <sub>2</sub> S</h1>'
         else:
-            titulo = f'<p style="color: #ad44ff; padding: 10px; margin-left: 150px; font-size: 42px;">Molécula {st.session_state.calculated_molecule}</p>'
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.calculated_molecule}</h1>'
             st.markdown(titulo, unsafe_allow_html=True)
             if st.session_state.selected_option == "Un rango de distancias":
                 titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 10px; font-size: 24px; width: 800;">Energía de la molécula en función de la geometría</p>'
@@ -432,6 +432,9 @@ if st.session_state.mostrar:
 
 else:
     #mensaje de presentacion de la pagina
+    image_1 = "H2S_image"
+    image_2 = "SnO_image"
+    
     var1 = __file__
     titulo = '''
         <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -447,6 +450,22 @@ else:
                 Quantum Eigensolver (VQE)</span> de computación cuántica con resultados exactos que sólo se pueden calcular clásicamente 
                 para sistemas sencillos. <br><br> 
                 Y ahora... No te quedes solo con la teoría, ¡entra y juega con las moléculas! <br><br>
+            </div>
+        </div>
+    '''
+    st.markdown(titulo, unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([0.3, 0.4,0.3])
+    with col1:
+        st.image(image_1, width=950)
+    with col2:
+        ""
+    with col3:
+        st.image(image_2, width=950)
+        
+    titulo2 = '''
+        <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h1 style="color: #ad44ff; padding: 10px;">¡Bienvenid@s a la Demo de Simulación Molecular!</h1>
+            <div style="padding: 10px; background-color: #0E1117; border: 1px solid #0E1117; border-radius: 10px;">
                 <h3 style="color: #ad44ff">¿Cómo funciona?</h3><br>
                 <strong>Escoge el tipo de ejecución:</strong>
                 <ul style="margin-left: 10px">
@@ -470,10 +489,10 @@ else:
                 </p>
             </div>
         </div>
-        '''
+    '''
 
         # Mostrar el contenido formateado en Streamlit
-    st.markdown(titulo, unsafe_allow_html=True)
+    st.markdown(titulo2, unsafe_allow_html=True)
     # Q4Real-QMatter24-poster
 
     # Ruta del archivo PDF
