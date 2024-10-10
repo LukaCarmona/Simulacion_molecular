@@ -454,14 +454,12 @@ else:
         </div>
     '''
     st.markdown(titulo, unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([0.4, 0.2,0.4])
+    col1, col3 = st.columns([0.5,0.5])
     with col1:
         st.image(image_1, width=350)
     with col2:
-        ""
-    with col3:
         st.image(image_2, width=450)
-        
+                
     titulo2 = '''
         <div style="background-color: #0E1117; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div style="padding: 10px; background-color: #0E1117; border: 1px solid #0E1117; border-radius: 10px;">
