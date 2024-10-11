@@ -230,7 +230,7 @@ with st.sidebar:
         
             # print("rango valores", range_values)
         elif option == "Una sola distancia":
-            if archived_type == 0:
+            if archived_type == 1:
                 array_distancias = []
                 for i in 10:
                     array_distancias.append(distancias[i]+0.3) 
