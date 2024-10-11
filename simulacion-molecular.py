@@ -368,23 +368,26 @@ if st.session_state.mostrar:
     with col1:
         pass
     
-    if st.session_state.selected_molecule == "Li2s":
-        titulo = '<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li<sub>2</sub>S</h1>'
-    elif st.session_state.selected_molecule == "H2s":
-        titulo = '<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H<sub>2</sub>S</h1>'
-    else:
-        titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.calculated_molecule}</h1>'
+    with col2:
+        if st.session_state.selected_molecule == "Li2s":
+            titulo = '<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li<sub>2</sub>S</h1>'
+        elif st.session_state.selected_molecule == "H2s":
+            titulo = '<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H<sub>2</sub>S</h1>'
+        else:
+            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula {st.session_state.calculated_molecule}</h1>'
 
-    # Mostrar el título
-    st.markdown(titulo, unsafe_allow_html=True)
-        
-    # Título secundario según la opción seleccionada
-    if st.session_state.selected_option == "Un rango de distancias":
-        titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 10px; font-size: 24px; width: 800;">Energía de la molécula en función de la geometría</p>'
-    else:
-        titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 17px; font-size: 24px;">Convergencia del optimizador del VQE</p>'
+        # Mostrar el título
+        st.markdown(titulo, unsafe_allow_html=True)
+            
+        # Título secundario según la opción seleccionada
+        if st.session_state.selected_option == "Un rango de distancias":
+            titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 10px; font-size: 24px; width: 800;">Energía de la molécula en función de la geometría</p>'
+        else:
+            titulo2 = f'<p style="color: #FFFFFF; padding: 1px; margin-left: 17px; font-size: 24px;">Convergencia del optimizador del VQE</p>'
 
-    st.markdown(titulo2, unsafe_allow_html=True)
+        st.markdown(titulo2, unsafe_allow_html=True)
+    
+    
     with col3:
         pass
     
