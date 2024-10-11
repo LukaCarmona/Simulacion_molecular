@@ -371,7 +371,11 @@ if st.session_state.mostrar:
     with col2:
         # Definimos el contenido de col2 con el contenido dinámico de la variable titulo
         if st.session_state.selected_molecule == "Li2s":
-            titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula Li<sub>2</sub>S</h1>'
+            titulo = f'''
+            <h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">
+                Molécula Li<sub style="font-size: 0.6em;">2</sub>S
+            </h1>
+            '''        
         elif st.session_state.selected_molecule == "H2s":
             titulo = f'<h1 style="color: #ad44ff; padding: 10px; margin-left: 150px;">Molécula H<sub>2</sub>S</h1>'
         else:
