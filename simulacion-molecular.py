@@ -232,9 +232,9 @@ with st.sidebar:
         elif option == "Una sola distancia":
             if archived_type == 1:
                 molecule_text = texto_correcto(st.session_state.selected_molecule)
-                array_distancias = []
+                array_distancias = [distancias[0]]
                 for i in range(10):
-                    array_distancias.append(distancias[i]+0.3) 
+                    array_distancias.append(array_distancias[i] + 0.3) 
                 distancia_min = st.selectbox(f'**Distancia {molecule_text} (Å):**', array_distancias, index=0) 
             else: 
                 molecule_text = texto_correcto(st.session_state.selected_molecule)
