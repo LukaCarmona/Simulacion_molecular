@@ -296,21 +296,27 @@ if st.session_state.mostrar:
     # # Colocar el botón "HOME" en la primera columna
     # with col1:
     st.markdown(
-    """
+        """
         <style>
         .custom-button {
             position: fixed;
             top: 10px;
             left: 10px;
             z-index: 1000;
+            background-color: white;
+            border: none;
+            color: black;
+            font-size: 24px;
+            cursor: pointer;
         }
         </style>
-    """,
-    unsafe_allow_html=True
+        <button class="custom-button" onclick="window.location.reload()">🏛</button>
+        """,
+        unsafe_allow_html=True
     )
 
     # Botón con el ícono 🏛 que se posicionará en la esquina superior izquierda
-    if st.button("🏛", key="home_button", help="Home", use_container_width=True, class_="custom-button"):
+    if st.button("🏛", key="home_button", help="Home", use_container_width=True):
         st.session_state.mostrar = False
         st.rerun()
     
