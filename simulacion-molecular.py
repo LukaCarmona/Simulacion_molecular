@@ -190,7 +190,7 @@ with st.sidebar:
             # input para poder elegir el step del gráfico
             
             if archived_type == 0:
-                step = st.number_input("*Seleccione el intervalo entre distancias: *", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
+                step = st.number_input("Seleccione el intervalo entre distancias: ", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
             else:
                 step = 0.3
                 
@@ -295,7 +295,22 @@ if st.session_state.mostrar:
 
     # # Colocar el botón "HOME" en la primera columna
     # with col1:
-    if st.button("🏛", key="home_button", help="Home", use_container_width=True):
+    st.markdown(
+    """
+        <style>
+        .custom-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+        </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+    # Botón con el ícono 🏛 que se posicionará en la esquina superior izquierda
+    if st.button("🏛", key="home_button", help="Home", use_container_width=True, class_="custom-button"):
         st.session_state.mostrar = False
         st.rerun()
     
