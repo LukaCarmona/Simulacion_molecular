@@ -232,7 +232,7 @@ with st.sidebar:
         elif option == "Una sola distancia":
             if archived_type == 1:
                 array_distancias = []
-                for i in 10:
+                for i in range(10):
                     array_distancias.append(distancias[i]+0.3) 
             else: 
                 molecule_text = texto_correcto(st.session_state.selected_molecule)
