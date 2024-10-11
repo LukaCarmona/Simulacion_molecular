@@ -230,12 +230,17 @@ with st.sidebar:
         
             # print("rango valores", range_values)
         elif option == "Una sola distancia":
-            molecule_text = texto_correcto(st.session_state.selected_molecule)
-            # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-            distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
-            # distancia_min = round(distancia_min / 0.3) * 0.3
-            distancia_min = round(distancia_min, 1)
-            # st.write(distancia_min)
+            if archived_type == 0:
+                array_distancias = []
+                for i in 10:
+                    array_distancias.append(distancias[i]+0.3) 
+            else: 
+                molecule_text = texto_correcto(st.session_state.selected_molecule)
+                # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
+                distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+                # distancia_min = round(distancia_min / 0.3) * 0.3
+                distancia_min = round(distancia_min, 1)
+                # st.write(distancia_min)
 
     if  st.session_state.pulsado == True and st.session_state.mostrar == True:
         col1, col2 = st.columns(2)
