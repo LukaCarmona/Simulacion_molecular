@@ -223,7 +223,7 @@ with st.sidebar:
             st.write(range_values)
             st.write(range_values(1))
             
-            if range_values(0) == range_values(1):
+            if range_values[0] == range_values[1]:
                 option = "Una sola distancia"
                 distancia_min = round(range_values(0), 1)
             # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
