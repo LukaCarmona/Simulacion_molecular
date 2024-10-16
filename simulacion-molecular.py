@@ -220,10 +220,9 @@ with st.sidebar:
                 value=(new_distancias[0], new_distancias[-1]),
                 format_func=lambda x: labels[x]  # Aplicamos las etiquetas
             )
-            st.write(min_distancias)
-            if range_values(1) == min_distancias or range_values(0) == max_distancias:
-                st.write("a")
+            if range_values(0) == range_values(1):
                 option = "Una sola distancia"
+                distancia_min = round(range_values(0), 1)
             # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
 
             # Cálculo dinámico del step para que haya 12 distancias
