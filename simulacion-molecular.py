@@ -47,7 +47,9 @@ def aplicar_cambios():
         st.session_state.selected_electrones = energias_fijas
         st.session_state.selected_orbitas = orbitas
         st.session_state.selected_option = option
-
+        
+        st.write("st.session_state.selected_option")
+        
         if option == "Un rango de distancias":
             st.session_state.selected_range = (range_values[0], range_values[-1])
             # print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
