@@ -220,6 +220,7 @@ with st.sidebar:
                 value=(new_distancias[0], new_distancias[-1]),
                 format_func=lambda x: labels[x]  # Aplicamos las etiquetas
             )
+            st.write(range_values(0), range_values(1))
             if range_values(0) == range_values(1):
                 option = "Una sola distancia"
                 distancia_min = round(range_values(0), 1)
