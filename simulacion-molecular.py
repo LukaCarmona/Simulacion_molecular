@@ -221,7 +221,7 @@ with st.sidebar:
                 format_func=lambda x: labels[x]  # Aplicamos las etiquetas
             )
             st.write(range_values)
-            if range_values == min_distancias and range_values == max_distancias:
+            if range_values(1) == min_distancias or range_values(0) == max_distancias:
                 st.write("a")
                 option = "Una sola distancia"
             # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
