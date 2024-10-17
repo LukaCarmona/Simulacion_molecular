@@ -5,7 +5,7 @@
 # from st_speckmol import speck_plot
 from pathlib import Path
 from PIL import Image
-from backend_molecular_250924 import calculate_outputs, write_hamiltonians
+from backend_molecular_171024 import calculate_outputs, write_hamiltonians
 from graficador import create_graph
 from streamlit_pdf_viewer import pdf_viewer
 import streamlit as st
