@@ -223,7 +223,8 @@ def calculate_outputs(name_mol: str, archived: int, active_electrons:int , molec
       energy = [result[3]]
       distance = range(len(energy[0]))
       
-      hamiltonians = hamiltonians[index_min: index_max+1]
+      if index_min != None:
+        hamiltonians = hamiltonians[index_min: index_max+1]
   
 
   # print("energy funcion",energy)
