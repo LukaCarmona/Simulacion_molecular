@@ -111,13 +111,16 @@ with st.sidebar:
     st.session_state.archived_type = archived_type
     if archived_type == "Simulación local":
         archived_type = 0
+        st.session_state.archived_type = archived_type
+        st.rerun()
+
     elif archived_type == "Archivo":
         archived_type = 1
-    else:
-        archived_type = 2
-        
+        st.session_state.archived_type = archived_type
+        st.rerun()
+
     # Cargar las opciones de moléculas desde el JSON     
-    if archived_type == 0:
+    if st.session_state.archived_type == 0:
         keys = list(datos_json.keys())
         keys_to_remove = keys[-2:]
         for key in keys_to_remove:
@@ -135,7 +138,7 @@ with st.sidebar:
         # carga de datos de molécula en base a molécula seleccionada en el select box
         datos_molecula = datos_json[molecula]['case_1']
         
-        if archived_type == 0:
+        if st.session_state.archived_type == 0:
             if molecula == "LiH":
                 st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>""", unsafe_allow_html=True)
             if molecula == "SnO":
@@ -146,7 +149,7 @@ with st.sidebar:
         
         # carga de datos de select box en base a molécula seleccionada y contenido del json
         energias_fijas = datos_molecula['Electrones_activos']
-        if archived_type == 0:
+        if st.session_state.archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
             energy = st.selectbox("", energias_fijas, key='energy_local',help="Selección del espacio activo.  ")
@@ -158,7 +161,7 @@ with st.sidebar:
 
         # carga de datos de select box en base a molécula seleccionada y contenido del json
         numeros_orbitas = datos_molecula['Orbitales_moleculares']
-        if archived_type == 0:
+        if st.session_state.archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
             orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local',help="Selección del espacio activo.  ")
@@ -189,7 +192,7 @@ with st.sidebar:
             current_value = min_distancias
             # input para poder elegir el step del gráfico
             
-            if archived_type == 0:
+            if st.session_state.archived_type == 0:
                 step = st.number_input("Seleccione el intervalo entre distancias: ", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
             else:
                 step = 0.3
@@ -234,7 +237,7 @@ with st.sidebar:
         
             # print("rango valores", range_values)
         elif option == "Una sola distancia":
-            if archived_type == 1:
+            if st.session_state.archived_type == 1:
                 molecule_text = texto_correcto(st.session_state.selected_molecule)
                 array_distancias = [distancias[0]]
                 for i in range(10):
@@ -261,7 +264,7 @@ with st.sidebar:
         with col2:
             if st.session_state.selected_option == "Un rango de distancias": 
                 #dependiendo de la opcion elegida cambia el file_path
-                if archived_type == 0:
+                if st.session_state.archived_type == 0:
                     file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
                 else:
                     file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
@@ -451,7 +454,7 @@ if st.session_state.mostrar:
                 hartree_fall = st.session_state.resultado[1][1]
                 exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
-                    create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
+                    create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
@@ -459,8 +462,8 @@ if st.session_state.mostrar:
 #-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
         else:
             if len(distancias) == len(energias):
-                create_graph(archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Å</p>'
+                create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Ha</p>'
                 st.markdown(titulo, unsafe_allow_html=True)
             else:
                 st.error("Las listas de distancias y energías no tienen la misma longitud.")
