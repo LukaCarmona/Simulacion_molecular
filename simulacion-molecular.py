@@ -254,16 +254,9 @@ with st.sidebar:
         col1, col2 = st.columns(2)
         with col1:
             aplicar_cambios()
-            if option != st.session_state.option:
-                st.write("option", option)
-                st.write("st.session_state.option", option)
-                st.session_state.mostrar = False  
+            
     else:
         aplicar_cambios()
-        if option != st.session_state.option:
-            st.write("option", option)
-            st.write("st.session_state.option", option)
-            st.session_state.mostrar = False  
 
 
     #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
@@ -312,7 +305,7 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------        
 if st.session_state.mostrar:
-    
+    st.session_state.mostrar = False
     # col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
 
     # # Colocar el botón "HOME" en la primera columna
