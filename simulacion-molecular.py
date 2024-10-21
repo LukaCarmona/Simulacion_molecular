@@ -254,7 +254,6 @@ with st.sidebar:
         col1, col2 = st.columns(2)
         with col1:
             aplicar_cambios()
-            
     else:
         aplicar_cambios()
 
@@ -303,9 +302,13 @@ with st.sidebar:
                 else:
                     #control de errores 
                     st.write("No se ha podido crear el archivo")
-#--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------        
+#--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
-    st.session_state.mostrar = False
+    if st.session_state.archived_type != archived_type:
+        st.markdown("""
+            <meta http-equiv="refresh" content="0; url=https://simulacion-molecular.streamlit.app/">
+            Si no redirige automáticamente, haz clic <a href="https://simulacion-molecular.streamlit.app/">aquí</a>.
+        """, unsafe_allow_html=True)        
     # col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
 
     # # Colocar el botón "HOME" en la primera columna
