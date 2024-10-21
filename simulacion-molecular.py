@@ -304,40 +304,6 @@ with st.sidebar:
                     st.write("No se ha podido crear el archivo")
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
-    if st.session_state.archived_type != archived_type:
-        st.markdown("""
-            <meta http-equiv="refresh" content="0; url=https://simulacion-molecular.streamlit.app/">
-            Si no redirige automáticamente, haz clic <a href="https://simulacion-molecular.streamlit.app/">aquí</a>.
-        """, unsafe_allow_html=True)        
-    # col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
-
-    # # Colocar el botón "HOME" en la primera columna
-    # with col1:
-    # st.markdown(
-    #     """
-    #     <style>
-    #     .custom-button {
-    #         position: fixed;
-    #         top: 10px;
-    #         left: 10px;
-    #         z-index: 1000;
-    #         background-color: white;
-    #         border: none;
-    #         color: black;
-    #         font-size: 24px;
-    #         cursor: pointer;
-    #     }
-    #     </style>
-    #     <button class="custom-button" onclick="window.location.reload()">🏛</button>
-    #     """,
-    #     unsafe_allow_html=True
-    # )
-
-    # # Botón con el ícono 🏛 que se posicionará en la esquina superior izquierda
-    # if st.button("🏛", key="home_button", help="Home", use_container_width=True):
-    #     st.session_state.mostrar = False
-    #     st.rerun()
-    
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
@@ -454,22 +420,24 @@ if st.session_state.mostrar:
         
         if st.session_state.selected_option == "Un rango de distancias" and len(st.session_state.resultado[1]) > 1:
             if st.session_state.selected_range is not None:
-                hartree_fall = st.session_state.resultado[1][1]
-                exacto = st.session_state.resultado[1][2]      
+                if st.session_state.archived_type == archived_type:
+                    hartree_fall = st.session_state.resultado[1][1]
+                    exacto = st.session_state.resultado[1][2]      
+                    if len(distancias) == len(energias):
+                        create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
+                        st.markdown(titulo, unsafe_allow_html=True)
+                    else:
+                        st.error("Las listas de distancias y energías no tienen la misma longitud.")
+                    
+#-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
+        else:
+            if st.session_state.archived_type == archived_type:
                 if len(distancias) == len(energias):
-                    create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
+                    create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                    titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Ha</p>'
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
-                
-#-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
-        else:
-            if len(distancias) == len(energias):
-                create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Ha</p>'
-                st.markdown(titulo, unsafe_allow_html=True)
-            else:
-                st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
 else:
     #mensaje de presentacion de la pagina
