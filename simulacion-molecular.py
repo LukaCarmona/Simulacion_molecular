@@ -132,85 +132,68 @@ with st.sidebar:
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Molécula</h3>'
         st.markdown(titulo, unsafe_allow_html=True)
         molecula = st.selectbox("", moleculas, key='molecule')
-        # molecula = st.selectbox("**Molécula**", moleculas, key='molecule')
         st.session_state.selected_molecule = molecula
-        # carga de datos de molécula en base a molécula seleccionada en el select box
+        
+        # Carga de datos de molécula en base a la molécula seleccionada
         datos_molecula = datos_json[molecula]['case_1']
         
+        # Advertencias sobre tiempos de simulación dependiendo de la molécula
         if st.session_state.archived_type == 0:
             if molecula == "LiH":
-                st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>""", unsafe_allow_html=True)
+                st.markdown("<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>", unsafe_allow_html=True)
             if molecula == "SnO":
-                st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar unos 2 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
+                st.markdown("<span style='color: yellow;'>Las simulaciones pueden tardar unos 2 minutos al ser calculadas al momento</span>", unsafe_allow_html=True)
             if molecula == "H2S":
-                st.markdown("""<span style='color: yellow;'>Las simulaciones pueden tardar de 3 a 4 minutos al ser calculadas al momento</span>""", unsafe_allow_html=True)
+                st.markdown("<span style='color: yellow;'>Las simulaciones pueden tardar de 3 a 4 minutos al ser calculadas al momento</span>", unsafe_allow_html=True)
         
-        
-        # carga de datos de select box en base a molécula seleccionada y contenido del json
+        # Electrones activos
         energias_fijas = datos_molecula['Electrones_activos']
         if st.session_state.archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
-            energy = st.selectbox("", energias_fijas, key='energy_local',help="Selección del espacio activo.  ")
-            # energy = st.selectbox("**Electrones activos**", energias_fijas, key='energy_local')
+            energy = st.selectbox("", energias_fijas, key='energy_local', help="Selección del espacio activo.")
         else:
-            # energy = st.selectbox("**Electrones activos**", energias_fijas[0], key='energy')
-            st.write("**Electrones activos**"+": "+ str(energias_fijas[0]))
+            st.write("**Electrones activos**" + ": " + str(energias_fijas[0]))
             energy = energias_fijas[0]
 
-        # carga de datos de select box en base a molécula seleccionada y contenido del json
+        # Orbitales moleculares
         numeros_orbitas = datos_molecula['Orbitales_moleculares']
         if st.session_state.archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
-            orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local',help="Selección del espacio activo.  ")
-            # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas, key='orbitas_local')
+            orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local', help="Selección del espacio activo.")
         else:
-            # orbitas = st.selectbox("**Orbitales moleculares**", numeros_orbitas[0], key='orbitas')
-            st.write("**Orbitales moleculares**"+": "+ str(numeros_orbitas[0]))
+            st.write("**Orbitales moleculares**" + ": " + str(numeros_orbitas[0]))
             orbitas = numeros_orbitas[0]
-        # asignación de columnas para el estilo del sidebar
         
-        # container2 = st.container(border=True)
-        # with container2:
-        # col1, col2 = st.columns(2)
-        # with col1:
-        # selector de tipo de distancia para generar los gráficos 
+        # Selección de distancias
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
-        titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-with: 1000px; width: 270px;">Selección de distancias</h3>'
-        st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancias seleccionadas entre los átomos de la molécula. ")
+        titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-width: 1000px; width: 270px;">Selección de distancias</h3>'
+        st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancias seleccionadas entre los átomos de la molécula.")
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
-        # option = st.radio("**Selección de distancias**", ("Una sola distancia", "Un rango de distancias"), key='option')
+        
         distancias = datos_molecula['distance']
         
+        # Si se selecciona un rango de distancias
         if option == "Un rango de distancias":
-            # inicializo las variables para la hora de crear el slider
             new_distancias = []
             min_distancias = min(distancias)
             max_distancias = max(distancias)
-            current_value = min_distancias
-            # input para poder elegir el step del gráfico
             
             if st.session_state.archived_type == 0:
                 step = st.number_input("Seleccione el intervalo entre distancias: ", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
             else:
                 step = 0.3
-                
-            step = round(step,1)
-            # st.write(step)
-            num_values = round((distancias[1]-distancias[0])/ step)+1
-            # st.write(num_values)
-
-            # Array de distancias con los valores calculados
-            new_distancias = []
-            current_value = min_distancias
             
+            step = round(step, 1)
+            num_values = round((distancias[1] - distancias[0]) / step) + 1
+            
+            # Crear el array de distancias
+            current_value = min_distancias
             for _ in range(num_values):
                 new_distancias.append(round(current_value, 2))
                 current_value += step
-                
-            # st.write(new_distancias)
-            # Creación del slider en base a los valores calculados
+
             labels = {distancia: f"{distancia} Å" for distancia in new_distancias}
             molecule_text = texto_correcto(st.session_state.selected_molecule)
 
@@ -218,90 +201,70 @@ with st.sidebar:
                 f'**Distancia {molecule_text} (Å):**',
                 options=new_distancias,
                 value=(new_distancias[0], new_distancias[-1]),
-                format_func=lambda x: labels[x]  # Aplicamos las etiquetas
+                format_func=lambda x: labels[x]  # Aplicar etiquetas
             )
             
             if range_values[0] == range_values[1]:
                 option = "Una sola distancia"
                 distancia_min = round(range_values[0], 1)
-            # step = st.number_input("Seleccione el step para el gráfico", min_value=0.3, max_value=3.0, value=0.3, step=0.1)     
-
-            # Cálculo dinámico del step para que haya 12 distancias
-            # step = (max_distancias - min_distancias) / (num_values_fixed - 1)
+            
             st.session_state.selected_step = step
 
-            # Cálculo del número de valores
-            # num_values = num_values_fixed
-        
-        
-            # print("rango valores", range_values)
+        # Si se selecciona una sola distancia
         elif option == "Una sola distancia":
             if st.session_state.archived_type == 1:
                 molecule_text = texto_correcto(st.session_state.selected_molecule)
                 array_distancias = [distancias[0]]
                 for i in range(10):
-                    array_distancias.append(round(array_distancias[i] + 0.3, 1)) 
-                distancia_min = st.selectbox(f'**Distancia {molecule_text} (Å):**', array_distancias, index=0) 
-            else: 
-                molecule_text = texto_correcto(st.session_state.selected_molecule)
-                # creo el input de tipo numérico para pasar solo una distancia que suma en función del step
-                distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
-                # distancia_min = round(distancia_min / 0.3) * 0.3
-                distancia_min = round(distancia_min, 1)
-                # st.write(distancia_min)
-
-    if  st.session_state.pulsado == True and st.session_state.mostrar == True:
-        col1, col2 = st.columns(2)
-        with col1:
-            aplicar_cambios()
-    else:
-        aplicar_cambios()
-
-
-    #si se ha pulsado el boton se crea el boton de descargar hamiltonianos
-    if st.session_state.pulsado:
-        with col2:
-            if st.session_state.selected_option == "Un rango de distancias": 
-                #dependiendo de la opcion elegida cambia el file_path
-                if st.session_state.archived_type == 0:
-                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
-                else:
-                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt"
-                #habro el documento para guardar en una variable el contenido del archivo
-                with open(file_path, 'r') as download_file:
-                    file_content = download_file.read()
-                if os.path.exists(file_path):
-                    #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
-                    btn = st.download_button(
-                        label="💾",  # Emojis como texto
-                        help="Descargar Hamiltoniano",
-                        use_container_width=True,
-                        data=file_content,
-                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0],st.session_state.selected_range[1],round(st.session_state.selected_step,1)]}_nl1.txt",
-                        mime='text/plain'
-                    )
-                else:
-                    st.write("No se ha podido crear el archivo")
+                    array_distancias.append(round(array_distancias[i] + 0.3, 1))
+                distancia_min = st.selectbox(f'**Distancia {molecule_text} (Å):**', array_distancias, index=0)
             else:
-                #dependiendo de la opcion elegida cambia el file_path
-                # print([round(distancia_min,1)])
-                file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt"
-                #habro el documento para guardar en una variable el contenido del archivo
-                with open(file_path, 'r') as download_file:
-                    file_content = download_file.read()
-                if os.path.exists(file_path):
-                    #creo elboton de descarga con la variable que tiene contenido del hamiltonianp que tiene que descargar 
-                    btn = st.download_button(
-                        label="💾",  # Emojis como texto
-                        help="Descargar Hamiltoniano",
-                        use_container_width=True,
-                        data=file_content,
-                        file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{st.session_state.selected_orbitas}_dist{[round(distancia_min,1)]}_nl1.txt",
-                        mime='text/plain'
-                    )
+                molecule_text = texto_correcto(st.session_state.selected_molecule)
+                distancia_min = st.number_input(f'**Distancia {molecule_text} (Å):**', min_value=distancias[0], max_value=max(distancias), value=min(distancias), step=st.session_state.selected_step, format="%.1f")
+                distancia_min = round(distancia_min, 1)
+
+        # Aplicar cambios si el botón ha sido pulsado
+        if st.session_state.pulsado == True and st.session_state.mostrar == True:
+            col1, col2 = st.columns(2)
+            with col1:
+                aplicar_cambios()
+        else:
+            aplicar_cambios()
+
+        # Botón para descargar hamiltonianos
+        if st.session_state.pulsado:
+            with col2:
+                if option == "Un rango de distancias":
+                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[range_values[0], range_values[1], round(st.session_state.selected_step, 1)]}_nl1.txt"
+                    with open(file_path, 'r') as download_file:
+                        file_content = download_file.read()
+                    if os.path.exists(file_path):
+                        btn = st.download_button(
+                            label="💾",
+                            help="Descargar Hamiltoniano",
+                            use_container_width=True,
+                            data=file_content,
+                            file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[range_values[0], range_values[1], round(st.session_state.selected_step, 1)]}_nl1.txt",
+                            mime='text/plain'
+                        )
+                    else:
+                        st.write("No se ha podido crear el archivo")
                 else:
-                    #control de errores 
-                    st.write("No se ha podido crear el archivo")
+                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[round(distancia_min, 1)]}_nl1.txt"
+                    with open(file_path, 'r') as download_file:
+                        file_content = download_file.read()
+                    if os.path.exists(file_path):
+                        btn = st.download_button(
+                            label="💾",
+                            help="Descargar Hamiltoniano",
+                            use_container_width=True,
+                            data=file_content,
+                            file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[round(distancia_min, 1)]}_nl1.txt",
+                            mime='text/plain'
+                        )
+                    else:
+                        st.write("No se ha podido crear el archivo")
+
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
     if st.session_state.pulsado:
@@ -420,24 +383,22 @@ if st.session_state.mostrar:
         
         if st.session_state.selected_option == "Un rango de distancias" and len(st.session_state.resultado[1]) > 1:
             if st.session_state.selected_range is not None:
-                if st.session_state.archived_type == archived_type:
-                    hartree_fall = st.session_state.resultado[1][1]
-                    exacto = st.session_state.resultado[1][2]      
-                    if len(distancias) == len(energias):
-                        create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
-                        st.markdown(titulo, unsafe_allow_html=True)
-                    else:
-                        st.error("Las listas de distancias y energías no tienen la misma longitud.")
-                    
-#-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
-        else:
-            if st.session_state.archived_type == archived_type:
+                hartree_fall = st.session_state.resultado[1][1]
+                exacto = st.session_state.resultado[1][2]      
                 if len(distancias) == len(energias):
-                    create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
-                    titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Ha</p>'
+                    create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, hartree_fall, energias, exacto, distancia_fin, distancia_inicio)
                     st.markdown(titulo, unsafe_allow_html=True)
                 else:
                     st.error("Las listas de distancias y energías no tienen la misma longitud.")
+                
+#-------------------------------------- GRAFICO DE PUNTO -----------------------------------------------------------                        
+        else:
+            if len(distancias) == len(energias):
+                create_graph(st.session_state.archived_type, st.session_state.selected_option, st.session_state.calculated_molecule, distancias, None, energias, None, distancia_fin, distancia_inicio)
+                titulo = f'<p style="color: #ffffff;margin-left: 93px; font-size: 22px;">⚪ Energía mínima: {min_energia} Ha</p>'
+                st.markdown(titulo, unsafe_allow_html=True)
+            else:
+                st.error("Las listas de distancias y energías no tienen la misma longitud.")
 
 else:
     #mensaje de presentacion de la pagina
