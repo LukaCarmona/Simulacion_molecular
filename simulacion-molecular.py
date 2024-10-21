@@ -366,7 +366,6 @@ if st.session_state.mostrar:
         with col3:
             ''
     #setear a false la sesion de pulsado y crear arrays de datos de objeto 3d, electrones y orbitas  
-    st.session_state.pulsado = False
     edited_atoms = []
     electrons = []
     orbits = []
