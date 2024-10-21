@@ -305,8 +305,8 @@ with st.sidebar:
 #--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
 if st.session_state.mostrar:
     if option != st.session_state.option:
-        option
-        st.session_state.option
+        st.write("option", option)
+        st.write("st.session_state.option", option)
         st.session_state.mostrar = False
     # col1, col2 = st.columns([1, 4])  # Ajusta el tamaño de las columnas según sea necesario
 
