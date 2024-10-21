@@ -112,10 +112,13 @@ with st.sidebar:
     if archived_type == "Simulación local":
         archived_type = 0
         st.session_state.archived_type = archived_type
-
+        st.session_state.mostrar = False
+        
     elif archived_type == "Archivo":
         archived_type = 1
         st.session_state.archived_type = archived_type
+        st.session_state.mostrar = False
+
 
     # Cargar las opciones de moléculas desde el JSON     
     if st.session_state.archived_type == 0:
