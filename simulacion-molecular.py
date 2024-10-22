@@ -234,9 +234,6 @@ with st.sidebar:
         if st.session_state.pulsado:
             datos = [molecula, energias_fijas, orbitas, option, archived_type]
 
-            st.write(st.session_state.datos)
-            st.write(datos)
-
             if datos != st.session_state.datos:
                 st.session_state.mostrar = False
                 st.session_state.pulsado = False
