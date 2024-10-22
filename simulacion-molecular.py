@@ -109,7 +109,6 @@ with st.sidebar:
     archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=0, key='archived',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
     # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
     st.session_state.archived_type = archived_type
-    st.write(archived_type)
     if archived_type == "Simulación local":
         archived_type = 0
         st.session_state.archived_type = archived_type
@@ -118,6 +117,7 @@ with st.sidebar:
         archived_type = 1
         st.session_state.archived_type = archived_type
 
+    st.write(st.session_state.archived_type)
 
     # Cargar las opciones de moléculas desde el JSON     
     if st.session_state.archived_type == 0:
@@ -231,7 +231,7 @@ with st.sidebar:
                 aplicar_cambios()
         else:
             aplicar_cambios()
-
+        
         # Botón para descargar hamiltonianos
         if st.session_state.pulsado:
             with col2:
@@ -266,7 +266,9 @@ with st.sidebar:
                     else:
                         st.write("No se ha podido crear el archivo")
 
-#--------------------------------------- CONTENIDO PRINCIPAL ---------------------------------------------          
+#--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
+if st.session_state.archived_type != archived_type:
+            
 if st.session_state.mostrar:
     if st.session_state.pulsado:
         #gif de espera
