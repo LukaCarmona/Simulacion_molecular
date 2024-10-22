@@ -109,6 +109,7 @@ with st.sidebar:
     archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=0, key='archived',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
     # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
     st.session_state.archived_type = archived_type
+    st.write(archived_type)
     if archived_type == "Simulación local":
         archived_type = 0
         st.session_state.archived_type = archived_type
