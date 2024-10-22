@@ -26,7 +26,7 @@ if 'mostrar' not in st.session_state:
     st.session_state.selected_option = 'Un rango de distancias'
     st.session_state.selected_range = (0, 0)
     st.session_state.archived_type = 'Archivo'
-    
+    st.session_state.datos = []
 archived_type = 1
 st.session_state.selected_step = 0.3
 # -------------------------------------- ESTILOS ---------------------------------------------
@@ -47,13 +47,15 @@ def aplicar_cambios():
         st.session_state.selected_electrones = energias_fijas
         st.session_state.selected_orbitas = orbitas
         st.session_state.selected_option = option
+        st.session_state.archived_type = archived_type
+        st.session_state.datos = [st.session_state.calculated_molecule, st.session_state.selected_electrones, st.session_state.selected_orbitas, st.session_state.selected_option]
             
         if option == "Un rango de distancias":
             st.session_state.selected_range = (range_values[0], range_values[-1])
             # print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
             # guardo el step y range_values porque al ser Un rango de distancias la función de resultado necesita parámetros distintos
             st.session_state.selected_range = range_values
-            resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
+            resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
             # guardo el resultado en una sesión para poder mantener los datos del gráfico 
             st.session_state.resultado = resultado
             
@@ -64,7 +66,7 @@ def aplicar_cambios():
     
         else:
             st.session_state.selected_range = (distancia_min, distancia_min)
-            resultado = calculate_outputs(st.session_state.selected_molecule, archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0])
+            resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0])
             st.session_state.resultado = resultado
             write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, [distancia_min], resultado[2])
     
@@ -108,20 +110,16 @@ with st.sidebar:
     st.markdown(titulo, unsafe_allow_html=True)
     archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=0, key='archived',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
     # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
-    st.session_state.archived_type = archived_type
     if archived_type == "Simulación local":
         archived_type = 0
-        st.session_state.archived_type = archived_type
         
     elif archived_type == "Archivo":
         archived_type = 1
-        st.session_state.archived_type = archived_type
 
-    st.write(st.session_state.archived_type)
     st.write(archived_type)
 
     # Cargar las opciones de moléculas desde el JSON     
-    if st.session_state.archived_type == 0:
+    if archived_type == 0:
         keys = list(datos_json.keys())
         keys_to_remove = keys[-2:]
         for key in keys_to_remove:
@@ -140,7 +138,7 @@ with st.sidebar:
         datos_molecula = datos_json[molecula]['case_1']
         
         # Advertencias sobre tiempos de simulación dependiendo de la molécula
-        if st.session_state.archived_type == 0:
+        if archived_type == 0:
             if molecula == "LiH":
                 st.markdown("<span style='color: yellow;'>Las simulaciones pueden tardar al ser calculadas al momento</span>", unsafe_allow_html=True)
             if molecula == "SnO":
@@ -150,7 +148,7 @@ with st.sidebar:
         
         # Electrones activos
         energias_fijas = datos_molecula['Electrones_activos']
-        if st.session_state.archived_type == 0:
+        if archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Electrones activos</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
             energy = st.selectbox("", energias_fijas, key='energy_local', help="Selección del espacio activo.")
@@ -160,7 +158,7 @@ with st.sidebar:
 
         # Orbitales moleculares
         numeros_orbitas = datos_molecula['Orbitales_moleculares']
-        if st.session_state.archived_type == 0:
+        if archived_type == 0:
             titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Orbitales moleculares</h3>'
             st.markdown(titulo, unsafe_allow_html=True)
             orbitas = st.selectbox("", numeros_orbitas, key='orbitas_local', help="Selección del espacio activo.")
@@ -182,7 +180,7 @@ with st.sidebar:
             min_distancias = min(distancias)
             max_distancias = max(distancias)
             
-            if st.session_state.archived_type == 0:
+            if archived_type == 0:
                 step = st.number_input("Seleccione el intervalo entre distancias: ", min_value=0.1, max_value=1.0, value=0.3, step=0.1, format="%.1f")
             else:
                 step = 0.3
@@ -214,7 +212,7 @@ with st.sidebar:
 
         # Si se selecciona una sola distancia
         elif option == "Una sola distancia":
-            if st.session_state.archived_type == 1:
+            if archived_type == 1:
                 molecule_text = texto_correcto(st.session_state.selected_molecule)
                 array_distancias = [distancias[0]]
                 for i in range(10):
@@ -268,8 +266,12 @@ with st.sidebar:
                         st.write("No se ha podido crear el archivo")
 
 #--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
-if st.session_state.archived_type != archived_type:
-    pass
+datos = [molecula, energias_fijas, orbitas, option, archived_type]
+
+if datos == st.session_state.datos:
+    st.session_state.mostrar = False
+    st.session_state.pulsado = False
+    
 if st.session_state.mostrar:
     if st.session_state.pulsado:
         #gif de espera
