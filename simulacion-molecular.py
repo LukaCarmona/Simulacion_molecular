@@ -271,7 +271,7 @@ datos = [molecula, energias_fijas, orbitas, option, archived_type]
 
     
 if st.session_state.mostrar:
-    if datos == st.session_state.datos:
+    if datos != st.session_state.datos:
         st.session_state.mostrar = False
         st.session_state.pulsado = False
         st.write("entro")
