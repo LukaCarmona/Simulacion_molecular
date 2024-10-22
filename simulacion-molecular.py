@@ -222,8 +222,8 @@ with st.sidebar:
                 distancia_min = round(distancia_min, 1)
 
         # Aplicar cambios si el botón ha sido pulsado
+        col1, col2 = st.columns(2)
         if st.session_state.pulsado == True and st.session_state.mostrar == True:
-            col1, col2 = st.columns(2)
             with col1:
                 aplicar_cambios()
         else:
