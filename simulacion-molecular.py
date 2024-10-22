@@ -231,6 +231,15 @@ with st.sidebar:
         
         # Botón para descargar hamiltonianos
         if st.session_state.pulsado:
+            datos = [molecula, energias_fijas, orbitas, option, archived_type]
+
+            st.write(st.session_state.datos)
+            st.write(datos)
+
+            if datos != st.session_state.datos:
+                st.session_state.mostrar = False
+                st.session_state.pulsado = False
+                st.rerun()
             with col2:
                 if option == "Un rango de distancias":
                     file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[range_values[0], range_values[1], round(st.session_state.selected_step, 1)]}_nl1.txt"
@@ -264,17 +273,9 @@ with st.sidebar:
                         st.write("No se ha podido crear el archivo")
 
 #--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
-datos = [molecula, energias_fijas, orbitas, option, archived_type]
 
-st.write(st.session_state.datos)
-st.write(datos)
-
-    
 if st.session_state.mostrar:
-    if datos != st.session_state.datos:
-        st.session_state.mostrar = False
-        st.session_state.pulsado = False
-        st.rerun()
+    
 
     if st.session_state.pulsado:
         #gif de espera
