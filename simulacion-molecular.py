@@ -116,8 +116,6 @@ with st.sidebar:
     elif archived_type == "Archivo":
         archived_type = 1
 
-    st.write(archived_type)
-    st.write(st.session_state.archived_type)
     # Cargar las opciones de moléculas desde el JSON     
     if archived_type == 0:
         keys = list(datos_json.keys())
@@ -268,14 +266,13 @@ with st.sidebar:
 #--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
 datos = [molecula, energias_fijas, orbitas, option, archived_type]
 
-st.write(st.session_state.datos)
-st.write(datos)
+# st.write(st.session_state.datos)
+# st.write(datos)
 
     
 if st.session_state.mostrar:
     if datos != st.session_state.datos:
         st.session_state.mostrar = False
-        st.write("entro")
         st.rerun()
 
     if st.session_state.pulsado:
