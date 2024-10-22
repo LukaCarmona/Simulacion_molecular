@@ -268,11 +268,13 @@ with st.sidebar:
 #--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
 datos = [molecula, energias_fijas, orbitas, option, archived_type]
 
-if datos == st.session_state.datos:
-    st.session_state.mostrar = False
-    st.session_state.pulsado = False
+
     
 if st.session_state.mostrar:
+    if datos == st.session_state.datos:
+        st.session_state.mostrar = False
+        st.session_state.pulsado = False
+        
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
