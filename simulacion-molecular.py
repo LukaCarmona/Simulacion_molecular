@@ -46,6 +46,7 @@ def aplicar_cambios():
         st.session_state.calculated_molecule = molecula
         st.session_state.selected_electrones = energias_fijas
         st.session_state.selected_orbitas = orbitas
+        st.session_state.selected_energies = energy
         st.session_state.selected_option = option
         st.session_state.archived_type = archived_type
         st.session_state.datos = [st.session_state.calculated_molecule, st.session_state.selected_electrones, st.session_state.selected_orbitas, st.session_state.selected_option, st.session_state.archived_type]
@@ -55,20 +56,20 @@ def aplicar_cambios():
             # print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
             # guardo el step y range_values porque al ser Un rango de distancias la función de resultado necesita parámetros distintos
             st.session_state.selected_range = range_values
-            resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
+            resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type,  st.session_state.selected_energies, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
             # guardo el resultado en una sesión para poder mantener los datos del gráfico 
             st.session_state.resultado = resultado
             
             # print("VALOREEES", st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
     
             # llamo a la función que crea los hamiltonianos
-            write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
+            write_hamiltonians(st.session_state.selected_molecule,  st.session_state.selected_energies, st.session_state.selected_orbitas, resultado[0], resultado[2])
     
         else:
             st.session_state.selected_range = (distancia_min, distancia_min)
-            resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type, energy, st.session_state.selected_orbitas, st.session_state.selected_range[0])
+            resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type,  st.session_state.selected_energies, st.session_state.selected_orbitas, st.session_state.selected_range[0])
             st.session_state.resultado = resultado
-            write_hamiltonians(st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, [distancia_min], resultado[2])
+            write_hamiltonians(st.session_state.selected_molecule,  st.session_state.selected_energies, st.session_state.selected_orbitas, [distancia_min], resultado[2])
     
         st.rerun()
 def texto_correcto(selected_molecule):
@@ -242,7 +243,7 @@ with st.sidebar:
                 st.rerun()
             with col2:
                 if option == "Un rango de distancias":
-                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[range_values[0], range_values[1], round(st.session_state.selected_step, 1)]}_nl1.txt"
+                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{ st.session_state.selected_energies}_mo{ st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0], st.session_state.selected_range[1], round(st.session_state.selected_step, 1)]}_nl1.txt"
                     with open(file_path, 'r') as download_file:
                         file_content = download_file.read()
                     if os.path.exists(file_path):
@@ -251,13 +252,13 @@ with st.sidebar:
                             help="Descargar Hamiltoniano",
                             use_container_width=True,
                             data=file_content,
-                            file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[range_values[0], range_values[1], round(st.session_state.selected_step, 1)]}_nl1.txt",
+                            file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{ st.session_state.selected_energies}_mo{ st.session_state.selected_orbitas}_dist{[st.session_state.selected_range[0], st.session_state.selected_range[1], round(st.session_state.selected_step, 1)]}_nl1.txt",
                             mime='text/plain'
                         )
                     else:
                         st.write("No se ha podido crear el archivo")
                 else:
-                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[round(distancia_min, 1)]}_nl1.txt"
+                    file_path = f"{st.session_state.selected_molecule}_hamiltonians_ae{ st.session_state.selected_energies}_mo{ st.session_state.selected_orbitas}_dist{[round(st.session_state.selected_range[0], 1)]}_nl1.txt"
                     with open(file_path, 'r') as download_file:
                         file_content = download_file.read()
                     if os.path.exists(file_path):
@@ -266,7 +267,7 @@ with st.sidebar:
                             help="Descargar Hamiltoniano",
                             use_container_width=True,
                             data=file_content,
-                            file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{energy}_mo{orbitas}_dist{[round(distancia_min, 1)]}_nl1.txt",
+                            file_name=f"{st.session_state.selected_molecule}_hamiltonians_ae{ st.session_state.selected_energies}_mo{ st.session_state.selected_orbitas}_dist{[round(st.session_state.selected_range[0], 1)]}_nl1.txt",
                             mime='text/plain'
                         )
                     else:
