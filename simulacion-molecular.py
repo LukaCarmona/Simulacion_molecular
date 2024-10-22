@@ -118,6 +118,7 @@ with st.sidebar:
         st.session_state.archived_type = archived_type
 
     st.write(st.session_state.archived_type)
+    st.write(archived_type)
 
     # Cargar las opciones de moléculas desde el JSON     
     if st.session_state.archived_type == 0:
