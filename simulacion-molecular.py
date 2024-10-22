@@ -117,7 +117,7 @@ with st.sidebar:
         archived_type = 1
 
     st.write(archived_type)
-
+    st.write(st.session_state.archived_type)
     # Cargar las opciones de moléculas desde el JSON     
     if archived_type == 0:
         keys = list(datos_json.keys())
@@ -274,7 +274,8 @@ if st.session_state.mostrar:
     if datos == st.session_state.datos:
         st.session_state.mostrar = False
         st.session_state.pulsado = False
-        
+        st.rerun()
+
     if st.session_state.pulsado:
         #gif de espera
         col1, col2, col3 = st.columns(3)
