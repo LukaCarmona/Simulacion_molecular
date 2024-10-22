@@ -266,8 +266,8 @@ with st.sidebar:
 #--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
 datos = [molecula, energias_fijas, orbitas, option, archived_type]
 
-# st.write(st.session_state.datos)
-# st.write(datos)
+st.write(st.session_state.datos)
+st.write(datos)
 
     
 if st.session_state.mostrar:
