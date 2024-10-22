@@ -268,7 +268,7 @@ with st.sidebar:
 
 #--------------------------------------- CONTENIDO PRINCIPAL --------------------------------------------- 
 if st.session_state.archived_type != archived_type:
-            
+    pass
 if st.session_state.mostrar:
     if st.session_state.pulsado:
         #gif de espera
