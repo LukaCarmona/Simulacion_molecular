@@ -275,7 +275,6 @@ st.write(datos)
 if st.session_state.mostrar:
     if datos != st.session_state.datos:
         st.session_state.mostrar = False
-        st.session_state.pulsado = False
         st.write("entro")
         st.rerun()
 
