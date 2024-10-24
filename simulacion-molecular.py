@@ -278,39 +278,39 @@ with st.sidebar:
 if st.session_state.mostrar:
     
 
-    if st.session_state.pulsado:
-        #gif de espera
-        col1, col2, col3 = st.columns(3)
-        with col1: 
-            ''
-        with col2:
-            with open("loading_gif.gif", "rb") as file_:
-                contents = file_.read()
+    # if st.session_state.pulsado:
+    #     #gif de espera
+    #     col1, col2, col3 = st.columns(3)
+    #     with col1: 
+    #         ''
+    #     with col2:
+    #         with open("loading_gif.gif", "rb") as file_:
+    #             contents = file_.read()
             
-            # Codifica el contenido en base64
-            data_url = base64.b64encode(contents).decode("utf-8")
+    #         # Codifica el contenido en base64
+    #         data_url = base64.b64encode(contents).decode("utf-8")
             
-            # Crea un contenedor vacío
-            placeholder = st.empty()
+    #         # Crea un contenedor vacío
+    #         placeholder = st.empty()
             
-            # Mostrar el GIF en el contenedor con CSS para centrarlo y agregar margen superior
-            placeholder.markdown(
-                f"""
-                <div style="display: flex; justify-content: center; align-items: center; height: 55vh;">
-                    <img src="data:image/gif;base64,{data_url}" alt="loading gif" style="margin-top: 25px;">
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+    #         # Mostrar el GIF en el contenedor con CSS para centrarlo y agregar margen superior
+    #         placeholder.markdown(
+    #             f"""
+    #             <div style="display: flex; justify-content: center; align-items: center; height: 55vh;">
+    #                 <img src="data:image/gif;base64,{data_url}" alt="loading gif" style="margin-top: 25px;">
+    #             </div>
+    #             """,
+    #             unsafe_allow_html=True,
+    #         )
             
-            # Espera 3 segundos
-            time.sleep(3)
+    #         # Espera 3 segundos
+    #         time.sleep(3)
             
-            # Limpia el contenedor (elimina el GIF)
-            placeholder.empty()
-        with col3:
-            ''
-    #setear a false la sesion de pulsado y crear arrays de datos de objeto 3d, electrones y orbitas  
+    #         # Limpia el contenedor (elimina el GIF)
+    #         placeholder.empty()
+    #     with col3:
+    #         ''
+    # #setear a false la sesion de pulsado y crear arrays de datos de objeto 3d, electrones y orbitas  
     edited_atoms = []
     electrons = []
     orbits = []
