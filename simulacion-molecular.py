@@ -28,6 +28,7 @@ if 'mostrar' not in st.session_state:
     st.session_state.archived_type = 'Archivo'
     st.session_state.datos = []
 archived_type = 1
+step = 0.3
 st.session_state.selected_step = 0.3
 # -------------------------------------- ESTILOS ---------------------------------------------
 htmlpath = Path(__file__).parent / 'style.css'
