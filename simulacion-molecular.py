@@ -50,7 +50,7 @@ def aplicar_cambios():
         st.session_state.selected_step = step
         st.session_state.selected_option = option
         st.session_state.archived_type = archived_type
-        st.session_state.datos = [st.session_state.calculated_molecule, st.session_state.selected_electrones, st.session_state.selected_orbitas, st.session_state.selected_option, st.session_state.archived_type, st.session_state.selected_step]
+        st.session_state.datos = [st.session_state.calculated_molecule, st.session_state.selected_electrones, st.session_state.selected_orbitas, st.session_state.selected_option, st.session_state.archived_type, st.session_state.selected_step,st.session_state.selected_option]
             
         if option == "Un rango de distancias":
             st.session_state.selected_range = (range_values[0], range_values[-1])
@@ -233,7 +233,7 @@ with st.sidebar:
         
         # Botón para descargar hamiltonianos
         if st.session_state.pulsado:
-            datos = [molecula, energias_fijas, orbitas, option, archived_type, step]
+            datos = [molecula, energias_fijas, orbitas, option, archived_type, step,option]
 
             if datos != st.session_state.datos:
                 st.session_state.mostrar = False
