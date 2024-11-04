@@ -172,8 +172,8 @@ with st.sidebar:
         option = st.radio("", ("Una sola distancia", "Un rango de distancias"), help="Una distancia permite gráficas precisas.")
 
         # Obtener los valores de distancias de la molécula seleccionada
-        distancias = datos_json[molecula]['distance']
-        distancia_min = 0.0  # Definir un valor por defecto, ajustable según el contexto de la aplicación
+        distancias = datos_json[molecula]["case_1"]["distance"]
+        distancia_min = distancias(0)  # Definir un valor por defecto, ajustable según el contexto de la aplicación
 
         # Si se selecciona un rango de distancias
         if option == "Un rango de distancias":
