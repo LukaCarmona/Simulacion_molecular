@@ -54,7 +54,8 @@ def aplicar_cambios():
         if option == "Un rango de distancias":
             st.session_state.archived_distancia_min = distancia_min
         else:
-            pass
+            st.session_state.archived_distancia_min = 0
+
         st.session_state.datos = [st.session_state.calculated_molecule, st.session_state.selected_electrones, st.session_state.selected_orbitas, st.session_state.selected_option, st.session_state.archived_type, st.session_state.selected_step, st.session_state.selected_option,st.session_state.archived_distancia_min]
             
         if option == "Un rango de distancias":
