@@ -56,15 +56,12 @@ def aplicar_cambios():
             
         if option == "Un rango de distancias":
             st.session_state.selected_range = (range_values[0], range_values[-1])
-            # print("distancia min", st.session_state.selected_range[0], "\n distancia max", st.session_state.selected_range[1])
             # guardo el step y range_values porque al ser Un rango de distancias la función de resultado necesita parámetros distintos
             st.session_state.selected_range = range_values
             resultado = calculate_outputs(st.session_state.selected_molecule, st.session_state.archived_type,  st.session_state.selected_energies, st.session_state.selected_orbitas, st.session_state.selected_range[0], st.session_state.selected_range[1], st.session_state.selected_step)
             # guardo el resultado en una sesión para poder mantener los datos del gráfico 
             st.session_state.resultado = resultado
             
-            # print("VALOREEES", st.session_state.selected_molecule, energy, st.session_state.selected_orbitas, resultado[0], resultado[2])
-    
             # llamo a la función que crea los hamiltonianos
             write_hamiltonians(st.session_state.selected_molecule,  st.session_state.selected_energies, st.session_state.selected_orbitas, resultado[0], resultado[2])
     
@@ -75,6 +72,7 @@ def aplicar_cambios():
             write_hamiltonians(st.session_state.selected_molecule,  st.session_state.selected_energies, st.session_state.selected_orbitas, [distancia_min], resultado[2])
     
         st.rerun()
+
 def texto_correcto(selected_molecule):
     if selected_molecule == "LiH":
         return "Li-H"
@@ -86,6 +84,7 @@ def texto_correcto(selected_molecule):
         return "S-H"
     elif selected_molecule == "Li2S":
         return "Li-S"
+
 # -------------------------------------- CARGA DE DATOS --------------------------------------
 # Cargar datos desde el JSON
 with open("datos.json", "r") as data:
@@ -113,10 +112,8 @@ with st.sidebar:
     titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px;">Ejecutar en</h3>'
     st.markdown(titulo, unsafe_allow_html=True)
     archived_type = st.selectbox("", ["Archivo", "Simulación local"], index=0, key='archived',help="Para más rapidez: Archivo. Para tener más control sobre los parámetros: Simulación Local. ")
-    # archived_type = st.selectbox("**Ejecutar en**", ["Archivo", "Simulación local"], index=1, key='archived',help="tipo de ejecucion del programa")
     if archived_type == "Simulación local":
         archived_type = 0
-        
     elif archived_type == "Archivo":
         archived_type = 1
 
@@ -171,11 +168,13 @@ with st.sidebar:
         # Selección de distancias
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-width: 1000px; width: 270px;">Selección de distancias</h3>'
-        st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancias seleccionadas entre los átomos de la molécula.")
-        option = st.radio("", ("Una sola distancia", "Un rango de distancias"), key='option')
-        
-        distancias = datos_molecula['distance']
-        
+        st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancias seleccionadas entre átomos.")
+        option = st.radio("", ("Una sola distancia", "Un rango de distancias"), help="Una distancia permite gráficas precisas.")
+
+        # Obtener los valores de distancias de la molécula seleccionada
+        distancias = datos_json[molecula]['Distancia']
+        distancia_min = 0.0  # Definir un valor por defecto, ajustable según el contexto de la aplicación
+
         # Si se selecciona un rango de distancias
         if option == "Un rango de distancias":
             new_distancias = []
@@ -209,7 +208,9 @@ with st.sidebar:
             if range_values[0] == range_values[1]:
                 option = "Una sola distancia"
                 distancia_min = round(range_values[0], 1)
-            
+            else:
+                distancia_min = range_values[0]  # Usar el primer valor en el rango seleccionado
+
             st.session_state.selected_step = step
 
         # Si se selecciona una sola distancia
@@ -232,7 +233,7 @@ with st.sidebar:
                 aplicar_cambios()
         else:
             aplicar_cambios()
-        
+
         # Botón para descargar hamiltonianos
         if st.session_state.pulsado:
             datos = [molecula, energias_fijas, orbitas, option, archived_type, step,option, distancia_min]
