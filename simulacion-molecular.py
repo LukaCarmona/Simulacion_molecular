@@ -173,7 +173,7 @@ with st.sidebar:
 
         # Obtener los valores de distancias de la molécula seleccionada
         distancias = datos_json[molecula]["case_1"]["distance"]
-        distancia_min = distancias(0)  # Definir un valor por defecto, ajustable según el contexto de la aplicación
+        distancia_min = distancias[0]  # Definir un valor por defecto, ajustable según el contexto de la aplicación
 
         # Si se selecciona un rango de distancias
         if option == "Un rango de distancias":
