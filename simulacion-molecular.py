@@ -169,7 +169,7 @@ with st.sidebar:
         st.write("---------------------------------------------------------------------------------------------------------------------------------------------")
         titulo = '<h3 style="color: #FFFFFF; margin-bottom: -70px; max-width: 1000px; width: 270px;">Selección de distancias</h3>'
         st.markdown(titulo, unsafe_allow_html=True, help="Escoge “Una sola distancia” para graficar el proceso de convergencia con el algoritmo de VQE y “Un rango de distancias” para la energía en función de las distancias seleccionadas entre átomos.")
-        option = st.radio("", ("Una sola distancia", "Un rango de distancias"), help="Una distancia permite gráficas precisas.")
+        option = st.radio("", ("Una sola distancia", "Un rango de distancias"))
 
         # Obtener los valores de distancias de la molécula seleccionada
         distancias = datos_json[molecula]["case_1"]["distance"]
